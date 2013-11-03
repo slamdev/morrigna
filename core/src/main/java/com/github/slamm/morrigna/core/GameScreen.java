@@ -16,16 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class GameScreen extends ScreenAdapter {
 
-    // the fixed viewport dimensions (ratio: 1.6)
-    public static final int GAME_VIEWPORT_WIDTH = 400, GAME_VIEWPORT_HEIGHT = 240;
-
-    public static final int MENU_VIEWPORT_WIDTH = 800, MENU_VIEWPORT_HEIGHT = 480;
-
     private OrthographicCamera camera;
 
-    private Stage hud = new Stage();
-
     private Game game;
+
+    private Stage hud = new Stage();
 
     private OrthogonalTiledMapRenderer renderer;
 

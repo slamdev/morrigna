@@ -1,11 +1,17 @@
 package com.github.slamm.morrigna.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,6 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class MainMenuScreen extends ScreenAdapter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainMenuScreen.class);
 
     private Game game;
 
@@ -42,6 +50,16 @@ public class MainMenuScreen extends ScreenAdapter {
         FileHandle skinFile = Gdx.files.internal("uiskin.json");
         skin = new Skin(skinFile);
         table = new Table(skin);
+        stage.addListener(new InputListener() {
+
+            @Override
+            public boolean keyUp(InputEvent event, int keycode) {
+                if (keycode == Keys.ESCAPE) {
+                    Gdx.app.exit();
+                }
+                return false;
+            }
+        });
         table.setFillParent(true);
         table.debug();
         stage.addActor(table);

@@ -49,10 +49,24 @@ public class MainMenuScreen extends ScreenAdapter {
         table.setHeight(stage.getHeight());
         table.pad(10).defaults().spaceBottom(10).space(5);
         TextButton continueGameButton = new TextButton("Continue game", skin);
+        continueGameButton.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new GameScreen(game));
+            }
+        });
         table.add(continueGameButton).colspan(3).size(300, 60).uniform().spaceBottom(10);
         table.row();
         table.pad(10).defaults().spaceBottom(10);
         TextButton newGameButton = new TextButton("New game", skin);
+        newGameButton.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(new GameScreen(game));
+            }
+        });
         table.add(newGameButton).colspan(3).size(300, 60).uniform().spaceBottom(10);
         table.row();
         table.pad(10).defaults().spaceBottom(10);

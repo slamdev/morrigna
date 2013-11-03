@@ -50,6 +50,8 @@ public class OptionsScreen extends ScreenAdapter {
         table.setFillParent(true);
         table.debug();
         stage.addActor(table);
+        table.setWidth(stage.getWidth());
+        table.setHeight(stage.getHeight());
         table.defaults().spaceBottom(30);
         table.columnDefaults(0).padRight(20);
         table.add("Options").colspan(3);

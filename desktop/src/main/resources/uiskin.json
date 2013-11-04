@@ -1,7 +1,13 @@
 {
    com.badlogic.gdx.graphics.g2d.BitmapFont:{
       default-font:{
-         file:default.fnt
+         file:font/default.fnt
+      },
+      menu-label-font:{
+         file:font/book-antiqua.fnt
+      },
+      menu-button-font:{
+         file:font/bookshelf-symbol-7.fnt
       }
    },
    com.badlogic.gdx.graphics.Color:{
@@ -28,6 +34,24 @@
          b:0,
          g:0,
          r:0
+      },
+      gray:{
+         a:1,
+         b:190,
+         g:190,
+         r:190
+      },
+      menu:{
+         a:1,
+         b:0.5,
+         g:0.1,
+         r:0.1
+      },
+      menu-hover:{
+         a:1,
+         b:1,
+         g:1,
+         r:1
       }
    },
    com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable:{
@@ -59,14 +83,13 @@
          font:default-font,
          fontColor:white
       },
-      toggle:{
-         down:default-round-down,
-         up:default-round,
-         checked:default-round-down,
-         font:default-font,
-         fontColor:white,
-         downFontColor:red
-      }
+      menu-button:{
+         down:default-round,
+         up:default-round,     
+         font:menu-button-font,
+         fontColor:menu,
+         overFontColor:menu-hover,
+      },
    },
    com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle:{
       default:{
@@ -120,6 +143,10 @@
       default:{
          font:default-font,
          fontColor:white
+      },
+      menu-label:{
+         font:menu-label-font,
+         fontColor:menu
       }
    },
    com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle:{

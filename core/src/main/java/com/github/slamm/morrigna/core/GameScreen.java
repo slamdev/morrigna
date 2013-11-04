@@ -1,7 +1,7 @@
 package com.github.slamm.morrigna.core;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.files.FileHandle;
@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -18,17 +20,24 @@ public class GameScreen extends ScreenAdapter {
 
     private OrthographicCamera camera;
 
-    private Game game;
-
     private Stage hud = new Stage();
 
     private OrthogonalTiledMapRenderer renderer;
 
     private Stage stage;
 
-    public GameScreen(Game game) {
+    public GameScreen() {
         stage = new Stage();
-        this.game = game;
+        stage.addListener(new InputListener() {
+
+            @Override
+            public boolean keyUp(InputEvent event, int keycode) {
+                if (keycode == Keys.ESCAPE) {
+                    Gdx.app.exit();
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -46,7 +55,7 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(new InputMultiplexer(hud, stage));
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
@@ -58,6 +67,5 @@ public class GameScreen extends ScreenAdapter {
         FileHandle skinFile = Gdx.files.internal("uiskin.json");
         Skin skin = new Skin(skinFile);
         hud.addActor(new Label("test", skin));
-        Gdx.input.setInputProcessor(new InputMultiplexer(hud));
     }
 }

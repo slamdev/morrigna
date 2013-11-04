@@ -20,6 +20,7 @@ public class Main {
             }
         });
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.forceExit = false;
         config.useGL20 = true;
         @SuppressWarnings("unused")
         LwjglApplication app = new LwjglApplication(new Bootstrapper(), config) {

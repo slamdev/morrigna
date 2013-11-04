@@ -20,7 +20,7 @@ public class OptionsScreen extends ScreenAdapter {
 
     private final ScreenChanger screenChanger;
 
-    private Stage stage;
+    private final Stage stage;
 
     public OptionsScreen(ScreenChanger screenChanger) {
         stage = new Stage();

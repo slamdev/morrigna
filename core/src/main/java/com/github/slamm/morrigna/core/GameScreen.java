@@ -24,7 +24,7 @@ public class GameScreen extends ScreenAdapter {
 
     private OrthogonalTiledMapRenderer renderer;
 
-    private Stage stage;
+    private final Stage stage;
 
     public GameScreen() {
         stage = new Stage();

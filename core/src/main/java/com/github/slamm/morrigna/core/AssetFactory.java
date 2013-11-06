@@ -1,6 +1,7 @@
 package com.github.slamm.morrigna.core;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
@@ -16,6 +17,12 @@ public final class AssetFactory {
 
     public static TiledMap map(String path) {
         MANAGER.load(path, TiledMap.class);
+        MANAGER.finishLoading();
+        return MANAGER.get(path);
+    }
+
+    public static Texture texture(String path) {
+        MANAGER.load(path, Texture.class);
         MANAGER.finishLoading();
         return MANAGER.get(path);
     }

@@ -60,7 +60,9 @@ public class GameScreen extends ScreenAdapter {
     private void initES() {
         world = new World();
         world.setSystem(new MapRenderingSystem());
+        world.setSystem(new SpriteRenderSystem());
         world.initialize();
         EntityFactory.map(world, "map-atlases/level1.tmx", camera).addToWorld();
+        EntityFactory.sprite(world, "sprite/bobargb8888-32x32.png").addToWorld();
     }
 }

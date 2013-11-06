@@ -15,4 +15,11 @@ public final class EntityFactory {
         e.addComponent(new CameraComponent(camera));
         return e;
     }
+
+    public static Entity sprite(World world, String path) {
+        Entity e = world.createEntity();
+        e.addComponent(new SpriteComponent(AssetFactory.texture(path)));
+        e.addComponent(new PositionComponent(50, 50));
+        return e;
+    }
 }

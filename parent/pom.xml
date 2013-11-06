@@ -10,7 +10,7 @@
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gdx.version>0.9.9-SNAPSHOT</gdx.version>
+        <gdx.version>1.0-SNAPSHOT</gdx.version>
     </properties>
     <build>
         <pluginManagement>
@@ -59,6 +59,11 @@
                 <artifactId>logback-classic</artifactId>
                 <version>1.0.13</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.onedaybeard.artemis</groupId>
+                <artifactId>artemis-odb</artifactId>
+                <version>0.4.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

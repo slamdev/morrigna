@@ -1,30 +1,22 @@
 package com.github.slamm.morrigna.core;
 
+import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class GameScreen extends ScreenAdapter {
 
     private OrthographicCamera camera;
 
-    private Stage hud = new Stage();
-
-    private OrthogonalTiledMapRenderer renderer;
-
     private final Stage stage;
+
+    private World world;
 
     public GameScreen() {
         stage = new Stage();
@@ -42,30 +34,33 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        stage.act(delta);
         Gdx.gl.glClearColor(0.55f, 0.55f, 0.55f, 1f);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        stage.draw();
         camera.update();
-        renderer.setView(camera);
-        renderer.render();
-        hud.act();
-        hud.draw();
+        world.setDelta(delta);
+        world.process();
+        stage.act(delta);
+        stage.draw();
     }
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(new InputMultiplexer(hud, stage));
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        initCamera();
+        initES();
+        Gdx.input.setInputProcessor(stage);
+    }
+
+    private void initCamera() {
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, w / h * 10, 10);
+        camera.setToOrtho(false, Gdx.graphics.getWidth() / Gdx.graphics.getHeight() * 10, 10);
         camera.update();
-        TiledMap map = new TmxMapLoader().load("map-atlases/level1.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1f / 32f);
         stage.setCamera(camera);
-        FileHandle skinFile = Gdx.files.internal("uiskin.json");
-        Skin skin = new Skin(skinFile);
-        hud.addActor(new Label("test", skin));
+    }
+
+    private void initES() {
+        world = new World();
+        world.setSystem(new MapRenderingSystem());
+        world.initialize();
+        EntityFactory.map(world, "map-atlases/level1.tmx", camera).addToWorld();
     }
 }

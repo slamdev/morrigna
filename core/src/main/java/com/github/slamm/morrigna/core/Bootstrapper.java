@@ -32,6 +32,7 @@ public class Bootstrapper extends Game {
         LOGGER.debug("Createing game on {}", Gdx.app.getType());
         fpsLogger = new FPSLogger();
         setScreen(new MainMenuScreen(new ScreenChanger(this)));
+        // setScreen(new ScrollableScreen());
     }
 
     @Override

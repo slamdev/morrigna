@@ -24,5 +24,13 @@
             <groupId>net.onedaybeard.artemis</groupId>
             <artifactId>artemis-odb</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>spine-libgdx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.droidinteractive</groupId>
+            <artifactId>box2dlights</artifactId>
+        </dependency>
     </dependencies>
 </project>

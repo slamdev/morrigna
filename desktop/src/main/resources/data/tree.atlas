@@ -1,0 +1,19 @@
+
+tree.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+treeTop
+  rotate: false
+  xy: 1, 1
+  size: 108, 125
+  orig: 108, 125
+  offset: 0, 0
+  index: -1
+treeBottom
+  rotate: false
+  xy: 111, 88
+  size: 108, 38
+  orig: 108, 38
+  offset: 0, 0
+  index: -1

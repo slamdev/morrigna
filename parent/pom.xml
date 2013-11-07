@@ -65,6 +65,16 @@
                 <artifactId>artemis-odb</artifactId>
                 <version>0.4.0</version>
             </dependency>
+            <dependency>
+                <groupId>com.esotericsoftware</groupId>
+                <artifactId>spine-libgdx</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.droidinteractive</groupId>
+                <artifactId>box2dlights</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <repositories>

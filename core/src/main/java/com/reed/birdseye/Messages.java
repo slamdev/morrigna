@@ -7,38 +7,37 @@ import com.badlogic.gdx.utils.Array;
 
 public class Messages {
 
-	public static Array<Message> messagesArray = new Array<Message>();
+    public static Array<Message> messagesArray = new Array<>();
 
-	void drawText(BitmapFont font, SpriteBatch batch) {
-		// batch.draw(Assets.chatBox, 0, 0);
-		for (int i = 0; i < messagesArray.size; i++) {
-			font.draw(batch, messagesArray.get(i).message, 20, i * 30 + 30);
-		}
-	}
+    private static float sec;
 
-	void removeOldMessages() {
-		for (int i = 0; i < messagesArray.size; i++) {
-			if (messagesArray.get(i).id < sec - 15) {
-				messagesArray.removeIndex(i);
-			}
-		}
-		messagesArray.sort();
-	}
+    /** Returns current time for proper sorting latter */
+    public static float getSec() {
+        return sec;
+    }
 
-	private static float sec;
+    public static void setSec(float sec) {
+        Messages.sec = sec;
+    }
 
-	/** Returns current time for proper sorting latter */
-	public static float getSec() {
-		return sec;
-	}
+    static void update() {
+        sec = com.badlogic.gdx.utils.TimeUtils.nanoTime() * MathUtils.nanoToSec;
+        messagesArray.sort();
+    }
 
-	public static void setSec(float sec) {
-		Messages.sec = sec;
-	}
+    void drawText(BitmapFont font, SpriteBatch batch) {
+        // batch.draw(Assets.chatBox, 0, 0);
+        for (int i = 0; i < messagesArray.size; i++) {
+            font.draw(batch, messagesArray.get(i).message, 20, i * 30 + 30);
+        }
+    }
 
-	static void update() {
-		sec = com.badlogic.gdx.utils.TimeUtils.nanoTime() * MathUtils.nanoToSec;
-
-		messagesArray.sort();
-	}
+    void removeOldMessages() {
+        for (int i = 0; i < messagesArray.size; i++) {
+            if (messagesArray.get(i).id < sec - 15) {
+                messagesArray.removeIndex(i);
+            }
+        }
+        messagesArray.sort();
+    }
 }

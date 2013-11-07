@@ -7,106 +7,111 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TradeShop {
-	int x = 1838, y = 2906;
-	final int DISTANCE_FROM_SHOP = 100;
-	static int cash = 0;
-	static String cashString;
 
-	void draw(SpriteBatch batch) {
-		batch.draw(Assets.tradePerson, x, y);
-	}
+    static int cash = 0;
 
-	boolean closeEnough() {
-		return (Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y)
-				* (y - Player.y)) < DISTANCE_FROM_SHOP);
-	}
+    static String cashString;
 
-	String hello = "[Trade Shop]: Hello there stranger!";
-	String purchase = "[Trade Shop]: Anything you want to trade with me?";
-	String derp = "[Trade Shop]: What a nice game this is.";
+    String derp = "[Trade Shop]: What a nice game this is.";
 
-	Random r = new Random();
+    final int DISTANCE_FROM_SHOP = 100;
 
-	void textSetter() {
-		String sender = "";
-		if (ableToSend()) {
-			if (Tutorial.step == 100) {
-				switch (r.nextInt(3)) {
-				case 0:
-					sender = hello;
-					break;
-				case 1:
-					sender = purchase;
-					break;
-				case 2:
-					sender = derp;
-					break;
-				default:
-					sender = "blank message";
-					break;
-				}
-			}
-			if (Tutorial.step < 100)
-				// diferent text for tutorial stage
-				switch (Tutorial.step) {
-				case 1:
-					sender = "[Trade Shop] Hello stranger! You look new.";
-					break;
-				case 2:
-					sender = "[Trade Shop] If you get 5 fish with that fishing pole I'll trade with you.";
-					break;
-				case 3:
-					sender = "[Trade Shop] Do you want to trade your 5 fish for $50?";
-					break;
-				case 4:
-					sender = "[Trade Shop] Hello there friend.";
-				}
-			Messages.messagesArray.add(new Message(sender, Messages.getSec()));
-		}
+    String hello = "[Trade Shop]: Hello there stranger!";
 
-	}
+    String purchase = "[Trade Shop]: Anything you want to trade with me?";
 
-	float timer = 5;
+    Random r = new Random();
 
-	void update() {
-		cashString = String.valueOf(cash);
-		timer += Gdx.graphics.getDeltaTime();
+    float timer = 5;
 
-		if (Fishing.amountOfFish >= 5 && Tutorial.step == 2) {
-			Tutorial.step = 3;
-		}
-		if (cash >= 50 && Tutorial.step == 3) {
-			Fishing.amountOfFish -= 5;
-			Tutorial.step = 4;
-		}
-	}
+    int x = 1838, y = 2906;
 
-	boolean ableToSend() {
-		if (closeEnough() && timer >= 5) {
-			timer = 0;
-			return true;
-		} else
-			return false;
-	}
+    boolean ableToSend() {
+        if (closeEnough() && timer >= 5) {
+            timer = 0;
+            return true;
+        }
+        return false;
+    }
 
-	void drawInputText(SpriteBatch batch, BitmapFont font) {
-		if (Tutorial.step == 3 && closeEnough()) {
-			font.draw(batch, "Yes                    No", 800, 50);
-		}
-	}
+    boolean closeEnough() {
+        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < DISTANCE_FROM_SHOP;
+    }
 
-	void handleInput() {
-		if (Tutorial.step == 3 && closeEnough()) {
-			if (Gdx.input.getX() > 785 && Gdx.input.getX() < 836
-					&& Gdx.input.getY() > 470 && Gdx.input.getY() < 515
-					&& Gdx.input.isTouched()) {
-				Messages.messagesArray.add(new Message(
-						"[Trade Shop] Here is your money, thanks for the business!",
-						Messages.getSec()));
-				timer = 0;
-				cash -= 50;
-				Tutorial.step += 1;
-			}
-		}
-	}
+    void draw(SpriteBatch batch) {
+        batch.draw(Assets.tradePerson, x, y);
+    }
+
+    void drawInputText(SpriteBatch batch, BitmapFont font) {
+        if (Tutorial.step == 3 && closeEnough()) {
+            font.draw(batch, "Yes                    No", 800, 50);
+        }
+    }
+
+    void handleInput() {
+        if (Tutorial.step == 3 && closeEnough()) {
+            if (Gdx.input.getX() > 785 && Gdx.input.getX() < 836 && Gdx.input.getY() > 470 && Gdx.input.getY() < 515
+                    && Gdx.input.isTouched()) {
+                Messages.messagesArray.add(new Message("[Trade Shop] Here is your money, thanks for the business!",
+                        Messages.getSec()));
+                timer = 0;
+                cash -= 50;
+                Tutorial.step += 1;
+            }
+        }
+    }
+
+    void textSetter() {
+        String sender = "";
+        if (ableToSend()) {
+            if (Tutorial.step == 100) {
+                switch (r.nextInt(3)) {
+                case 0:
+                    sender = hello;
+                    break;
+                case 1:
+                    sender = purchase;
+                    break;
+                case 2:
+                    sender = derp;
+                    break;
+                default:
+                    sender = "blank message";
+                    break;
+                }
+            }
+            if (Tutorial.step < 100) {
+                // diferent text for tutorial stage
+                switch (Tutorial.step) {
+                case 1:
+                    sender = "[Trade Shop] Hello stranger! You look new.";
+                    break;
+                case 2:
+                    sender = "[Trade Shop] If you get 5 fish with that fishing pole I'll trade with you.";
+                    break;
+                case 3:
+                    sender = "[Trade Shop] Do you want to trade your 5 fish for $50?";
+                    break;
+                case 4:
+                    sender = "[Trade Shop] Hello there friend.";
+                    break;
+                default:
+                    throw new RuntimeException("should not get here");
+                }
+            }
+            Messages.messagesArray.add(new Message(sender, Messages.getSec()));
+        }
+    }
+
+    void update() {
+        cashString = String.valueOf(cash);
+        timer += Gdx.graphics.getDeltaTime();
+        if (Fishing.amountOfFish >= 5 && Tutorial.step == 2) {
+            Tutorial.step = 3;
+        }
+        if (cash >= 50 && Tutorial.step == 3) {
+            Fishing.amountOfFish -= 5;
+            Tutorial.step = 4;
+        }
+    }
 }

@@ -58,25 +58,25 @@ public class Player {
         // y = 3562;
         // System.out.println("X: " + x + " Y: " + y);
         if (ableToMove) {
-            if ((Gdx.input.isKeyPressed(Keys.W) || Android.up) && isAbleToMoveUp) {
+            if ((Gdx.input.isKeyPressed(Keys.W)) && isAbleToMoveUp) {
                 up = true;
                 currentDirection = 1;
             } else {
                 up = false;
             }
-            if ((Gdx.input.isKeyPressed(Keys.A) || Android.left) && isAbleToMoveLeft) {
+            if ((Gdx.input.isKeyPressed(Keys.A)) && isAbleToMoveLeft) {
                 left = true;
                 currentDirection = 2;
             } else {
                 left = false;
             }
-            if ((Gdx.input.isKeyPressed(Keys.S) || Android.down) && isAbleToMoveDown) {
+            if ((Gdx.input.isKeyPressed(Keys.S)) && isAbleToMoveDown) {
                 currentDirection = 0;
                 down = true;
             } else {
                 down = false;
             }
-            if ((Gdx.input.isKeyPressed(Keys.D) || Android.right) && isAbleToMoveRight) {
+            if ((Gdx.input.isKeyPressed(Keys.D)) && isAbleToMoveRight) {
                 right = true;
                 currentDirection = 3;
             } else {

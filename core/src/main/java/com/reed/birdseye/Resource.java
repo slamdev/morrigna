@@ -1,6 +1,5 @@
 package com.reed.birdseye;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -40,7 +39,7 @@ public class Resource {
         // starts making the image of the "resource" smaller as b is
         // held down
         if (closeEnough() && drawResource) {
-            if ((Gdx.input.isKeyPressed(Keys.B) || Android.b) && TopMenu.currentTool == 1) {
+            if ((Gdx.input.isKeyPressed(Keys.B)) && TopMenu.currentTool == 1) {
                 resourceTimer += Gdx.graphics.getDeltaTime() * miningRate;
                 if (resourceTimer > 1 && resourceTimer < 2) {
                     width = (int) (64 * .8);
@@ -76,11 +75,7 @@ public class Resource {
         if (drawResource) {
             batch.draw(Assets.material, x, y, width, height);
             if (closeEnough() && Player.ableToMove) {
-                if (Gdx.app.getType() == ApplicationType.Android) {
-                    font.draw(batch, "hold b to mine", Android.size + 10, 50);
-                } else {
-                    font.draw(batch, "Hold B to Pick up the Stone", 50, 50);
-                }
+                font.draw(batch, "Hold B to Pick up the Stone", 50, 50);
             }
         }
     }

@@ -21,7 +21,8 @@ import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
 
-@SuppressWarnings("unused") // TODO: a lot of assets seems to be unused, need to remove them 
+@SuppressWarnings("unused")
+// TODO: a lot of assets seems to be unused, need to remove them
 public final class Assets {
 
     public static class JsonValueLoader extends AsynchronousAssetLoader<JsonValue, JsonValueLoader.JsonValueParameters> {
@@ -64,6 +65,8 @@ public final class Assets {
 
     public static Texture copperOre;
 
+    public static Texture craftmenu;
+
     public static Texture crop;
 
     public static Texture currentItem;
@@ -85,6 +88,18 @@ public final class Assets {
     public static TextureRegion downPig_RIGHT;
 
     public static TextureRegion downPig_STILL;
+
+    public static TextureRegion downRobot_LEFT;
+
+    public static TextureRegion downRobot_RIGHT;
+
+    public static TextureRegion downRobot_STILL;
+
+    public static TextureRegion downWolf_LEFT;
+
+    public static TextureRegion downWolf_RIGHT;
+
+    public static TextureRegion downWolf_STILL;
 
     public static Texture farm;
 
@@ -120,11 +135,25 @@ public final class Assets {
 
     public static TextureRegion leftPig_STILL;
 
+    public static TextureRegion leftRobot_LEFT;
+
+    public static TextureRegion leftRobot_RIGHT;
+
+    public static TextureRegion leftRobot_STILL;
+
+    public static TextureRegion leftWolf_LEFT;
+
+    public static TextureRegion leftWolf_RIGHT;
+
+    public static TextureRegion leftWolf_STILL;
+
     public static TextureRegion mainChar;
 
     public static TextureRegion mainCreeper;
 
     public static TextureRegion mainPig;
+
+    public static TextureRegion mainRobot;
 
     public static TiledMap mainTiledMap;
 
@@ -150,7 +179,21 @@ public final class Assets {
 
     public static TextureRegion rightPig_STILL;
 
+    public static TextureRegion rightRobot_LEFT;
+
+    public static TextureRegion rightRobot_RIGHT;
+
+    public static TextureRegion rightRobot_STILL;
+
+    public static TextureRegion rightWolf_LEFT;
+
+    public static TextureRegion rightWolf_RIGHT;
+
+    public static TextureRegion rightWolf_STILL;
+
     public static TiledMap riverHouse;
+
+    public static Texture robotGUI;
 
     public static TextureRegion shopOwner;
 
@@ -186,6 +229,18 @@ public final class Assets {
 
     public static TextureRegion upPig_STILL;
 
+    public static TextureRegion upRobot_LEFT;
+
+    public static TextureRegion upRobot_RIGHT;
+
+    public static TextureRegion upRobot_STILL;
+
+    public static TextureRegion upWolf_LEFT;
+
+    public static TextureRegion upWolf_RIGHT;
+
+    public static TextureRegion upWolf_STILL;
+
     private static Texture bucket;
 
     private static Texture buttons;
@@ -198,21 +253,7 @@ public final class Assets {
 
     private static Texture corn;
 
-    private static Texture craftmenu;
-
     private static Texture creeper;
-
-    private static TextureRegion downRobot_LEFT;
-
-    private static TextureRegion downRobot_RIGHT;
-
-    private static TextureRegion downRobot_STILL;
-
-    private static TextureRegion downWolf_LEFT;
-
-    private static TextureRegion downWolf_RIGHT;
-
-    private static TextureRegion downWolf_STILL;
 
     private static Texture dpad;
 
@@ -232,51 +273,11 @@ public final class Assets {
 
     private static TextureAtlas leavesAtlas;
 
-    private static TextureRegion leftRobot_LEFT;
-
-    private static TextureRegion leftRobot_RIGHT;
-
-    private static TextureRegion leftRobot_STILL;
-
-    private static TextureRegion leftWolf_LEFT;
-
-    private static TextureRegion leftWolf_RIGHT;
-
-    private static TextureRegion leftWolf_STILL;
-
-    private static TextureRegion mainRobot;
-
     private static final AssetManager MANAGER = new AssetManager();
 
     private static Texture pig;
 
-    private static TextureRegion rightRobot_LEFT;
-
-    private static TextureRegion rightRobot_RIGHT;
-
-    private static TextureRegion rightRobot_STILL;
-
-    private static TextureRegion rightWolf_LEFT;
-
-    private static TextureRegion rightWolf_RIGHT;
-
-    private static TextureRegion rightWolf_STILL;
-
     private static Texture robot;
-
-    private static Texture robotGUI;
-
-    private static TextureRegion upRobot_LEFT;
-
-    private static TextureRegion upRobot_RIGHT;
-
-    private static TextureRegion upRobot_STILL;
-
-    private static TextureRegion upWolf_LEFT;
-
-    private static TextureRegion upWolf_RIGHT;
-
-    private static TextureRegion upWolf_STILL;
 
     private static Texture wolf;
     static {

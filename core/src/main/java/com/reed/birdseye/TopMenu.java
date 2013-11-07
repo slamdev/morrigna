@@ -28,7 +28,7 @@ public class TopMenu {
             batch.draw(Assets.currentItem, 230 + Assets.currentItem.getWidth() * 4 - 7 * 4, 465);
             break;
         default:
-            throw new RuntimeException("Should not get here");
+            break; // seems it 5
         }
     }
 

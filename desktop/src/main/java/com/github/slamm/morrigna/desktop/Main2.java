@@ -18,6 +18,7 @@ public class Main2 {
 		cfg.addIcon("data/icon16x16.png", FileType.Internal);
 		cfg.addIcon("data/icon32x32.png", FileType.Internal);
 
-		new LwjglApplication(new BirdsEye(), cfg);
+		@SuppressWarnings("unused")
+        LwjglApplication app = new LwjglApplication(new BirdsEye(), cfg);
 	}
 }

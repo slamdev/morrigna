@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.droidinteractive.box2dlight.RayHandler;
 import com.reed.birdseye.ArrayListsz;
-import com.reed.birdseye.Assets;
 import com.reed.birdseye.CollisionDetection;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;

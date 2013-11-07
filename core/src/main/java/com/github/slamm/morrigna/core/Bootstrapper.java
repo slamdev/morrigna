@@ -7,7 +7,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.reed.birdseye.Assets;
 
 public class Bootstrapper extends Game {
 
@@ -30,7 +29,7 @@ public class Bootstrapper extends Game {
 
     @Override
     public void create() {
-        LOGGER.debug("Createing game on {}", Gdx.app.getType());
+        LOGGER.debug("Creating game on {}", Gdx.app.getType());
         fpsLogger = new FPSLogger();
         Assets.load();
         setScreen(new MainMenuScreen(new ScreenChanger(this)));

@@ -1,6 +1,7 @@
 package com.reed.birdseye;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.github.slamm.morrigna.core.Assets;
 
 public class Particles {
 

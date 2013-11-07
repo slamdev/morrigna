@@ -3,6 +3,7 @@ package com.reed.birdseye;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.github.slamm.morrigna.core.Assets;
 
 public class Pig {
 

@@ -11,7 +11,7 @@ public class Particles {
         Assets.fire.update(deltaTime);
     }
 
-    void smokeUpdateAndDraw(SpriteBatch batch, float deltaTime) {
+    public void smokeUpdateAndDraw(SpriteBatch batch, float deltaTime) {
         Assets.chimneySmoke.start();
         Assets.chimneySmoke.draw(batch);
         Assets.chimneySmoke.setPosition(1695, 3369);

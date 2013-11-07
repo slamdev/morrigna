@@ -422,7 +422,7 @@ public class CollisionDetection {
     }
 
     // current maps collision
-    void doCollision() {
+    public void doCollision() {
         switch (collisionType) {
         case 0: {
             mapCollision();

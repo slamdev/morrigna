@@ -38,17 +38,17 @@ public class TradeShop {
         return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < DISTANCE_FROM_SHOP;
     }
 
-    void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         batch.draw(Assets.tradePerson, x, y);
     }
 
-    void drawInputText(SpriteBatch batch, BitmapFont font) {
+    public void drawInputText(SpriteBatch batch, BitmapFont font) {
         if (Tutorial.step == 3 && closeEnough()) {
             font.draw(batch, "Yes                    No", 800, 50);
         }
     }
 
-    void handleInput() {
+    public void handleInput() {
         if (Tutorial.step == 3 && closeEnough()) {
             if (Gdx.input.getX() > 785 && Gdx.input.getX() < 836 && Gdx.input.getY() > 470 && Gdx.input.getY() < 515
                     && Gdx.input.isTouched()) {
@@ -61,7 +61,7 @@ public class TradeShop {
         }
     }
 
-    void textSetter() {
+    public void textSetter() {
         String sender = "";
         if (ableToSend()) {
             if (Tutorial.step == 100) {
@@ -103,7 +103,7 @@ public class TradeShop {
         }
     }
 
-    void update() {
+    public void update() {
         cashString = String.valueOf(cash);
         timer += Gdx.graphics.getDeltaTime();
         if (Fishing.amountOfFish >= 5 && Tutorial.step == 2) {

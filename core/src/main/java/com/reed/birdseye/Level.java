@@ -2,6 +2,7 @@ package com.reed.birdseye;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.github.slamm.morrigna.core.GameScreen;
 
 public class Level {
 
@@ -29,7 +30,7 @@ public class Level {
         Level.currentMap = currentMap;
     }
 
-    void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         // draws grass image (64 , 64) everywhere
         for (int i = 0; i < Gdx.graphics.getWidth() + 128; i += 64) {
             for (int j = 0; j < Gdx.graphics.getHeight() + 128; j += 64) {
@@ -53,7 +54,7 @@ public class Level {
         }
     }
 
-    void update() {
+    public void update() {
         // sets map back to original position before white background becomes
         // visible
         if (grassY <= -128 || grassY >= 0) {

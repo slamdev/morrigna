@@ -19,7 +19,7 @@ public class Fishing {
 
     float timer;
 
-    void fishCaught() {
+    public void fishCaught() {
         if (fishingPossible() && Gdx.input.isKeyPressed(Keys.B) && timer > 1) {
             if (r.nextInt(4) == 2) {
                 fishCaught = true;
@@ -41,7 +41,7 @@ public class Fishing {
         return Player.x > 700 && Player.x < 758 && Player.y > 1896 && Player.y < 2036 && TopMenu.currentTool == 1;
     }
 
-    void update() {
+    public void update() {
         // update fish string
         amountOfFishString = Integer.toString(amountOfFish);
         if (Gdx.input.isKeyPressed(Keys.B)) {

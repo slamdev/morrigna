@@ -17,7 +17,7 @@ public class Food {
 
     float timer2 = 0;
 
-    void affectHealth() {
+    public void affectHealth() {
         amountOfFoodString = Integer.toString(amountOfFood);
         timer += Gdx.graphics.getDeltaTime();
         if (foodLevel == 0 && timer > 2) {
@@ -30,7 +30,7 @@ public class Food {
         }
     }
 
-    void looseHunger() {
+    public void looseHunger() {
         timer2 += Gdx.graphics.getDeltaTime();
         if (timer2 > 2 && foodLevel > 0) {
             foodLevel -= 1;

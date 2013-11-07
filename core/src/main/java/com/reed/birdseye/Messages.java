@@ -20,19 +20,19 @@ public class Messages {
         Messages.sec = sec;
     }
 
-    static void update() {
+    public static void update() {
         sec = com.badlogic.gdx.utils.TimeUtils.nanoTime() * MathUtils.nanoToSec;
         messagesArray.sort();
     }
 
-    void drawText(BitmapFont font, SpriteBatch batch) {
+    public void drawText(BitmapFont font, SpriteBatch batch) {
         // batch.draw(Assets.chatBox, 0, 0);
         for (int i = 0; i < messagesArray.size; i++) {
             font.draw(batch, messagesArray.get(i).message, 20, i * 30 + 30);
         }
     }
 
-    void removeOldMessages() {
+    public void removeOldMessages() {
         for (int i = 0; i < messagesArray.size; i++) {
             if (messagesArray.get(i).id < sec - 15) {
                 messagesArray.removeIndex(i);

@@ -3,6 +3,7 @@ package com.github.slamm.morrigna.desktop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.github.slamm.morrigna.core.Bootstrapper;
@@ -22,6 +23,13 @@ public class Main {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.forceExit = false;
         config.useGL20 = true;
+        config.width = 960;
+        config.height = 540;
+        config.foregroundFPS = 60;
+        config.backgroundFPS = 60;
+        config.resizable = false;
+        config.addIcon("data/icon16x16.png", FileType.Internal);
+        config.addIcon("data/icon32x32.png", FileType.Internal);
         @SuppressWarnings("unused")
         LwjglApplication app = new LwjglApplication(new Bootstrapper(), config) {
 

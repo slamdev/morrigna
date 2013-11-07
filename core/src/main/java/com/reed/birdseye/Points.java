@@ -54,7 +54,7 @@ public class Points {
         }
     }
 
-    void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         // draws at a percentage to account for different screen sizes
         batch.draw(Assets.pointsBar, Gdx.graphics.getWidth() * .80f,
                 Gdx.graphics.getHeight() - Gdx.graphics.getHeight() * .1011f);
@@ -62,7 +62,7 @@ public class Points {
 
     // done in seperate method since it requires shapeRender - it makes things
     // easier this way
-    void drawBars(ShapeRenderer shapeRenderer) {
+    public void drawBars(ShapeRenderer shapeRenderer) {
         // update these booleans
         hpWidth = hp * barWidth / 100;
         xpWidth = xp * barWidth / levels[currentLevel];
@@ -80,7 +80,7 @@ public class Points {
         // regenerate health over time here
     }
 
-    void updateLevel() {
+    public void updateLevel() {
         // changes level if xp exceeds current level
         if (xp > levels[currentLevel]) {
             currentLevel++;

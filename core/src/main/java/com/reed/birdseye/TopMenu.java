@@ -8,7 +8,7 @@ public class TopMenu {
     static int currentTool = 5; // 0 is first cell, etc, 5 means null conluding
                                 // that it is not drawn
 
-    void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         batch.draw(Assets.itemSelector, Gdx.graphics.getWidth() / 2 - 250, Gdx.graphics.getHeight() - 75);
         // decides where the currentTool white box is drawn - please excuse these *random* numbers
         switch (currentTool) {
@@ -32,7 +32,7 @@ public class TopMenu {
         }
     }
 
-    void input() {
+    public void input() {
         if (Gdx.input.getX() > 649 && Gdx.input.getX() < 723 && Gdx.input.getY() > 6 && Gdx.input.getY() < 68
                 && Gdx.input.isTouched()) {
             Inventory.inventoryVisible = true;

@@ -22,7 +22,9 @@ public class Assets {
             crop, creeper, robot, robotGUI, coalOre, inventory, copperOre, grass, dpad, dpadLEFT, dpadRIGHT, dpadUP,
             dpadDOWN, pointsBar, currentItem, pig, bacon, wolf, chatBox, inHouse, furnaceGUI;
 
-    static TiledMap mainTiledMap, riverHouse;
+    public static TiledMap mainTiledMap;
+
+    static TiledMap riverHouse;
 
     static TextureRegion shopOwner, tradePerson;
 

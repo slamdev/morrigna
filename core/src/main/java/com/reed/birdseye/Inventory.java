@@ -13,7 +13,7 @@ public class Inventory {
 
     final int row2y = 800;
 
-    void draw(SpriteBatch batch, BitmapFont font) {
+    public void draw(SpriteBatch batch, BitmapFont font) {
         if (inventoryVisible) {
             batch.draw(Assets.inventory, 0, 0);
             // move somewhere else
@@ -31,7 +31,7 @@ public class Inventory {
         }
     }
 
-    void input() {
+    public void input() {
         if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
             Player.ableToMove = true;
             Player.drawCharacter = true;

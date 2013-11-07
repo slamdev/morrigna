@@ -29,7 +29,7 @@ public class ArrayListsz {
         coalArray.add(new Coal(1844, 1652));
     }
 
-    void drawBrush(SpriteBatch batch, BitmapFont font) {
+    public void drawBrush(SpriteBatch batch, BitmapFont font) {
         for (int i = 0; i < treeArray.size; i++) {
             treeArray.get(i).draw(batch, font);
             treeArray.get(i).closeEnough();
@@ -39,13 +39,13 @@ public class ArrayListsz {
         }
     }
 
-    void drawCoal(SpriteBatch batch) {
+    public void drawCoal(SpriteBatch batch) {
         for (int i = 0; i < coalArray.size; i++) {
             coalArray.get(i).draw(batch);
         }
     }
 
-    void drawTreeTrunk(SpriteBatch batch) {
+    public void drawTreeTrunk(SpriteBatch batch) {
         for (int i = 0; i < treeArray.size; i++) {
             treeArray.get(i).drawTrunk(batch);
         }
@@ -57,19 +57,19 @@ public class ArrayListsz {
         }
     }
 
-    void mobDraw(SpriteBatch batch) {
+    public void mobDraw(SpriteBatch batch) {
         for (int i = 0; i < creeperArray.size; i++) {
             creeperArray.get(i).draw(batch, creeperArray.get(i).realMob);
         }
     }
 
-    void mobHealthBars(ShapeRenderer shapeRenderer) {
+    public void mobHealthBars(ShapeRenderer shapeRenderer) {
         for (int i = 0; i < creeperArray.size; i++) {
             creeperArray.get(i).healthBar(shapeRenderer, creeperArray.get(i).realMob);
         }
     }
 
-    void mobUpdate() {
+    public void mobUpdate() {
         for (int i = 0; i < creeperArray.size; i++) {
             creeperArray.get(i).realMob = creeperArray.get(i).setSprites(Assets.upCreeper_STILL, Assets.upCreeper_LEFT,
                     Assets.upCreeper_RIGHT, Assets.downCreeper_STILL, Assets.downCreeper_LEFT,
@@ -100,13 +100,13 @@ public class ArrayListsz {
         }
     }
 
-    void pigHealthBars(ShapeRenderer shapeRenderer) {
+    public void pigHealthBars(ShapeRenderer shapeRenderer) {
         for (int i = 0; i < pigArray.size; i++) {
             pigArray.get(i).pig.healthBar(shapeRenderer, pigArray.get(i).theRealPig);
         }
     }
 
-    void pigUpdateAndDraw(SpriteBatch batch) {
+    public void pigUpdateAndDraw(SpriteBatch batch) {
         for (int i = 0; i < pigArray.size; i++) {
             pigArray.get(i).drops(batch);
             pigArray.get(i).pig.draw(batch, pigArray.get(i).theRealPig);
@@ -118,7 +118,7 @@ public class ArrayListsz {
         }
     }
 
-    void treeArrayEstablisher() {
+    public void treeArrayEstablisher() {
         for (int i = 0; i < amountOfTrees; i++) {
             treeArray.add(new Tree());
         }
@@ -128,7 +128,7 @@ public class ArrayListsz {
         treeArray.get(1).y = 2016;
     }
 
-    void updateCoal() {
+    public void updateCoal() {
         for (int i = 0; i < coalArray.size; i++) {
             coalArray.get(i).collect();
             coalArray.get(i).regeneration();

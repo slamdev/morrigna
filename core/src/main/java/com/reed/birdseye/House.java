@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.github.slamm.morrigna.core.GameScreen;
 
 public class House {
 
@@ -93,7 +94,7 @@ public class House {
         }
     }
 
-    void addCoalandFood() {
+    public void addCoalandFood() {
         if (Gdx.input.getX() > 73 && Gdx.input.getX() < 374 && Gdx.input.getY() > 380 && Gdx.input.getY() < 430
                 && Gdx.input.justTouched() && Food.amountOfFood > 0) {
             rawFoodInFurnace += 1;
@@ -119,7 +120,7 @@ public class House {
         // change coal amounts and stuff and cook food
     }
 
-    void furnace() {
+    public void furnace() {
         if (nearFurnace() && canSendFurnaceMessage) {
             Messages.messagesArray.add(new Message("Press B to open Furnace", Messages.getSec()));
             canSendFurnaceMessage = false;
@@ -133,7 +134,7 @@ public class House {
         }
     }
 
-    void furnaceGUIdraw(SpriteBatch batch, float deltaTime, BitmapFont font) {
+    public void furnaceGUIdraw(SpriteBatch batch, float deltaTime, BitmapFont font) {
         if (furnaceOpen) {
             Player.ableToMove = false;
             Player.drawCharacter = false;
@@ -217,7 +218,7 @@ public class House {
     }
 
     /** SEPPERATE INTO INDIVIDUAL METHODS */
-    void update() {
+    public void update() {
         // variable becomes true through the collision class
         if (isInRiverHouse) {
             if (justEntered) {

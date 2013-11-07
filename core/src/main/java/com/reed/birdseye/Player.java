@@ -3,6 +3,7 @@ package com.reed.birdseye;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.github.slamm.morrigna.core.GameScreen;
 
 public class Player {
 
@@ -31,7 +32,7 @@ public class Player {
 
     Tools tools = new Tools();
 
-    void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         // font.draw(batch, "X:  " + Level.levelX, 850, 1030);
         // font.draw(batch, "Y:  " + Level.levelY, 850, 1000);
         // if (currentDirection == 3 && Resource.mining)
@@ -41,18 +42,18 @@ public class Player {
         }
     }
 
-    void drawCurrent(SpriteBatch batch) {
+    public void drawCurrent(SpriteBatch batch) {
         tools.drawCurrentTool(batch);
     }
 
-    void drawTools(SpriteBatch batch) {
+    public void drawTools(SpriteBatch batch) {
         tools.draw(batch);
         tools.update();
         tools.changeTool();
         tools.direction();
     }
 
-    void input() {
+    public void input() {
         // x = 1422;
         // y = 3562;
         // System.out.println("X: " + x + " Y: " + y);
@@ -88,7 +89,7 @@ public class Player {
         // playerSpeed = 2;
     }
 
-    void move() {
+    public void move() {
         // System.out.println("X: " + x + " Y: " + y);
         if (ableToMove) {
             // handle y movement
@@ -125,7 +126,7 @@ public class Player {
         }
     }
 
-    void setSprites() {
+    public void setSprites() {
         if (timer < 4) {
             timer += .1f;
         } else {

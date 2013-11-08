@@ -8,7 +8,7 @@ import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.HudSystem.TopMenu;
+import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
 
 public class Tree {
 
@@ -16,19 +16,19 @@ public class Tree {
 
     static String amountOfWoodString;
 
+    public Skeleton leavesSkel = new Skeleton(Assets.leaveSkeletonData);
+
+    public Skeleton treeSkel = new Skeleton(Assets.treeSkeletonData);
+
     public int x, y, width = 64, height = 58;
 
     float chopTimer;
 
     int distanceFromMaterial = 100;
 
-    Skeleton leavesSkel = new Skeleton(Assets.leaveSkeletonData);
-
     Bone leaveRoot = leavesSkel.getRootBone();
 
     SkeletonRenderer renderer = new SkeletonRenderer();
-
-    Skeleton treeSkel = new Skeleton(Assets.treeSkeletonData);
 
     Bone root = treeSkel.getRootBone();
 
@@ -45,7 +45,7 @@ public class Tree {
     void collectingTree() {
         amountOfWoodString = Integer.toString(amountOfWood);// update string
         if (closeEnough() && !treeFall) {
-            if (Gdx.input.isKeyPressed(Keys.B) && TopMenu.currentTool == 2 && Tutorial.step >= 5) {
+            if (Gdx.input.isKeyPressed(Keys.B) && TopMenuRenderer.currentTool == 2 && Tutorial.step >= 5) {
                 chopTimer += Gdx.graphics.getDeltaTime();
                 if (chopTimer > 2) {
                     Points.xp += 1;

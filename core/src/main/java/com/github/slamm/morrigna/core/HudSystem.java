@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.reed.birdseye.House;
 import com.reed.birdseye.Inventory;
-import com.reed.birdseye.Messages;
 import com.reed.birdseye.Points;
 import com.reed.birdseye.SwordShop;
 import com.reed.birdseye.TradeShop;
@@ -17,14 +19,63 @@ import com.reed.birdseye.Tutorial;
 
 public class HudSystem {
 
-    public static class TopMenu extends InputAdapter {
+    public static class MessagesRenderer {
+
+        private static class Message implements Comparable<Message> {
+
+            private final float id;
+
+            private final String message;
+
+            public Message(String message, float id) {
+                this.message = message;
+                this.id = id;
+            }
+
+            @Override
+            public int compareTo(Message o) {
+                return Float.compare(id, o.id);
+            }
+        }
+
+        private static final Array<Message> LIST = new Array<>();
+
+        /**
+         * current time for proper sorting latter
+         */
+        private static float sec;
+
+        public static void add(String message) {
+            LIST.add(new Message(message, sec));
+        }
+
+        public void render(BitmapFont font, SpriteBatch batch) {
+            // batch.draw(Assets.chatBox, 0, 0);
+            for (int i = 0; i < LIST.size; i++) {
+                font.draw(batch, LIST.get(i).message, 20, i * 30 + 30);
+            }
+        }
+
+        public void update() {
+            sec = TimeUtils.nanoTime() * MathUtils.nanoToSec;
+            LIST.sort();
+            for (int i = 0; i < LIST.size; i++) {
+                if (LIST.get(i).id < sec - 15) {
+                    LIST.removeIndex(i);
+                }
+            }
+            LIST.sort();
+        }
+    }
+
+    public static class TopMenuRenderer extends InputAdapter {
 
         /**
          * 0 is first cell, etc, 5 means null conluding that it is not drawn
          */
         public static int currentTool = 5;
 
-        public void draw(SpriteBatch batch) {
+        public void render(SpriteBatch batch) {
             batch.draw(Assets.itemSelector, Gdx.graphics.getWidth() / 2 - 250, Gdx.graphics.getHeight() - 75);
             // decides where the currentTool white box is drawn - please excuse these *random* numbers
             switch (currentTool) {
@@ -122,7 +173,7 @@ public class HudSystem {
 
     private Inventory inv;
 
-    private Messages message;
+    private MessagesRenderer messages;
 
     private Points points;
 
@@ -132,16 +183,16 @@ public class HudSystem {
 
     private ToolsListRenderer toolsListRenderer;
 
-    private TopMenu topMenu;
+    private TopMenuRenderer topMenu;
 
     private TradeShop tradeShop;
 
-    public HudSystem(SpriteBatch batch, OrthographicCamera camera, Points points, Messages message, Inventory inv,
-            SwordShop swordShop, TradeShop trade, House house, BitmapFont currentFont) {
+    public HudSystem(SpriteBatch batch, OrthographicCamera camera, Points points, Inventory inv, SwordShop swordShop,
+            TradeShop trade, House house, BitmapFont currentFont) {
         this.batch = batch;
         this.camera = camera;
         this.points = points;
-        this.message = message;
+        messages = new MessagesRenderer();
         this.inv = inv;
         this.swordShop = swordShop;
         tradeShop = trade;
@@ -149,7 +200,7 @@ public class HudSystem {
         this.currentFont = currentFont;
         shapeRenderer = new ShapeRenderer();
         toolsListRenderer = new ToolsListRenderer();
-        topMenu = new TopMenu();
+        topMenu = new TopMenuRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -164,9 +215,9 @@ public class HudSystem {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         toolsListRenderer.render(batch);
-        topMenu.draw(batch);
+        topMenu.render(batch);
         points.draw(batch);
-        message.drawText(currentFont, batch);
+        messages.render(currentFont, batch);
         inv.draw(batch, currentFont);
         swordShop.drawInputText(batch, currentFont);
         tradeShop.drawInputText(batch, currentFont);
@@ -177,5 +228,6 @@ public class HudSystem {
     }
 
     public void update() {
+        messages.update();
     }
 }

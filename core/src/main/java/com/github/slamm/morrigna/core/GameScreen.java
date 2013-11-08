@@ -20,7 +20,6 @@ import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
 import com.reed.birdseye.Inventory;
 import com.reed.birdseye.Level;
-import com.reed.birdseye.Messages;
 import com.reed.birdseye.Particles;
 import com.reed.birdseye.Player;
 import com.reed.birdseye.Points;
@@ -71,8 +70,6 @@ public class GameScreen extends ScreenAdapter {
 
     private final Level level;
 
-    private final Messages message;
-
     private final Player player;
 
     private final Points points;
@@ -107,7 +104,6 @@ public class GameScreen extends ScreenAdapter {
         inv = new Inventory();
         points = new Points();
         collision = new CollisionDetection();
-        message = new Messages();
         swordShop = new SwordShop();
         fishing = new Fishing();
         trade = new TradeShop();
@@ -144,7 +140,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         SaveAndLoad.load();
-        hudSystem = new HudSystem(batch, camera, points, message, inv, swordShop, trade, house, currentFont);
+        hudSystem = new HudSystem(batch, camera, points, inv, swordShop, trade, house, currentFont);
     }
 
     private void draw(float deltaTime) {
@@ -217,8 +213,7 @@ public class GameScreen extends ScreenAdapter {
         inv.input();
         points.updateLevel();
         level.update();
-        Messages.update();
-        message.removeOldMessages();
+        hudSystem.update();
         swordShop.textSetter();
         swordShop.update();
         swordShop.handleInput();

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.HudSystem.MessagesRenderer;
 
 public class TradeShop {
 
@@ -41,8 +42,7 @@ public class TradeShop {
         if (Tutorial.step == 3 && closeEnough()) {
             if (Gdx.input.getX() > 785 && Gdx.input.getX() < 836 && Gdx.input.getY() > 470 && Gdx.input.getY() < 515
                     && Gdx.input.isTouched()) {
-                Messages.messagesArray.add(new Message("[Trade Shop] Here is your money, thanks for the business!",
-                        Messages.getSec()));
+                MessagesRenderer.add("[Trade Shop] Here is your money, thanks for the business!");
                 timer = 0;
                 cash -= 50;
                 Tutorial.step += 1;
@@ -88,7 +88,7 @@ public class TradeShop {
                     throw new RuntimeException("should not get here");
                 }
             }
-            Messages.messagesArray.add(new Message(sender, Messages.getSec()));
+            MessagesRenderer.add(sender);
         }
     }
 

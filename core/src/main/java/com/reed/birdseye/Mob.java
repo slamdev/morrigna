@@ -9,22 +9,22 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.HudSystem.TopMenu;
+import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
 
 public class Mob {
 
     static int food = 0;
 
     // health etc
-    float health = 100;
+    public float health = 100;
+
+    public Random r = new Random();
 
     float attackedHealth = health;
 
     float attackTimer;
 
     int boundX, boundY, boundWidth, boundHeight;
-
-    Random r = new Random();
 
     /**
      * 0 = up <br>
@@ -199,7 +199,7 @@ public class Mob {
 
     // takes away health from mob
     void looseHealth() {
-        if (closeEnough() && TopMenu.currentTool == 3 && CurrentTool.isTooling && dyingTimer > 1) {
+        if (closeEnough() && TopMenuRenderer.currentTool == 3 && CurrentTool.isTooling && dyingTimer > 1) {
             health -= r.nextInt(20) + 10;
             dyingTimer = 0;
         }

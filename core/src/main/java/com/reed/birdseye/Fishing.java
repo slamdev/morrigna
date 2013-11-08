@@ -4,7 +4,8 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.github.slamm.morrigna.core.HudSystem.TopMenu;
+import com.github.slamm.morrigna.core.HudSystem.MessagesRenderer;
+import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
 
 public class Fishing {
 
@@ -29,7 +30,7 @@ public class Fishing {
             }
         }
         if (fishCaught) {
-            Messages.messagesArray.add(new Message(caught, Messages.getSec()));
+            MessagesRenderer.add(caught);
             amountOfFish += 1;
             Points.xp += 1;
             timer = 0;
@@ -47,6 +48,7 @@ public class Fishing {
 
     // detects if you have the ability to fish
     boolean fishingPossible() {
-        return Player.x > 700 && Player.x < 758 && Player.y > 1896 && Player.y < 2036 && TopMenu.currentTool == 1;
+        return Player.x > 700 && Player.x < 758 && Player.y > 1896 && Player.y < 2036
+                && TopMenuRenderer.currentTool == 1;
     }
 }

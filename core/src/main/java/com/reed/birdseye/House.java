@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.GameScreen;
+import com.github.slamm.morrigna.core.HudSystem.MessagesRenderer;
 
 public class House {
 
@@ -110,7 +111,7 @@ public class House {
 
     public void furnace() {
         if (nearFurnace() && canSendFurnaceMessage) {
-            Messages.messagesArray.add(new Message("Press B to open Furnace", Messages.getSec()));
+            MessagesRenderer.add("Press B to open Furnace");
             canSendFurnaceMessage = false;
         }
         if (!nearFurnace()) {
@@ -206,7 +207,7 @@ public class House {
 
     void nearBed() {
         if (closeEnoughToBed() && !justGotNearBed) {
-            Messages.messagesArray.add(new Message("Press B to sleep", Messages.getSec()));
+            MessagesRenderer.add("Press B to sleep");
             justGotNearBed = true;
         }
         if (!closeEnoughToBed()) {
@@ -219,7 +220,7 @@ public class House {
                 sleepStep = 1;
                 canSendNightMessage = false;
             } else if (canSendNightMessage) {
-                Messages.messagesArray.add(new Message("You can only sleep at night!", Messages.getSec()));
+                MessagesRenderer.add("You can only sleep at night!");
                 canSendNightMessage = false;
             }
         }

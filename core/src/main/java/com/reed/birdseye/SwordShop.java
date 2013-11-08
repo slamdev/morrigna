@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.HudSystem.MessagesRenderer;
 
 public class SwordShop {
 
@@ -41,11 +42,9 @@ public class SwordShop {
         if (Tutorial.step == 1 && closeEnough()) {
             if (Gdx.input.getX() > 785 && Gdx.input.getX() < 836 && Gdx.input.getY() > 470 && Gdx.input.getY() < 515
                     && Gdx.input.isTouched()) {
-                Messages.messagesArray.add(new Message(
-                        "[Sword Shop] Here is a fishing rod. Go catch some fish and trade it for cash to pay me.",
-                        Messages.getSec()));
-                Messages.messagesArray.add(new Message("[Sword Shop] It looks like you don't have any money...",
-                        Messages.getSec()));
+                MessagesRenderer
+                        .add("[Sword Shop] Here is a fishing rod. Go catch some fish and trade it for cash to pay me.");
+                MessagesRenderer.add("[Sword Shop] It looks like you don't have any money...");
                 Tutorial.step += 1;
             }
         }
@@ -88,8 +87,7 @@ public class SwordShop {
                     break;
                 case 4:
                     sender = "[Sword Shop] You got the money! Oh no... it seems I have ran out of wood.";
-                    Messages.messagesArray.add(new Message(
-                            "[Sword Shop] Take this hatchet and go chop some trees for me!", Messages.getSec()));
+                    MessagesRenderer.add("[Sword Shop] Take this hatchet and go chop some trees for me!");
                     break;
                 case 5:
                     sender = "[Sword Shop] Have you gotten that wood yet?";
@@ -105,7 +103,7 @@ public class SwordShop {
                     break;
                 }
             }
-            Messages.messagesArray.add(new Message(sender, Messages.getSec()));
+            MessagesRenderer.add(sender);
         }
     }
 

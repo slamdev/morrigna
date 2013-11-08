@@ -7,7 +7,7 @@ import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.HudSystem.TopMenu;
+import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
 
 public class CurrentTool {
 
@@ -30,8 +30,8 @@ public class CurrentTool {
     }
 
     public void render(SpriteBatch batch) {
-        if ((Player.currentDirection == 2 || Player.currentDirection == 3) && !(TopMenu.currentTool == 5)
-                && !(TopMenu.currentTool == 4)) {
+        if ((Player.currentDirection == 2 || Player.currentDirection == 3) && !(TopMenuRenderer.currentTool == 5)
+                && !(TopMenuRenderer.currentTool == 4)) {
             if (Gdx.input.isKeyPressed(Keys.B)) {
                 isTooling = true;
                 renderer.draw(batch, toolSkel);
@@ -54,22 +54,22 @@ public class CurrentTool {
      * FIX INVENTORY BOX clicking coordinates
      */
     private void changeTool() {
-        if (TopMenu.currentTool == 0) {
+        if (TopMenuRenderer.currentTool == 0) {
             toolSkel.setSkin("pick");
             toolSkel.setSlotsToSetupPose();
             toolSkel.updateWorldTransform();
         }
-        if (TopMenu.currentTool == 1 && Tutorial.step >= 2) {
+        if (TopMenuRenderer.currentTool == 1 && Tutorial.step >= 2) {
             toolSkel.setSkin("fishingRod");
             toolSkel.setSlotsToSetupPose();
             toolSkel.updateWorldTransform();
         }
-        if (TopMenu.currentTool == 2 && Tutorial.step >= 5) {
+        if (TopMenuRenderer.currentTool == 2 && Tutorial.step >= 5) {
             toolSkel.setSkin("hatchet");
             toolSkel.setSlotsToSetupPose();
             toolSkel.updateWorldTransform();
         }
-        if (TopMenu.currentTool == 3 && Tutorial.step >= 7) {
+        if (TopMenuRenderer.currentTool == 3 && Tutorial.step >= 7) {
             toolSkel.setSkin("sword");
             toolSkel.setSlotsToSetupPose();
             toolSkel.updateWorldTransform();

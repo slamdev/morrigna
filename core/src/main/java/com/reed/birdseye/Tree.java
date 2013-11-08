@@ -12,9 +12,9 @@ import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
 
 public class Tree {
 
-    static int amountOfWood = 0;
+    public static String amountOfWoodString;
 
-    static String amountOfWoodString;
+    static int amountOfWood = 0;
 
     public Skeleton leavesSkel = new Skeleton(Assets.leaveSkeletonData);
 

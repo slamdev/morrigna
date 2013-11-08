@@ -1,6 +1,7 @@
 package com.github.slamm.morrigna.core;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,14 +11,56 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.reed.birdseye.Coal;
+import com.reed.birdseye.Fishing;
+import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
-import com.reed.birdseye.Inventory;
+import com.reed.birdseye.Player;
 import com.reed.birdseye.Points;
 import com.reed.birdseye.SwordShop;
 import com.reed.birdseye.TradeShop;
+import com.reed.birdseye.Tree;
 import com.reed.birdseye.Tutorial;
 
 public class HudSystem {
+
+    public static class Inventory extends InputAdapter {
+
+        static boolean inventoryVisible;
+
+        private static final int ROW_1_Y = 420;
+
+        private static final int ROW_2_Y = 800;
+
+        @Override
+        public boolean keyUp(int keycode) {
+            if (Keys.ESCAPE == keycode) {
+                Player.ableToMove = true;
+                Player.drawCharacter = true;
+                inventoryVisible = false;
+                return true;
+            }
+            return false;
+        }
+
+        public void render(BitmapFont font, SpriteBatch batch) {
+            if (inventoryVisible) {
+                batch.draw(Assets.inventory, 0, 0);
+                // move somewhere else
+                Player.ableToMove = false;
+                Player.drawCharacter = false;
+                // draw amounts
+                font.draw(batch, Tree.amountOfWoodString, ROW_1_Y, 388);
+                font.draw(batch, Coal.amountOfCoalString, ROW_1_Y, 356);
+                font.draw(batch, Fishing.amountOfFishString, ROW_1_Y, 330);
+                font.draw(batch, Food.amountOfFoodString, ROW_1_Y, 302);
+                // row 2
+                font.draw(batch, TradeShop.cashString, ROW_2_Y, 135);
+                font.draw(batch, String.valueOf(Food.foodLevel) + "%", ROW_2_Y, 105);
+                font.draw(batch, String.valueOf(Points.currentLevel), ROW_2_Y, 76);
+            }
+        }
+    }
 
     public static class MessagesRenderer {
 
@@ -187,13 +230,13 @@ public class HudSystem {
 
     private TradeShop tradeShop;
 
-    public HudSystem(SpriteBatch batch, OrthographicCamera camera, Points points, Inventory inv, SwordShop swordShop,
-            TradeShop trade, House house, BitmapFont currentFont) {
+    public HudSystem(SpriteBatch batch, OrthographicCamera camera, Points points, SwordShop swordShop, TradeShop trade,
+            House house, BitmapFont currentFont) {
         this.batch = batch;
         this.camera = camera;
         this.points = points;
         messages = new MessagesRenderer();
-        this.inv = inv;
+        inv = new Inventory();
         this.swordShop = swordShop;
         tradeShop = trade;
         this.house = house;
@@ -208,6 +251,7 @@ public class HudSystem {
             multiplexer = new InputMultiplexer(Gdx.input.getInputProcessor());
         }
         multiplexer.addProcessor(topMenu);
+        multiplexer.addProcessor(inv);
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -218,7 +262,7 @@ public class HudSystem {
         topMenu.render(batch);
         points.draw(batch);
         messages.render(currentFont, batch);
-        inv.draw(batch, currentFont);
+        inv.render(currentFont, batch);
         swordShop.drawInputText(batch, currentFont);
         tradeShop.drawInputText(batch, currentFont);
         house.furnaceGUIdraw(batch, delta, currentFont);

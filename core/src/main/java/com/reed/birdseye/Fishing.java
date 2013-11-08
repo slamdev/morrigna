@@ -9,9 +9,9 @@ import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
 
 public class Fishing {
 
-    static int amountOfFish = 0;
+    public static String amountOfFishString;
 
-    static String amountOfFishString;
+    static int amountOfFish = 0;
 
     String caught = "You have caught a fish!";
 

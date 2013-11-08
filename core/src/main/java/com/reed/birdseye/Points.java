@@ -8,7 +8,7 @@ import com.github.slamm.morrigna.core.Assets;
 
 public class Points {
 
-    static int currentLevel = 0;
+    public static int currentLevel = 0;
 
     // health points and experience points
     static int hp = 100;

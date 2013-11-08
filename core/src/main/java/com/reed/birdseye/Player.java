@@ -8,15 +8,15 @@ import com.github.slamm.morrigna.core.GameScreen;
 
 public class Player {
 
+    public static boolean ableToMove = true;
+
     public static int currentDirection = 0; // 0 is down, 1 is up, 2 is left, 3 is
+
+    public static boolean drawCharacter = true;
 
     public static boolean left = false;
 
     public static boolean right = false;
-
-    static boolean ableToMove = true;
-
-    static boolean drawCharacter = true;
 
     // right
     static boolean isAbleToMoveLeft = true, isAbleToMoveRight = true, isAbleToMoveDown = true, isAbleToMoveUp = true;

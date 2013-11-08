@@ -10,9 +10,9 @@ import com.github.slamm.morrigna.core.HudSystem.MessagesRenderer;
 
 public class TradeShop {
 
-    static int cash = 0;
+    public static String cashString;
 
-    static String cashString;
+    static int cash = 0;
 
     String derp = "[Trade Shop]: What a nice game this is.";
 

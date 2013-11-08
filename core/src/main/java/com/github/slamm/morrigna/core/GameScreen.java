@@ -23,7 +23,7 @@ import com.reed.birdseye.Particles;
 import com.reed.birdseye.Player;
 import com.reed.birdseye.Points;
 import com.reed.birdseye.SaveAndLoad;
-import com.reed.birdseye.SwordShop;
+import com.reed.birdseye.SwordShopOwner;
 import com.reed.birdseye.Time;
 import com.reed.birdseye.TradeShop;
 
@@ -75,7 +75,7 @@ public class GameScreen extends ScreenAdapter {
 
     private final Particles smoke;
 
-    private final SwordShop swordShop;
+    private SwordShopOwner swordShopOwner;
 
     private final TradeShop trade;
 
@@ -100,7 +100,7 @@ public class GameScreen extends ScreenAdapter {
         arrays = new ArrayListsz();
         points = new Points();
         collision = new CollisionDetection();
-        swordShop = new SwordShop();
+        swordShopOwner = new SwordShopOwner();
         fishing = new Fishing();
         trade = new TradeShop();
         arrays.treeArrayEstablisher();
@@ -136,7 +136,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         SaveAndLoad.load();
-        hudSystem = new HudSystem(batch, camera, points, swordShop, trade, house, currentFont);
+        hudSystem = new HudSystem(batch, camera, points, trade, house, currentFont);
     }
 
     private void draw(float deltaTime) {
@@ -157,7 +157,7 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
-        swordShop.draw(batch);
+        swordShopOwner.draw(batch);
         trade.draw(batch);
         arrays.drawTreeTrunk(batch);
         arrays.drawCoal(batch);
@@ -209,9 +209,6 @@ public class GameScreen extends ScreenAdapter {
         points.updateLevel();
         level.update();
         hudSystem.update();
-        swordShop.textSetter();
-        swordShop.update();
-        swordShop.handleInput();
         collision.doCollision();
         fishing.update();
         fishing.fishCaught();

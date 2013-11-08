@@ -18,6 +18,10 @@ public class Player {
 
     public static boolean right = false;
 
+    public static float x = 1422;
+
+    public static float y = 3562;
+
     // right
     static boolean isAbleToMoveLeft = true, isAbleToMoveRight = true, isAbleToMoveDown = true, isAbleToMoveUp = true;
 
@@ -26,10 +30,6 @@ public class Player {
     static final int playerWidth = 32;
 
     static boolean up = false, down = false;
-
-    static float x = 1422;
-
-    static float y = 3562;
 
     int playerSpeed = 2;
 

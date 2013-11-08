@@ -3,6 +3,7 @@ package com.reed.birdseye;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.HudSystem.TopMenu;
 
 public class Coal {
 
@@ -44,7 +45,7 @@ public class Coal {
         // starts making the image of the "resource" smaller as b is
         // held down
         if (closeEnough()) {
-            if (TopMenu.currentTool == 0 && Tools.isTooling) {
+            if (TopMenu.currentTool == 0 && CurrentTool.isTooling) {
                 coalTimer += Gdx.graphics.getDeltaTime() * miningRate;
                 if (coalTimer > 1 && coalTimer < 2) {
                     width = (int) (64 * .8);

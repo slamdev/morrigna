@@ -27,18 +27,6 @@ public class TradeShop {
 
     int x = 1838, y = 2906;
 
-    boolean ableToSend() {
-        if (closeEnough() && timer >= 5) {
-            timer = 0;
-            return true;
-        }
-        return false;
-    }
-
-    boolean closeEnough() {
-        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < DISTANCE_FROM_SHOP;
-    }
-
     public void draw(SpriteBatch batch) {
         batch.draw(Assets.tradePerson, x, y);
     }
@@ -114,5 +102,17 @@ public class TradeShop {
             Fishing.amountOfFish -= 5;
             Tutorial.step = 4;
         }
+    }
+
+    boolean ableToSend() {
+        if (closeEnough() && timer >= 5) {
+            timer = 0;
+            return true;
+        }
+        return false;
+    }
+
+    boolean closeEnough() {
+        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < DISTANCE_FROM_SHOP;
     }
 }

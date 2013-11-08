@@ -8,7 +8,7 @@ import com.github.slamm.morrigna.core.Assets;
 
 public class Inventory {
 
-    static boolean inventoryVisible = false;
+    public static boolean inventoryVisible = false;
 
     final int row1y = 420;
 

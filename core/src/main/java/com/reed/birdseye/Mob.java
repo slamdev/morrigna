@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.HudSystem.TopMenu;
 
 public class Mob {
 
@@ -198,7 +199,7 @@ public class Mob {
 
     // takes away health from mob
     void looseHealth() {
-        if (closeEnough() && TopMenu.currentTool == 3 && Tools.isTooling && dyingTimer > 1) {
+        if (closeEnough() && TopMenu.currentTool == 3 && CurrentTool.isTooling && dyingTimer > 1) {
             health -= r.nextInt(20) + 10;
             dyingTimer = 0;
         }

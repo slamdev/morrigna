@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.HudSystem.TopMenu;
 
 public class Resource {
 
@@ -40,7 +41,7 @@ public class Resource {
         // starts making the image of the "resource" smaller as b is
         // held down
         if (closeEnough() && drawResource) {
-            if ((Gdx.input.isKeyPressed(Keys.B)) && TopMenu.currentTool == 1) {
+            if (Gdx.input.isKeyPressed(Keys.B) && TopMenu.currentTool == 1) {
                 resourceTimer += Gdx.graphics.getDeltaTime() * miningRate;
                 if (resourceTimer > 1 && resourceTimer < 2) {
                     width = (int) (64 * .8);

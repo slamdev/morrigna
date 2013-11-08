@@ -108,19 +108,6 @@ public class House {
         }
     }
 
-    /**
-     * Returns boolean if you are close enough from the designated variable
-     * 
-     * @variable distanceFromBed
-     */
-    boolean closeEnoughToBed() {
-        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < distanceFromBed;
-    }
-
-    void cookFood() {
-        // change coal amounts and stuff and cook food
-    }
-
     public void furnace() {
         if (nearFurnace() && canSendFurnaceMessage) {
             Messages.messagesArray.add(new Message("Press B to open Furnace", Messages.getSec()));
@@ -151,6 +138,70 @@ public class House {
                 furnaceOpen = false;
             }
         }
+    }
+
+    /** SEPPERATE INTO INDIVIDUAL METHODS */
+    public void update() {
+        // variable becomes true through the collision class
+        if (isInRiverHouse) {
+            if (justEntered) {
+                prePlayerPos.x = Player.x;
+                prePlayerPos.y = Player.y;
+                preCameraPos.x = GameScreen.mapCamera.position.x;
+                preCameraPos.y = GameScreen.mapCamera.position.y;
+                preAmbientLight = Time.getAmbientLight();
+                Time.setOutdoors(false);
+                Time.setAmbientLight(ambientLight);
+                CollisionDetection.setCollisionType(1);
+                Level.setCurrentMap(1);
+                // set cordinates
+                GameScreen.mapCamera.position.x = Gdx.graphics.getWidth() / 2 + 10;
+                GameScreen.mapCamera.position.y = Gdx.graphics.getHeight() / 2 - 140;
+                // draw player in correct spot
+                Player.x = Level.middleX + 10;
+                Player.y = Level.middleY - 140;
+                // get rid of grass (set to what? blackness)
+                // get rid of darkness. (how to set back to normal levels when
+                // you exit *looks around franticly* -- set up currentAmbient
+                // light and outdoor ambient light variables.
+                // finally set to false
+                justEntered = false;
+            }
+            // check for collision (will be done in gamescreen class thanks to a
+            // switch statment)
+            // check for bed (prob add its own method) must be close enough (add
+            // close enough method)
+            // stove / oven method stuff
+            // allow for exit of house ability set justExited to true
+        } else {
+            if (justExited) {
+                Level.setCurrentMap(0);
+                Player.x = prePlayerPos.x;
+                Player.y = prePlayerPos.y;
+                GameScreen.mapCamera.position.x = preCameraPos.x;
+                GameScreen.mapCamera.position.y = preCameraPos.y;
+                CollisionDetection.setCollisionType(0);
+                Time.setAmbientLight(preAmbientLight);
+                Time.setOutdoors(true);
+                justExited = false;
+            }
+        }
+        nearBed();
+        remCycles();
+        // Time.setTimeOfDay(300);
+    }
+
+    /**
+     * Returns boolean if you are close enough from the designated variable
+     * 
+     * @variable distanceFromBed
+     */
+    boolean closeEnoughToBed() {
+        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < distanceFromBed;
+    }
+
+    void cookFood() {
+        // change coal amounts and stuff and cook food
     }
 
     void nearBed() {
@@ -216,56 +267,5 @@ public class House {
             Time.setTimeOfDay(0);
             sleepStep = 0;
         }
-    }
-
-    /** SEPPERATE INTO INDIVIDUAL METHODS */
-    public void update() {
-        // variable becomes true through the collision class
-        if (isInRiverHouse) {
-            if (justEntered) {
-                prePlayerPos.x = Player.x;
-                prePlayerPos.y = Player.y;
-                preCameraPos.x = GameScreen.mapCamera.position.x;
-                preCameraPos.y = GameScreen.mapCamera.position.y;
-                preAmbientLight = Time.getAmbientLight();
-                Time.setOutdoors(false);
-                Time.setAmbientLight(ambientLight);
-                CollisionDetection.setCollisionType(1);
-                Level.setCurrentMap(1);
-                // set cordinates
-                GameScreen.mapCamera.position.x = Gdx.graphics.getWidth() / 2 + 10;
-                GameScreen.mapCamera.position.y = Gdx.graphics.getHeight() / 2 - 140;
-                // draw player in correct spot
-                Player.x = Level.middleX + 10;
-                Player.y = Level.middleY - 140;
-                // get rid of grass (set to what? blackness)
-                // get rid of darkness. (how to set back to normal levels when
-                // you exit *looks around franticly* -- set up currentAmbient
-                // light and outdoor ambient light variables.
-                // finally set to false
-                justEntered = false;
-            }
-            // check for collision (will be done in gamescreen class thanks to a
-            // switch statment)
-            // check for bed (prob add its own method) must be close enough (add
-            // close enough method)
-            // stove / oven method stuff
-            // allow for exit of house ability set justExited to true
-        } else {
-            if (justExited) {
-                Level.setCurrentMap(0);
-                Player.x = prePlayerPos.x;
-                Player.y = prePlayerPos.y;
-                GameScreen.mapCamera.position.x = preCameraPos.x;
-                GameScreen.mapCamera.position.y = preCameraPos.y;
-                CollisionDetection.setCollisionType(0);
-                Time.setAmbientLight(preAmbientLight);
-                Time.setOutdoors(true);
-                justExited = false;
-            }
-        }
-        nearBed();
-        remCycles();
-        // Time.setTimeOfDay(300);
     }
 }

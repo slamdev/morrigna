@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.droidinteractive.box2dlight.RayHandler;
 import com.reed.birdseye.ArrayListsz;
 import com.reed.birdseye.CollisionDetection;
+import com.reed.birdseye.CurrentTool;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
@@ -26,7 +27,6 @@ import com.reed.birdseye.Points;
 import com.reed.birdseye.SaveAndLoad;
 import com.reed.birdseye.SwordShop;
 import com.reed.birdseye.Time;
-import com.reed.birdseye.TopMenu;
 import com.reed.birdseye.TradeShop;
 
 public class GameScreen extends ScreenAdapter {
@@ -57,11 +57,15 @@ public class GameScreen extends ScreenAdapter {
 
     private final BitmapFont currentFont;
 
+    private CurrentTool currentTool;
+
     private final Fishing fishing;
 
     private final Food food;
 
     private final House house;
+
+    private HudSystem hudSystem;
 
     private final Inventory inv;
 
@@ -78,8 +82,6 @@ public class GameScreen extends ScreenAdapter {
     private final Particles smoke;
 
     private final SwordShop swordShop;
-
-    private final TopMenu topMenu;
 
     private final TradeShop trade;
 
@@ -102,7 +104,6 @@ public class GameScreen extends ScreenAdapter {
         level = new Level();
         player = new Player();
         arrays = new ArrayListsz();
-        topMenu = new TopMenu();
         inv = new Inventory();
         points = new Points();
         collision = new CollisionDetection();
@@ -125,9 +126,28 @@ public class GameScreen extends ScreenAdapter {
         // System.out.println(result);
         smoke = new Particles();
         food = new Food();
+        currentTool = new CurrentTool();
     }
 
-    public void draw(float deltaTime) {
+    @Override
+    public void hide() {
+        SaveAndLoad.save();
+    }
+
+    @Override
+    public void render(float delta) {
+        update();
+        draw(delta);
+        handleInput();
+    }
+
+    @Override
+    public void show() {
+        SaveAndLoad.load();
+        hudSystem = new HudSystem(batch, camera, points, message, inv, swordShop, trade, house, currentFont);
+    }
+
+    private void draw(float deltaTime) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -159,7 +179,8 @@ public class GameScreen extends ScreenAdapter {
         player.draw(batch);
         // set static for tool drawing (so it is affected by lights)
         batch.setProjectionMatrix(camera.combined);
-        player.drawCurrent(batch);
+        currentTool.render(batch);
+        currentTool.update();
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
         arrays.drawBrush(batch, currentFont);
@@ -167,38 +188,7 @@ public class GameScreen extends ScreenAdapter {
         batch.end();
         rayHandler.setCombinedMatrix(mapCamera.combined);
         rayHandler.updateAndRender();
-        batch.begin();
-        // more static items (HUD stuff)
-        batch.setProjectionMatrix(camera.combined);
-        player.drawTools(batch);
-        topMenu.draw(batch);
-        player.drawTools(batch);
-        points.draw(batch);
-        message.drawText(currentFont, batch);
-        inv.draw(batch, currentFont);
-        swordShop.drawInputText(batch, currentFont);
-        trade.drawInputText(batch, currentFont);
-        house.furnaceGUIdraw(batch, deltaTime, currentFont);
-        batch.end();
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        points.drawBars(shapeRenderer);
-    }
-
-    @Override
-    public void hide() {
-        SaveAndLoad.save();
-    }
-
-    @Override
-    public void render(float delta) {
-        update();
-        draw(delta);
-        handleInput();
-    }
-
-    @Override
-    public void show() {
-        SaveAndLoad.load();
+        hudSystem.render(deltaTime);
     }
 
     /**
@@ -224,7 +214,6 @@ public class GameScreen extends ScreenAdapter {
         player.setSprites();
         player.move();
         player.input();
-        topMenu.input();
         inv.input();
         points.updateLevel();
         level.update();

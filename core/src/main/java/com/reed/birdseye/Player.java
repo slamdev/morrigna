@@ -8,9 +8,13 @@ import com.github.slamm.morrigna.core.GameScreen;
 
 public class Player {
 
-    static boolean ableToMove = true;
+    public static int currentDirection = 0; // 0 is down, 1 is up, 2 is left, 3 is
 
-    static int currentDirection = 0; // 0 is down, 1 is up, 2 is left, 3 is
+    public static boolean left = false;
+
+    public static boolean right = false;
+
+    static boolean ableToMove = true;
 
     static boolean drawCharacter = true;
 
@@ -21,7 +25,7 @@ public class Player {
 
     static final int playerWidth = 32;
 
-    static boolean up = false, down = false, left = false, right = false;
+    static boolean up = false, down = false;
 
     static float x = 1422;
 
@@ -30,8 +34,6 @@ public class Player {
     int playerSpeed = 2;
 
     float timer = 0;
-
-    Tools tools = new Tools();
 
     public void draw(SpriteBatch batch) {
         // font.draw(batch, "X:  " + Level.levelX, 850, 1030);
@@ -43,41 +45,30 @@ public class Player {
         }
     }
 
-    public void drawCurrent(SpriteBatch batch) {
-        tools.drawCurrentTool(batch);
-    }
-
-    public void drawTools(SpriteBatch batch) {
-        tools.draw(batch);
-        tools.update();
-        tools.changeTool();
-        tools.direction();
-    }
-
     public void input() {
         // x = 1422;
         // y = 3562;
         // System.out.println("X: " + x + " Y: " + y);
         if (ableToMove) {
-            if ((Gdx.input.isKeyPressed(Keys.W)) && isAbleToMoveUp) {
+            if (Gdx.input.isKeyPressed(Keys.W) && isAbleToMoveUp) {
                 up = true;
                 currentDirection = 1;
             } else {
                 up = false;
             }
-            if ((Gdx.input.isKeyPressed(Keys.A)) && isAbleToMoveLeft) {
+            if (Gdx.input.isKeyPressed(Keys.A) && isAbleToMoveLeft) {
                 left = true;
                 currentDirection = 2;
             } else {
                 left = false;
             }
-            if ((Gdx.input.isKeyPressed(Keys.S)) && isAbleToMoveDown) {
+            if (Gdx.input.isKeyPressed(Keys.S) && isAbleToMoveDown) {
                 currentDirection = 0;
                 down = true;
             } else {
                 down = false;
             }
-            if ((Gdx.input.isKeyPressed(Keys.D)) && isAbleToMoveRight) {
+            if (Gdx.input.isKeyPressed(Keys.D) && isAbleToMoveRight) {
                 right = true;
                 currentDirection = 3;
             } else {

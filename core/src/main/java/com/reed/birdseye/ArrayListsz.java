@@ -24,12 +24,6 @@ public class ArrayListsz {
 
     final int amountOfTrees = 2;
 
-    void coalArrayEstablisher() {
-        coalArray.add(new Coal(2290, 1798));
-        coalArray.add(new Coal(1618, 2022));
-        coalArray.add(new Coal(1844, 1652));
-    }
-
     public void drawBrush(SpriteBatch batch, BitmapFont font) {
         for (int i = 0; i < treeArray.size; i++) {
             treeArray.get(i).draw(batch, font);
@@ -49,12 +43,6 @@ public class ArrayListsz {
     public void drawTreeTrunk(SpriteBatch batch) {
         for (int i = 0; i < treeArray.size; i++) {
             treeArray.get(i).drawTrunk(batch);
-        }
-    }
-
-    void mobArrayEstablisher() {
-        for (int i = 0; i < amountOfMobs; i++) {
-            creeperArray.add(new Mob(1562, 1264, 1000, 918));
         }
     }
 
@@ -95,12 +83,6 @@ public class ArrayListsz {
         }
     }
 
-    void pigArrayEstablisher() {
-        for (int i = 0; i < amountOfPigs; i++) {
-            pigArray.add(new Pig());
-        }
-    }
-
     public void pigHealthBars(ShapeRenderer shapeRenderer) {
         for (int i = 0; i < pigArray.size; i++) {
             pigArray.get(i).pig.healthBar(shapeRenderer, pigArray.get(i).theRealPig);
@@ -134,6 +116,24 @@ public class ArrayListsz {
             coalArray.get(i).collect();
             coalArray.get(i).regeneration();
             coalArray.get(i).playerCollision();
+        }
+    }
+
+    void coalArrayEstablisher() {
+        coalArray.add(new Coal(2290, 1798));
+        coalArray.add(new Coal(1618, 2022));
+        coalArray.add(new Coal(1844, 1652));
+    }
+
+    void mobArrayEstablisher() {
+        for (int i = 0; i < amountOfMobs; i++) {
+            creeperArray.add(new Mob(1562, 1264, 1000, 918));
+        }
+    }
+
+    void pigArrayEstablisher() {
+        for (int i = 0; i < amountOfPigs; i++) {
+            pigArray.add(new Pig());
         }
     }
 }

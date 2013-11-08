@@ -285,6 +285,9 @@ public final class Assets {
         MANAGER.setLoader(JsonValue.class, new JsonValueLoader());
     }
 
+    private Assets() {
+    }
+
     public static void load() {
         loadTextures();
         loadTextureAtlases();
@@ -494,8 +497,5 @@ public final class Assets {
         for (String path : paths) {
             MANAGER.load(path, Texture.class);
         }
-    }
-
-    private Assets() {
     }
 }

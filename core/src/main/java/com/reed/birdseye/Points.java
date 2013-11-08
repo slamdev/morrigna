@@ -77,10 +77,6 @@ public class Points {
         shapeRenderer.end();
     }
 
-    void regeneration() {
-        // regenerate health over time here
-    }
-
     public void updateLevel() {
         // changes level if xp exceeds current level
         if (xp > levels[currentLevel]) {
@@ -88,5 +84,9 @@ public class Points {
             // sets xp back to 1 for next level
             xp = 1;
         }
+    }
+
+    void regeneration() {
+        // regenerate health over time here
     }
 }

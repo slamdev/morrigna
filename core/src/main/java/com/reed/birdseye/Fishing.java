@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.github.slamm.morrigna.core.HudSystem.TopMenu;
 
 public class Fishing {
 
@@ -36,16 +37,16 @@ public class Fishing {
         }
     }
 
-    // detects if you have the ability to fish
-    boolean fishingPossible() {
-        return Player.x > 700 && Player.x < 758 && Player.y > 1896 && Player.y < 2036 && TopMenu.currentTool == 1;
-    }
-
     public void update() {
         // update fish string
         amountOfFishString = Integer.toString(amountOfFish);
         if (Gdx.input.isKeyPressed(Keys.B)) {
             timer += Gdx.graphics.getDeltaTime();
         }
+    }
+
+    // detects if you have the ability to fish
+    boolean fishingPossible() {
+        return Player.x > 700 && Player.x < 758 && Player.y > 1896 && Player.y < 2036 && TopMenu.currentTool == 1;
     }
 }

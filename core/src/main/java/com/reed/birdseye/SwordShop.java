@@ -27,18 +27,6 @@ public class SwordShop {
 
     int x = 2473, y = 2392;
 
-    boolean ableToSend() {
-        if (closeEnough() && timer >= timerMax) {
-            timer = 0;
-            return true;
-        }
-        return false;
-    }
-
-    boolean closeEnough() {
-        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < DISTANCE_FROM_SHOP;
-    }
-
     public void draw(SpriteBatch batch) {
         batch.draw(Assets.shopOwner, x, y);
     }
@@ -134,5 +122,17 @@ public class SwordShop {
             timer = 0;
             Tutorial.step = 7;
         }
+    }
+
+    boolean ableToSend() {
+        if (closeEnough() && timer >= timerMax) {
+            timer = 0;
+            return true;
+        }
+        return false;
+    }
+
+    boolean closeEnough() {
+        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < DISTANCE_FROM_SHOP;
     }
 }

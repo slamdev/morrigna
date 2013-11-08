@@ -7,13 +7,13 @@ import com.github.slamm.morrigna.core.GameScreen;
 
 public class Level {
 
+    public static float middleX = Gdx.graphics.getWidth() / 2 - 16;
+
+    public static float middleY = Gdx.graphics.getHeight() / 2 - 24;
+
     static int grassX = -64; // position for bottom left grass
 
     static int grassY = -64; // ^
-
-    static float middleX = Gdx.graphics.getWidth() / 2 - 16;
-
-    static float middleY = Gdx.graphics.getHeight() / 2 - 24;
 
     private static int currentMap = 0;
 
@@ -40,6 +40,18 @@ public class Level {
         }
     }
 
+    public void update() {
+        // sets map back to original position before white background becomes
+        // visible
+        if (grassY <= -128 || grassY >= 0) {
+            grassY = -64;
+        }
+        if (grassX <= -128 || grassX >= 0) {
+            grassX = -64;
+        }
+        setMap();
+    }
+
     void setMap() {
         switch (currentMap) {
         case 0: {
@@ -53,17 +65,5 @@ public class Level {
         default:
             throw new RuntimeException("Should not get here");
         }
-    }
-
-    public void update() {
-        // sets map back to original position before white background becomes
-        // visible
-        if (grassY <= -128 || grassY >= 0) {
-            grassY = -64;
-        }
-        if (grassX <= -128 || grassX >= 0) {
-            grassX = -64;
-        }
-        setMap();
     }
 }

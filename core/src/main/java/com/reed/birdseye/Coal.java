@@ -3,6 +3,7 @@ package com.reed.birdseye;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Coal {
@@ -68,7 +69,7 @@ public class Coal {
                     coalTimer = 0;
                     drawResource = false;
                     readyForRegen = true;
-                    Points.gainExperience(1);
+                    PointsRenderer.gainExperience(1);
                 }
             } else {
                 coalTimer = 0;

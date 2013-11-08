@@ -5,8 +5,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.reed.birdseye.Points;
 
 public class HudRenderSystem {
 
@@ -22,9 +20,7 @@ public class HudRenderSystem {
 
     private final MessagesRenderer messagesRenderer;
 
-    private final Points points;
-
-    private final ShapeRenderer shapeRenderer;
+    private final PointsRenderer pointsRenderer;
 
     private final SwordShopRenderer swordShopRenderer;
 
@@ -34,17 +30,16 @@ public class HudRenderSystem {
 
     private final TradeShopRenderer tradeShopRenderer;
 
-    public HudRenderSystem(SpriteBatch batch, OrthographicCamera camera, Points points, BitmapFont currentFont) {
+    public HudRenderSystem(SpriteBatch batch, OrthographicCamera camera, BitmapFont currentFont) {
         this.batch = batch;
         this.camera = camera;
-        this.points = points;
         this.currentFont = currentFont;
+        pointsRenderer = new PointsRenderer();
         messagesRenderer = new MessagesRenderer();
         inventoryRenderer = new InventoryRenderer();
         swordShopRenderer = new SwordShopRenderer();
         tradeShopRenderer = new TradeShopRenderer();
         houseFurnaceRenderer = new HouseFurnaceRenderer();
-        shapeRenderer = new ShapeRenderer();
         toolsListRenderer = new ToolsListRenderer();
         topMenuRenderer = new TopMenuRenderer();
         InputMultiplexer multiplexer;
@@ -66,15 +61,13 @@ public class HudRenderSystem {
         batch.setProjectionMatrix(camera.combined);
         toolsListRenderer.render(batch);
         topMenuRenderer.render(batch);
-        points.draw(batch);
+        pointsRenderer.render(camera, batch);
         messagesRenderer.render(currentFont, batch);
         inventoryRenderer.render(currentFont, batch);
         swordShopRenderer.render(currentFont, batch);
         tradeShopRenderer.render(currentFont, batch);
         houseFurnaceRenderer.render(delta, currentFont, batch);
         batch.end();
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        points.drawBars(shapeRenderer);
     }
 
     public void update() {
@@ -82,5 +75,6 @@ public class HudRenderSystem {
         swordShopRenderer.update();
         houseFurnaceRenderer.update();
         tradeShopRenderer.update();
+        pointsRenderer.update();
     }
 }

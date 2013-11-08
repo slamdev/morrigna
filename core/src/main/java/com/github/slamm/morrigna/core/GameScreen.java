@@ -22,7 +22,6 @@ import com.reed.birdseye.House;
 import com.reed.birdseye.Level;
 import com.reed.birdseye.Particles;
 import com.reed.birdseye.Player;
-import com.reed.birdseye.Points;
 import com.reed.birdseye.SaveAndLoad;
 import com.reed.birdseye.SwordShopOwner;
 import com.reed.birdseye.Time;
@@ -56,7 +55,7 @@ public class GameScreen extends ScreenAdapter {
 
     private final BitmapFont currentFont;
 
-    private CurrentTool currentTool;
+    private final CurrentTool currentTool;
 
     private final Fishing fishing;
 
@@ -70,15 +69,13 @@ public class GameScreen extends ScreenAdapter {
 
     private final Player player;
 
-    private final Points points;
-
     private final ShapeRenderer shapeRenderer;
 
     private final Particles smoke;
 
-    private SwordShopOwner swordShopOwner;
+    private final SwordShopOwner swordShopOwner;
 
-    private TradeShopOwner tradeShopOwner;
+    private final TradeShopOwner tradeShopOwner;
 
     private final World world;
 
@@ -99,7 +96,6 @@ public class GameScreen extends ScreenAdapter {
         level = new Level();
         player = new Player();
         arrays = new ArrayListsz();
-        points = new Points();
         collision = new CollisionDetection();
         swordShopOwner = new SwordShopOwner();
         tradeShopOwner = new TradeShopOwner();
@@ -137,7 +133,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         SaveAndLoad.load();
-        hudSystem = new HudRenderSystem(batch, camera, points, currentFont);
+        hudSystem = new HudRenderSystem(batch, camera, currentFont);
     }
 
     private void draw(float deltaTime) {
@@ -207,7 +203,6 @@ public class GameScreen extends ScreenAdapter {
         player.setSprites();
         player.move();
         player.input();
-        points.updateLevel();
         level.update();
         hudSystem.update();
         collision.doCollision();

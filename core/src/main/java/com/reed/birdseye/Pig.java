@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 
 public class Pig {
 
@@ -66,7 +67,7 @@ public class Pig {
             Food.amountOfFood += 1;
             pickedUpFood = true;
             pig.health = -100;
-            Points.gainExperience(1);
+            PointsRenderer.gainExperience(1);
         }
     }
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Mob {
@@ -69,7 +70,7 @@ public class Mob {
     // attacks player when close enough
     void attack() {
         if (closeEnough() && attackTimer > 5 && isAlive()) {
-            Points.looseHealth(r.nextInt(10));
+            PointsRenderer.looseHealth(r.nextInt(10));
             attackTimer = 0;
         }
         attackTimer += Gdx.graphics.getDeltaTime();

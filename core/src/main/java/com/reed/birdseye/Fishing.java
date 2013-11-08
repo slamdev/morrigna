@@ -5,6 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.github.slamm.morrigna.core.hud.MessagesRenderer;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Fishing {
@@ -32,7 +33,7 @@ public class Fishing {
         if (fishCaught) {
             MessagesRenderer.add(caught);
             amountOfFish += 1;
-            Points.xp += 1;
+            PointsRenderer.xp += 1;
             timer = 0;
             fishCaught = false;
         }

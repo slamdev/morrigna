@@ -9,7 +9,6 @@ import com.reed.birdseye.Coal;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.Player;
-import com.reed.birdseye.Points;
 import com.reed.birdseye.Tree;
 
 public class InventoryRenderer extends InputAdapter {
@@ -45,7 +44,7 @@ public class InventoryRenderer extends InputAdapter {
             // row 2
             font.draw(batch, TradeShopRenderer.cashString, ROW_2_Y, 135);
             font.draw(batch, String.valueOf(Food.foodLevel) + "%", ROW_2_Y, 105);
-            font.draw(batch, String.valueOf(Points.currentLevel), ROW_2_Y, 76);
+            font.draw(batch, String.valueOf(PointsRenderer.currentLevel), ROW_2_Y, 76);
         }
     }
 }

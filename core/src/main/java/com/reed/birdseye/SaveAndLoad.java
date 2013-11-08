@@ -3,6 +3,7 @@ package com.reed.birdseye;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.github.slamm.morrigna.core.GameScreen;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
 
 public class SaveAndLoad {
@@ -27,8 +28,8 @@ public class SaveAndLoad {
             Resource.amountOfStone = prefs.getInteger("Stone");
             Tree.amountOfWood = prefs.getInteger("Wood");
             TradeShopRenderer.cash = prefs.getInteger("cash");
-            Points.hp = prefs.getInteger("hp");
-            Points.xp = prefs.getInteger("xp");
+            PointsRenderer.hp = prefs.getInteger("hp");
+            PointsRenderer.xp = prefs.getInteger("xp");
             Time.colorAlpha = prefs.getFloat("color alpha");
             Time.setTimeOfDay(prefs.getFloat("time"));
             Time.setAmbientLight(prefs.getFloat("ambient light"));
@@ -68,7 +69,7 @@ public class SaveAndLoad {
                 ArrayListsz.coalArray.get(i).timer = prefs.getFloat("coalRegenTimer" + i);
             }
             Food.amountOfFood = prefs.getInteger("foodAmount");
-            Points.currentLevel = prefs.getInteger("level");
+            PointsRenderer.currentLevel = prefs.getInteger("level");
             Time.createLights(GameScreen.rayHandler);
         } else {
             // still gotta load lights even if the versions dont match up
@@ -95,8 +96,8 @@ public class SaveAndLoad {
         prefs.putInteger("Stone", Resource.amountOfStone);
         prefs.putInteger("Wood", Tree.amountOfWood);
         prefs.putInteger("Cash", TradeShopRenderer.cash);
-        prefs.putInteger("hp", Points.hp);
-        prefs.putInteger("xp", Points.xp);
+        prefs.putInteger("hp", PointsRenderer.hp);
+        prefs.putInteger("xp", PointsRenderer.xp);
         prefs.putFloat("camera x", GameScreen.mapCamera.position.x);
         prefs.putFloat("camera y", GameScreen.mapCamera.position.y);
         prefs.putFloat("player x", Player.x);
@@ -127,7 +128,7 @@ public class SaveAndLoad {
             prefs.putFloat("coalRegenTimer" + i, ArrayListsz.coalArray.get(i).timer);
         }
         prefs.putInteger("foodAmount", Food.amountOfFood);
-        prefs.putInteger("level", Points.currentLevel);
+        prefs.putInteger("level", PointsRenderer.currentLevel);
         // set to current version before saving
         prefs.putString("version", currentVersion);
         prefs.flush();

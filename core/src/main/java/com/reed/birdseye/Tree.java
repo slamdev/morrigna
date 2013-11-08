@@ -8,6 +8,7 @@ import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Tree {
@@ -48,7 +49,7 @@ public class Tree {
             if (Gdx.input.isKeyPressed(Keys.B) && TopMenuRenderer.currentTool == 2 && Tutorial.step >= 5) {
                 chopTimer += Gdx.graphics.getDeltaTime();
                 if (chopTimer > 2) {
-                    Points.xp += 1;
+                    PointsRenderer.xp += 1;
                     amountOfWood += 4;
                     treeFall = true;
                 }

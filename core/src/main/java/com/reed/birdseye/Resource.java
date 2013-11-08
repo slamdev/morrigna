@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Resource {
@@ -62,7 +63,7 @@ public class Resource {
                 if (resourceTimer > 5) {
                     amountOfStone += 1;
                     resourceTimer = 0;
-                    Points.xp += 1;
+                    PointsRenderer.xp += 1;
                     drawResource = false;
                 }
             } else {

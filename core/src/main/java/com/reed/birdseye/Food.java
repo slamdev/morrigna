@@ -1,6 +1,7 @@
 package com.reed.birdseye;
 
 import com.badlogic.gdx.Gdx;
+import com.github.slamm.morrigna.core.hud.PointsRenderer;
 
 public class Food {
 
@@ -21,11 +22,11 @@ public class Food {
         amountOfFoodString = Integer.toString(amountOfFood);
         timer += Gdx.graphics.getDeltaTime();
         if (foodLevel == 0 && timer > 2) {
-            Points.looseHealth(1);
+            PointsRenderer.looseHealth(1);
             timer = 0;
         }
-        if (foodLevel >= 80 && timer > 2 && Points.hp < 100) {
-            Points.gainHealth(5);
+        if (foodLevel >= 80 && timer > 2 && PointsRenderer.hp < 100) {
+            PointsRenderer.gainHealth(5);
             timer = 0;
         }
     }

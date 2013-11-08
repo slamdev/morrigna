@@ -47,7 +47,7 @@ public class House {
 
     private boolean justGotNearBed = false;
 
-    private float lightCycleSpeed = .005f;
+    private final float lightCycleSpeed = .005f;
 
     /**
      * bed cordinates

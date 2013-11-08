@@ -7,9 +7,9 @@ import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
 
 public class Coal {
 
-    public static String amountOfCoalString;
+    public static int amountOfCoal = 0;
 
-    static int amountOfCoal = 0;
+    public static String amountOfCoalString;
 
     public int x = 300, y = 100;
 

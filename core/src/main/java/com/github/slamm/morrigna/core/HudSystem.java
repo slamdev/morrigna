@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.reed.birdseye.Coal;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
-import com.reed.birdseye.House;
+import com.reed.birdseye.Particles;
 import com.reed.birdseye.Player;
 import com.reed.birdseye.Points;
 import com.reed.birdseye.SwordShopOwner;
@@ -25,6 +25,80 @@ import com.reed.birdseye.Tree;
 import com.reed.birdseye.Tutorial;
 
 public class HudSystem {
+
+    public static class HouseFurnaceRenderer extends InputAdapter {
+
+        private static final Particles FIRE = new Particles();
+
+        private static final int X = 512;
+
+        private static final int Y = 418;
+
+        private boolean canSendFurnaceMessage = true;
+
+        private int coalInFurnace;
+
+        private int cookedFoodInFurnace;
+
+        private final int distanceFromFurnace = 50;
+
+        private boolean furnaceOpen;
+
+        private int rawFoodInFurnace;
+
+        public void render(float deltaTime, BitmapFont font, SpriteBatch batch) {
+            if (furnaceOpen) {
+                Player.ableToMove = false;
+                Player.drawCharacter = false;
+                batch.draw(Assets.furnaceGUI, 0, 0);
+                FIRE.fireUpdateAndDraw(batch, deltaTime);
+                // draw fonts
+                font.draw(batch, String.valueOf(coalInFurnace), 420, 234);
+                font.draw(batch, String.valueOf(rawFoodInFurnace), 420, 376);
+                font.draw(batch, String.valueOf(cookedFoodInFurnace), 760, 376);
+                if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+                    Player.ableToMove = true;
+                    Player.drawCharacter = true;
+                    furnaceOpen = false;
+                }
+            }
+        }
+
+        @Override
+        public boolean touchUp(int x, int y, int pointer, int button) {
+            if (x > 73 && x < 374 && y > 380 && y < 430 && Food.amountOfFood > 0) {
+                rawFoodInFurnace += 1;
+                Food.amountOfFood -= 1;
+            } else if (x > 73 && x < 374 && y > 430 && y < 475 && Coal.amountOfCoal > 0) {
+                coalInFurnace += 1;
+                Coal.amountOfCoal -= 1;
+            } else {
+                return false;
+            }
+            return true;
+        }
+
+        public void update() {
+            if (nearFurnace() && canSendFurnaceMessage) {
+                MessagesRenderer.add("Press B to open Furnace");
+                canSendFurnaceMessage = false;
+            }
+            if (!nearFurnace()) {
+                canSendFurnaceMessage = true;
+            }
+            if (nearFurnace() && Gdx.input.isKeyPressed(Keys.B)) {
+                System.out.println("furnace");
+                furnaceOpen = true;
+            }
+        }
+
+        /**
+         * started but never finished need to add ores for fuel first furnace / stove stuff
+         */
+        private boolean nearFurnace() {
+            return Math.sqrt((X - Player.x) * (X - Player.x) + (Y - Player.y) * (Y - Player.y)) < distanceFromFurnace;
+        }
+    }
 
     public static class InventoryRenderer extends InputAdapter {
 
@@ -335,7 +409,7 @@ public class HudSystem {
 
     private BitmapFont currentFont;
 
-    private House house;
+    private HouseFurnaceRenderer house;
 
     private InventoryRenderer inv;
 
@@ -353,7 +427,7 @@ public class HudSystem {
 
     private TradeShop tradeShop;
 
-    public HudSystem(SpriteBatch batch, OrthographicCamera camera, Points points, TradeShop trade, House house,
+    public HudSystem(SpriteBatch batch, OrthographicCamera camera, Points points, TradeShop trade,
             BitmapFont currentFont) {
         this.batch = batch;
         this.camera = camera;
@@ -362,7 +436,7 @@ public class HudSystem {
         inv = new InventoryRenderer();
         swordShop = new SwordShopRenderer();
         tradeShop = trade;
-        this.house = house;
+        house = new HouseFurnaceRenderer();
         this.currentFont = currentFont;
         shapeRenderer = new ShapeRenderer();
         toolsListRenderer = new ToolsListRenderer();
@@ -376,6 +450,7 @@ public class HudSystem {
         multiplexer.addProcessor(topMenu);
         multiplexer.addProcessor(inv);
         multiplexer.addProcessor(swordShop);
+        multiplexer.addProcessor(house);
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -389,7 +464,7 @@ public class HudSystem {
         inv.render(currentFont, batch);
         swordShop.render(currentFont, batch);
         tradeShop.drawInputText(batch, currentFont);
-        house.furnaceGUIdraw(batch, delta, currentFont);
+        house.render(delta, currentFont, batch);
         batch.end();
         shapeRenderer.setProjectionMatrix(camera.combined);
         points.drawBars(shapeRenderer);
@@ -398,5 +473,6 @@ public class HudSystem {
     public void update() {
         messages.update();
         swordShop.update();
+        house.update();
     }
 }

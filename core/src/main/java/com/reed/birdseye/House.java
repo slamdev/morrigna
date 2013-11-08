@@ -2,8 +2,6 @@ package com.reed.birdseye;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.GameScreen;
@@ -11,15 +9,24 @@ import com.github.slamm.morrigna.core.HudSystem.MessagesRenderer;
 
 public class House {
 
-    static float ambientLight = 1;
+    public static float preAmbientLight;
 
-    static float preAmbientLight;
+    public static Vector2 preCameraPos = new Vector2();
 
-    static Vector2 preCameraPos = new Vector2();
+    public static Vector2 prePlayerPos = new Vector2();
 
-    static Vector2 prePlayerPos = new Vector2();
+    private static float ambientLight = 1;
 
-    static Vector2 preSleepPlayerPos = new Vector2();
+    private static boolean inRiverHouse = false;
+
+    /**
+     * booleans for a run once code strip
+     */
+    private static boolean justEntered = false;
+
+    private static boolean justExited = false;
+
+    private static Vector2 preSleepPlayerPos = new Vector2();
 
     /**
      * Current step in sleep <br>
@@ -30,54 +37,38 @@ public class House {
      * <b>4</b> means just got out of bed <br>
      * <b>0</b> means doing nothing (deafult)
      */
-    static int sleepStep = 0;
+    private static int sleepStep = 0;
 
-    private static boolean isInRiverHouse = false;
+    private boolean canSendDayMessage = true;
 
-    // booleans for a run once code strip
-    private static boolean justEntered = false, justExited = false;
+    private boolean canSendNightMessage = true;
 
-    boolean canSendFurnaceMessage = true;
+    private final int distanceFromBed = 50;
 
-    boolean canSendNightMessage = true, canSendDayMessage = true;
+    private boolean justGotNearBed = false;
 
-    int coalInFurnace = 0;
+    private float lightCycleSpeed = .005f;
 
-    int cookedFoodInFurnace = 0;
+    /**
+     * bed cordinates
+     */
+    private final int x = 730;
 
-    final int distanceFromBed = 50;
+    /**
+     * bed cordinates
+     */
+    private final int y = 386;
 
-    final int distanceFromFurnace = 50;
-
-    Particles fire = new Particles();
-
-    boolean furnaceOpen = false;
-
-    final int furnaceX = 512, furnaceY = 418;
-
-    boolean justGotNearBed = false;
-
-    float lightCycleSpeed = .005f;
-
-    int rawFoodInFurnace = 0;
-
-    // bed cordinates
-    int x = 730, y = 386;
-
-    public static boolean isInRiverHouse() {
-        return isInRiverHouse;
-    }
-
-    public static boolean isJustEntered() {
-        return justEntered;
-    }
-
-    public static boolean isJustExited() {
-        return justExited;
+    public static void exitGame() {
+        if (sleepStep > 0) {
+            Player.x = preSleepPlayerPos.x;
+            Player.y = preSleepPlayerPos.y;
+            Time.setAmbientLight(1);
+        }
     }
 
     public static void setInRiverHouse(boolean isInRiverHouse) {
-        House.isInRiverHouse = isInRiverHouse;
+        House.inRiverHouse = isInRiverHouse;
     }
 
     public static void setJustEntered(boolean justEntered) {
@@ -88,63 +79,10 @@ public class House {
         House.justExited = justExited;
     }
 
-    static void exitGame() {
-        if (sleepStep > 0) {
-            Player.x = preSleepPlayerPos.x;
-            Player.y = preSleepPlayerPos.y;
-            Time.setAmbientLight(1);
-        }
-    }
-
-    public void addCoalandFood() {
-        if (Gdx.input.getX() > 73 && Gdx.input.getX() < 374 && Gdx.input.getY() > 380 && Gdx.input.getY() < 430
-                && Gdx.input.justTouched() && Food.amountOfFood > 0) {
-            rawFoodInFurnace += 1;
-            Food.amountOfFood -= 1;
-        }
-        if (Gdx.input.getX() > 73 && Gdx.input.getX() < 374 && Gdx.input.getY() > 430 && Gdx.input.getY() < 475
-                && Gdx.input.justTouched() && Coal.amountOfCoal > 0) {
-            coalInFurnace += 1;
-            Coal.amountOfCoal -= 1;
-        }
-    }
-
-    public void furnace() {
-        if (nearFurnace() && canSendFurnaceMessage) {
-            MessagesRenderer.add("Press B to open Furnace");
-            canSendFurnaceMessage = false;
-        }
-        if (!nearFurnace()) {
-            canSendFurnaceMessage = true;
-        }
-        if (nearFurnace() && Gdx.input.isKeyPressed(Keys.B)) {
-            System.out.println("furnace");
-            furnaceOpen = true;
-        }
-    }
-
-    public void furnaceGUIdraw(SpriteBatch batch, float deltaTime, BitmapFont font) {
-        if (furnaceOpen) {
-            Player.ableToMove = false;
-            Player.drawCharacter = false;
-            batch.draw(Assets.furnaceGUI, 0, 0);
-            fire.fireUpdateAndDraw(batch, deltaTime);
-            // draw fonts
-            font.draw(batch, String.valueOf(coalInFurnace), 420, 234);
-            font.draw(batch, String.valueOf(rawFoodInFurnace), 420, 376);
-            font.draw(batch, String.valueOf(cookedFoodInFurnace), 760, 376);
-            if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-                Player.ableToMove = true;
-                Player.drawCharacter = true;
-                furnaceOpen = false;
-            }
-        }
-    }
-
-    /** SEPPERATE INTO INDIVIDUAL METHODS */
     public void update() {
+        // TODO: SEPPERATE INTO INDIVIDUAL METHODS
         // variable becomes true through the collision class
-        if (isInRiverHouse) {
+        if (inRiverHouse) {
             if (justEntered) {
                 prePlayerPos.x = Player.x;
                 prePlayerPos.y = Player.y;
@@ -197,15 +135,11 @@ public class House {
      * 
      * @variable distanceFromBed
      */
-    boolean closeEnoughToBed() {
+    private boolean closeEnoughToBed() {
         return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < distanceFromBed;
     }
 
-    void cookFood() {
-        // change coal amounts and stuff and cook food
-    }
-
-    void nearBed() {
+    private void nearBed() {
         if (closeEnoughToBed() && !justGotNearBed) {
             MessagesRenderer.add("Press B to sleep");
             justGotNearBed = true;
@@ -226,14 +160,10 @@ public class House {
         }
     }
 
-    // started but never finished need to add ores for fuel first
-    // furnace / stove stuff
-    boolean nearFurnace() {
-        return Math.sqrt((furnaceX - Player.x) * (furnaceX - Player.x) + (furnaceY - Player.y) * (furnaceY - Player.y)) < distanceFromFurnace;
-    }
-
-    // sleep cycles
-    void remCycles() {
+    /**
+     * sleep cycles
+     */
+    private void remCycles() {
         if (sleepStep == 1) {
             preSleepPlayerPos.x = Player.x;
             preSleepPlayerPos.y = Player.y;

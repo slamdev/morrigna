@@ -4,14 +4,14 @@ import com.badlogic.gdx.Gdx;
 
 public class Food {
 
-    public static String amountOfFoodString;
-
-    public static int foodLevel = 100;
-
     // make food level
     // make health go down if low on food, and display message (need food now!)
     // contain integer for amount of food
-    static int amountOfFood = 0;
+    public static int amountOfFood = 0;
+
+    public static String amountOfFoodString;
+
+    public static int foodLevel = 100;
 
     float timer = 0;
 

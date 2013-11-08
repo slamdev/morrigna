@@ -136,7 +136,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         SaveAndLoad.load();
-        hudSystem = new HudSystem(batch, camera, points, trade, house, currentFont);
+        hudSystem = new HudSystem(batch, camera, points, trade, currentFont);
     }
 
     private void draw(float deltaTime) {
@@ -221,8 +221,6 @@ public class GameScreen extends ScreenAdapter {
         arrays.mobUpdate();
         food.affectHealth();
         food.looseHunger();
-        house.furnace();
         arrays.updateCoal();
-        house.addCoalandFood();
     }
 }

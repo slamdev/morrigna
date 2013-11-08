@@ -26,7 +26,7 @@ import com.reed.birdseye.Tutorial;
 
 public class HudSystem {
 
-    public static class Inventory extends InputAdapter {
+    public static class InventoryRenderer extends InputAdapter {
 
         static boolean inventoryVisible;
 
@@ -269,7 +269,7 @@ public class HudSystem {
         public boolean touchUp(int x, int y, int pointer, int button) {
             if (x > 649 && x < 723 && y > 6 && y < 68) {
                 // opens invertory
-                Inventory.inventoryVisible = true;
+                InventoryRenderer.inventoryVisible = true;
             } else if (y < 74 && y > 0 && x > 230 && x < 310) {
                 currentTool = 0;
             } else if (y < 74 && y > 0 && x > 310 && x < 390) {
@@ -337,7 +337,7 @@ public class HudSystem {
 
     private House house;
 
-    private Inventory inv;
+    private InventoryRenderer inv;
 
     private MessagesRenderer messages;
 
@@ -359,7 +359,7 @@ public class HudSystem {
         this.camera = camera;
         this.points = points;
         messages = new MessagesRenderer();
-        inv = new Inventory();
+        inv = new InventoryRenderer();
         swordShop = new SwordShopRenderer();
         tradeShop = trade;
         this.house = house;

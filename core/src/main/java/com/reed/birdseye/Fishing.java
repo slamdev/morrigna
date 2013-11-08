@@ -4,8 +4,8 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.github.slamm.morrigna.core.HudSystem.MessagesRenderer;
-import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
+import com.github.slamm.morrigna.core.hud.MessagesRenderer;
+import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Fishing {
 

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
+import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Mob {
 

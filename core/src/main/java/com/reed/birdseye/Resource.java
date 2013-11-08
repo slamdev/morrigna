@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
+import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Resource {
 

@@ -3,7 +3,7 @@ package com.reed.birdseye;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.github.slamm.morrigna.core.GameScreen;
-import com.github.slamm.morrigna.core.HudSystem.TradeShop;
+import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
 
 public class SaveAndLoad {
 
@@ -26,7 +26,7 @@ public class SaveAndLoad {
             Fishing.amountOfFish = prefs.getInteger("Fish");
             Resource.amountOfStone = prefs.getInteger("Stone");
             Tree.amountOfWood = prefs.getInteger("Wood");
-            TradeShop.cash = prefs.getInteger("cash");
+            TradeShopRenderer.cash = prefs.getInteger("cash");
             Points.hp = prefs.getInteger("hp");
             Points.xp = prefs.getInteger("xp");
             Time.colorAlpha = prefs.getFloat("color alpha");
@@ -94,7 +94,7 @@ public class SaveAndLoad {
         prefs.putInteger("Fish", Fishing.amountOfFish);
         prefs.putInteger("Stone", Resource.amountOfStone);
         prefs.putInteger("Wood", Tree.amountOfWood);
-        prefs.putInteger("Cash", TradeShop.cash);
+        prefs.putInteger("Cash", TradeShopRenderer.cash);
         prefs.putInteger("hp", Points.hp);
         prefs.putInteger("xp", Points.xp);
         prefs.putFloat("camera x", GameScreen.mapCamera.position.x);

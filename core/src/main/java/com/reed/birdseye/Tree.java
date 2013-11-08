@@ -8,7 +8,7 @@ import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.HudSystem.TopMenuRenderer;
+import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class Tree {
 

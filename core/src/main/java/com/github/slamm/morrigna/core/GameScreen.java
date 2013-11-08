@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.droidinteractive.box2dlight.RayHandler;
+import com.github.slamm.morrigna.core.hud.HudRenderSystem;
 import com.reed.birdseye.ArrayListsz;
 import com.reed.birdseye.CollisionDetection;
 import com.reed.birdseye.CurrentTool;
@@ -63,7 +64,7 @@ public class GameScreen extends ScreenAdapter {
 
     private final House house;
 
-    private HudSystem hudSystem;
+    private HudRenderSystem hudSystem;
 
     private final Level level;
 
@@ -136,7 +137,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show() {
         SaveAndLoad.load();
-        hudSystem = new HudSystem(batch, camera, points, currentFont);
+        hudSystem = new HudRenderSystem(batch, camera, points, currentFont);
     }
 
     private void draw(float deltaTime) {

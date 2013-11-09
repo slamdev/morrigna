@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.hud.HudRenderSystem;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.reed.birdseye.CollisionDetection;
-import com.reed.birdseye.CurrentTool;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
@@ -30,8 +29,6 @@ public class GameScreen extends ScreenAdapter {
     private final CollisionDetection collision;
 
     private final BitmapFont currentFont;
-
-    private final CurrentTool currentTool;
 
     private final Fishing fishing;
 
@@ -60,7 +57,6 @@ public class GameScreen extends ScreenAdapter {
         house = new House();
         currentFont = new BitmapFont();
         food = new Food();
-        currentTool = new CurrentTool();
     }
 
     @Override
@@ -70,37 +66,22 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        update();
-        draw(delta);
-        handleInput();
-    }
-
-    @Override
-    public void show() {
-        hudSystem = new HudRenderSystem(batch, camera, currentFont);
-        mapSystem = new MapRenderSystem(batch, mapCamera, currentFont);
-        SaveAndLoad.load();
-    }
-
-    private void draw(float deltaTime) {
+        // update
+        mapSystem.update();
+        hudSystem.update();
+        collision.doCollision();
+        fishing.update();
+        fishing.fishCaught();
+        house.update();
+        food.affectHealth();
+        food.looseHunger();
+        // draw
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // TODO: code sucks
         hudSystem.renderLevel();
-        mapSystem.render(deltaTime);
-        hudSystem.render(deltaTime);
-        batch.begin();
-        // set static for tool drawing (so it is affected by lights)
-        batch.setProjectionMatrix(camera.combined);
-        currentTool.render(batch);
-        currentTool.update();
-        batch.end();
-    }
-
-    /**
-     * Handle input for zooming in and out
-     */
-    private void handleInput() {
+        mapSystem.render(delta);
+        hudSystem.render(delta);
+        // input
         if (Gdx.input.isKeyPressed(Input.Keys.O)) {
             camera.zoom += 0.02;
             mapCamera.zoom += 0.02;
@@ -115,15 +96,10 @@ public class GameScreen extends ScreenAdapter {
         }
     }
 
-    private void update() {
-        mapSystem.update();
-        hudSystem.update();
-        collision.doCollision();
-        fishing.update();
-        fishing.fishCaught();
-        house.update();
-        camera.update();
-        food.affectHealth();
-        food.looseHunger();
+    @Override
+    public void show() {
+        hudSystem = new HudRenderSystem(batch, camera, currentFont);
+        mapSystem = new MapRenderSystem(batch, mapCamera, currentFont);
+        SaveAndLoad.load();
     }
 }

@@ -15,6 +15,8 @@ public class HudRenderSystem {
 
     private final BitmapFont currentFont;
 
+    private final CurrentToolRenderer currentTool;
+
     private final HouseFurnaceRenderer houseFurnaceRenderer;
 
     private final InventoryRenderer inventoryRenderer;
@@ -46,6 +48,7 @@ public class HudRenderSystem {
         toolsListRenderer = new ToolsListRenderer();
         topMenuRenderer = new TopMenuRenderer();
         levelRenderer = new LevelRenderer();
+        currentTool = new CurrentToolRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -71,6 +74,7 @@ public class HudRenderSystem {
         swordShopRenderer.render(currentFont, batch);
         tradeShopRenderer.render(currentFont, batch);
         houseFurnaceRenderer.render(delta, currentFont, batch);
+        currentTool.render(batch);
         batch.end();
     }
 
@@ -90,5 +94,7 @@ public class HudRenderSystem {
         houseFurnaceRenderer.update();
         tradeShopRenderer.update();
         pointsRenderer.update();
+        currentTool.update();
+        camera.update();
     }
 }

@@ -1,4 +1,4 @@
-package com.reed.birdseye;
+package com.github.slamm.morrigna.core.hud;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -7,11 +7,10 @@ import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.hud.LevelRenderer;
-import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
+import com.reed.birdseye.Tutorial;
 
-public class CurrentTool {
+public class CurrentToolRenderer {
 
     public static boolean isTooling = false; // great name :)
 
@@ -26,7 +25,7 @@ public class CurrentTool {
      */
     private final Skeleton toolSkel;
 
-    public CurrentTool() {
+    public CurrentToolRenderer() {
         toolSkel = new Skeleton(Assets.toolsMasterData);
         root = toolSkel.getRootBone();
     }
@@ -52,10 +51,8 @@ public class CurrentTool {
         direction();
     }
 
-    /**
-     * FIX INVENTORY BOX clicking coordinates
-     */
     private void changeTool() {
+        // TODO: FIX INVENTORY BOX clicking coordinates
         if (TopMenuRenderer.currentTool == 0) {
             toolSkel.setSkin("pick");
             toolSkel.setSlotsToSetupPose();

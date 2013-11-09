@@ -1,7 +1,6 @@
 package com.github.slamm.morrigna.core;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -81,19 +80,6 @@ public class GameScreen extends ScreenAdapter {
         hudSystem.renderLevel();
         mapSystem.render(delta);
         hudSystem.render(delta);
-        // input
-        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
-            camera.zoom += 0.02;
-            mapCamera.zoom += 0.02;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-            camera.zoom -= 0.02;
-            mapCamera.zoom -= 0.02;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.U)) {
-            camera.zoom = 1;
-            mapCamera.zoom = 1;
-        }
     }
 
     @Override

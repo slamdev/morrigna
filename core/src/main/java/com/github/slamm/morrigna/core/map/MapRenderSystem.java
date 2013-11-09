@@ -1,6 +1,7 @@
 package com.github.slamm.morrigna.core.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -87,5 +88,18 @@ public class MapRenderSystem {
         creeperRenderer.update();
         coalRenderer.update();
         Time.update(rayHandlerRenderer);
+        input();
+    }
+
+    private void input() {
+        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+            camera.zoom += 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            camera.zoom -= 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.U)) {
+            camera.zoom = 1;
+        }
     }
 }

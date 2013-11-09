@@ -6,6 +6,7 @@ import com.github.slamm.morrigna.core.GameScreen;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
+import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class SaveAndLoad {
@@ -72,10 +73,10 @@ public class SaveAndLoad {
             }
             Food.amountOfFood = prefs.getInteger("foodAmount");
             PointsRenderer.currentLevel = prefs.getInteger("level");
-            Time.createLights(GameScreen.rayHandler);
+            Time.createLights(MapRenderSystem.rayHandlerRenderer);
         } else {
             // still gotta load lights even if the versions dont match up
-            Time.createLights(GameScreen.rayHandler);
+            Time.createLights(MapRenderSystem.rayHandlerRenderer);
             // same with pigs...
             for (int i = 0; i < ArrayListsz.amountOfPigs; i++) {
                 ArrayListsz.pigArray.add(new Pig());

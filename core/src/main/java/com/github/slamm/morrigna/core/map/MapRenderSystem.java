@@ -5,7 +5,11 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import com.droidinteractive.box2dlight.RayHandler;
 import com.reed.birdseye.Particles;
+import com.reed.birdseye.Time;
 
 public class MapRenderSystem {
 
@@ -13,6 +17,8 @@ public class MapRenderSystem {
      * static to modify when entering different map areas.
      */
     public static MapRenderer mapRenderer;
+
+    public static RayHandler rayHandlerRenderer;
 
     private final SpriteBatch batch;
 
@@ -37,6 +43,7 @@ public class MapRenderSystem {
         playerRenderer = new PlayerRenderer();
         mapRenderer = new MapRenderer();
         smokePracticle = new Particles();
+        rayHandlerRenderer = new RayHandler(new World(new Vector2(0, 0), true));
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -55,9 +62,12 @@ public class MapRenderSystem {
         playerRenderer.draw(batch);
         smokePracticle.smokeUpdateAndDraw(batch, delta);
         batch.end();
+        rayHandlerRenderer.setCombinedMatrix(camera.combined);
+        rayHandlerRenderer.updateAndRender();
     }
 
     public void update() {
         playerRenderer.update();
+        Time.update(rayHandlerRenderer);
     }
 }

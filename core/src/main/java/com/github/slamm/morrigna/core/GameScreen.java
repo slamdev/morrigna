@@ -8,9 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-import com.droidinteractive.box2dlight.RayHandler;
 import com.github.slamm.morrigna.core.hud.HudRenderSystem;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.reed.birdseye.ArrayListsz;
@@ -20,7 +17,6 @@ import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
 import com.reed.birdseye.SaveAndLoad;
-import com.reed.birdseye.Time;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -28,8 +24,6 @@ public class GameScreen extends ScreenAdapter {
      * static for getting and setting position during save / load
      */
     public static OrthographicCamera mapCamera;
-
-    public static RayHandler rayHandler;
 
     private final ArrayListsz arrays;
 
@@ -55,8 +49,6 @@ public class GameScreen extends ScreenAdapter {
 
     private final ShapeRenderer shapeRenderer;
 
-    private final World world;
-
     public GameScreen() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -76,8 +68,6 @@ public class GameScreen extends ScreenAdapter {
         arrays.treeArrayEstablisher();
         house = new House();
         currentFont = new BitmapFont();
-        world = new World(new Vector2(0, 0), true);
-        rayHandler = new RayHandler(world);
         food = new Food();
         currentTool = new CurrentTool();
     }
@@ -96,9 +86,9 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        SaveAndLoad.load();
         hudSystem = new HudRenderSystem(batch, camera, currentFont);
         mapSystem = new MapRenderSystem(batch, mapCamera, currentFont);
+        SaveAndLoad.load();
     }
 
     private void draw(float deltaTime) {
@@ -130,8 +120,6 @@ public class GameScreen extends ScreenAdapter {
         batch.end();
         mapSystem.render(deltaTime);
         hudSystem.render(deltaTime);
-        rayHandler.setCombinedMatrix(mapCamera.combined);
-        rayHandler.updateAndRender();
     }
 
     /**
@@ -160,7 +148,6 @@ public class GameScreen extends ScreenAdapter {
         fishing.update();
         fishing.fishCaught();
         house.update();
-        Time.update(rayHandler);
         camera.update();
         arrays.mobUpdate();
         food.affectHealth();

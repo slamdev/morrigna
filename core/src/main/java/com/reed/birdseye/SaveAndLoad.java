@@ -3,6 +3,7 @@ package com.reed.birdseye;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.github.slamm.morrigna.core.GameScreen;
+import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
 
@@ -38,7 +39,7 @@ public class SaveAndLoad {
             House.prePlayerPos.x = prefs.getFloat("pre player x");
             House.prePlayerPos.y = prefs.getFloat("pre player y");
             CollisionDetection.setCollisionType(prefs.getInteger("collision type"));
-            Level.setCurrentMap(prefs.getInteger("current map"));
+            LevelRenderer.currentMap = prefs.getInteger("current map");
             Time.setOutdoors(prefs.getBoolean("is outside"));
             House.preAmbientLight = prefs.getFloat("pre ambient light");
             // LOAD PIG X AND Y POSITIONS HERE
@@ -110,7 +111,7 @@ public class SaveAndLoad {
         prefs.putFloat("pre player x", House.prePlayerPos.x);
         prefs.putFloat("pre player y", House.prePlayerPos.y);
         prefs.putInteger("collision type", CollisionDetection.getCollisionType());
-        prefs.putInteger("current map", Level.getCurrentMap());
+        prefs.putInteger("current map", LevelRenderer.currentMap);
         prefs.putBoolean("is outside", Time.isOutdoors());
         prefs.putFloat("pre ambient light", House.preAmbientLight);
         for (int i = 0; i < ArrayListsz.pigArray.size; i++) {

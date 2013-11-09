@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.GameScreen;
+import com.github.slamm.morrigna.core.hud.LevelRenderer;
 
 public class Player {
 
@@ -89,12 +90,12 @@ public class Player {
                 GameScreen.yRate = playerSpeed;
                 y += playerSpeed;
                 // Level.levelY -= playerSpeed;
-                Level.grassY -= playerSpeed;
+                LevelRenderer.grassY -= playerSpeed;
             } else if (down) {
                 GameScreen.yRate = -playerSpeed;
                 y -= playerSpeed;
                 // Level.levelY += playerSpeed;
-                Level.grassY += playerSpeed;
+                LevelRenderer.grassY += playerSpeed;
             } else {
                 GameScreen.yRate = 0;
             }
@@ -103,12 +104,12 @@ public class Player {
                 GameScreen.xRate = -playerSpeed;
                 x -= playerSpeed;
                 // Level.levelX += playerSpeed;
-                Level.grassX += playerSpeed;
+                LevelRenderer.grassX += playerSpeed;
             } else if (right) {
                 GameScreen.xRate = playerSpeed;
                 x += playerSpeed;
                 // Level.levelX -= playerSpeed;
-                Level.grassX -= playerSpeed;
+                LevelRenderer.grassX -= playerSpeed;
             } else {
                 GameScreen.xRate = 0;
             }

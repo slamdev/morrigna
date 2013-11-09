@@ -7,6 +7,7 @@ import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
 public class CurrentTool {
@@ -78,13 +79,13 @@ public class CurrentTool {
 
     private void direction() {
         if (Player.right) {
-            root.setX(Level.middleX + 11);
-            root.setY(Level.middleY - 11);
+            root.setX(LevelRenderer.middleX + 11);
+            root.setY(LevelRenderer.middleY - 11);
             toolSkel.setFlipX(false);
         }
         if (Player.left) {
-            root.setX(Level.middleX + 20);
-            root.setY(Level.middleY - 11);
+            root.setX(LevelRenderer.middleX + 20);
+            root.setY(LevelRenderer.middleY - 11);
             toolSkel.setFlipX(true);
         }
     }

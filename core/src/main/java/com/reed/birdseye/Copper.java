@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.LevelRenderer;
 
 public class Copper {
 
@@ -27,7 +28,8 @@ public class Copper {
     int width = 64;
 
     boolean closeEnough() {
-        return Math.sqrt(Level.middleX * (x - Level.middleX) + (y - Level.middleY) * (y - Level.middleY)) < distanceFromMaterial;
+        return Math.sqrt(LevelRenderer.middleX * (x - LevelRenderer.middleX) + (y - LevelRenderer.middleY)
+                * (y - LevelRenderer.middleY)) < distanceFromMaterial;
     }
 
     void collect() {

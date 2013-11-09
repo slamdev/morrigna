@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.LevelRenderer;
 
 public class Farm {
 
@@ -31,7 +32,8 @@ public class Farm {
     int x, y;
 
     public void closeEnoughToFarm() {
-        if (Math.sqrt((x - Level.middleX) * (x - Level.middleX) + (y - Level.middleY) * (y - Level.middleY)) < distanceFromMaterial) {
+        if (Math.sqrt((x - LevelRenderer.middleX) * (x - LevelRenderer.middleX) + (y - LevelRenderer.middleY)
+                * (y - LevelRenderer.middleY)) < distanceFromMaterial) {
             closeEnough = true;
             if (growing == 100) {
                 if (Gdx.input.isKeyPressed(Keys.B)) {

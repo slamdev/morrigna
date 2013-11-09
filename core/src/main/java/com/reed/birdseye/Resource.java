@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 
@@ -34,7 +35,8 @@ public class Resource {
     }
 
     boolean closeEnough() {
-        return Math.sqrt((x - Level.middleX) * (x - Level.middleX) + (y - Level.middleY) * (y - Level.middleY)) < distanceFromMaterial;
+        return Math.sqrt((x - LevelRenderer.middleX) * (x - LevelRenderer.middleX) + (y - LevelRenderer.middleY)
+                * (y - LevelRenderer.middleY)) < distanceFromMaterial;
     }
 
     void collect() {

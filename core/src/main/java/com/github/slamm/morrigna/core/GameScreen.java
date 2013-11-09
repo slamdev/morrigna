@@ -13,19 +13,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.droidinteractive.box2dlight.RayHandler;
 import com.github.slamm.morrigna.core.hud.HudRenderSystem;
+import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.reed.birdseye.ArrayListsz;
 import com.reed.birdseye.CollisionDetection;
 import com.reed.birdseye.CurrentTool;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
-import com.reed.birdseye.Level;
 import com.reed.birdseye.Particles;
 import com.reed.birdseye.Player;
 import com.reed.birdseye.SaveAndLoad;
-import com.reed.birdseye.SwordShopOwner;
 import com.reed.birdseye.Time;
-import com.reed.birdseye.TradeShopOwner;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -65,17 +63,13 @@ public class GameScreen extends ScreenAdapter {
 
     private HudRenderSystem hudSystem;
 
-    private final Level level;
+    private MapRenderSystem mapSystem;
 
     private final Player player;
 
     private final ShapeRenderer shapeRenderer;
 
     private final Particles smoke;
-
-    private final SwordShopOwner swordShopOwner;
-
-    private final TradeShopOwner tradeShopOwner;
 
     private final World world;
 
@@ -93,26 +87,15 @@ public class GameScreen extends ScreenAdapter {
         // translate camera to spawn point
         mapCamera.translate(1422 + 16, 3562 + 24);
         shapeRenderer = new ShapeRenderer();
-        level = new Level();
         player = new Player();
         arrays = new ArrayListsz();
         collision = new CollisionDetection();
-        swordShopOwner = new SwordShopOwner();
-        tradeShopOwner = new TradeShopOwner();
         fishing = new Fishing();
         arrays.treeArrayEstablisher();
         house = new House();
         currentFont = new BitmapFont();
         world = new World(new Vector2(0, 0), true);
         rayHandler = new RayHandler(world);
-        // TODO: not sure why this was commented
-        // int[] maxTextureSize = new int[1];
-        // IntBuffer buf = BufferUtils.newIntBuffer(16);
-        // Gdx.gl.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, buf);
-        // int result = buf.get();
-        // System.out.println(result);
-        // int result2 = buf.get();
-        // System.out.println(result);
         smoke = new Particles();
         food = new Food();
         currentTool = new CurrentTool();
@@ -134,18 +117,12 @@ public class GameScreen extends ScreenAdapter {
     public void show() {
         SaveAndLoad.load();
         hudSystem = new HudRenderSystem(batch, camera, currentFont);
+        mapSystem = new MapRenderSystem(batch, mapCamera, currentFont);
     }
 
     private void draw(float deltaTime) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        // sets camera for drawing static items
-        batch.setProjectionMatrix(camera.combined);
-        if (Time.isOutdoors()) {
-            level.draw(batch);
-        }
-        batch.end();
         batch.setProjectionMatrix(mapCamera.combined);
         mapCamera.translate(xRate, yRate);
         mapCamera.update();
@@ -154,8 +131,6 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
-        swordShopOwner.draw(batch);
-        tradeShopOwner.draw(batch);
         arrays.drawTreeTrunk(batch);
         arrays.drawCoal(batch);
         arrays.mobDraw(batch);
@@ -175,9 +150,10 @@ public class GameScreen extends ScreenAdapter {
         arrays.drawBrush(batch, currentFont);
         smoke.smokeUpdateAndDraw(batch, deltaTime);
         batch.end();
+        mapSystem.render(deltaTime);
+        hudSystem.render(deltaTime);
         rayHandler.setCombinedMatrix(mapCamera.combined);
         rayHandler.updateAndRender();
-        hudSystem.render(deltaTime);
     }
 
     /**
@@ -199,11 +175,11 @@ public class GameScreen extends ScreenAdapter {
     }
 
     private void update() {
+        mapSystem.update();
         // can be changed anytime in time class
         player.setSprites();
         player.move();
         player.input();
-        level.update();
         hudSystem.update();
         collision.doCollision();
         fishing.update();

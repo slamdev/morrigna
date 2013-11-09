@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.GameScreen;
+import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.MessagesRenderer;
 
 public class House {
@@ -92,13 +93,13 @@ public class House {
                 Time.setOutdoors(false);
                 Time.setAmbientLight(ambientLight);
                 CollisionDetection.setCollisionType(1);
-                Level.setCurrentMap(1);
+                LevelRenderer.currentMap = 1;
                 // set cordinates
                 GameScreen.mapCamera.position.x = Gdx.graphics.getWidth() / 2 + 10;
                 GameScreen.mapCamera.position.y = Gdx.graphics.getHeight() / 2 - 140;
                 // draw player in correct spot
-                Player.x = Level.middleX + 10;
-                Player.y = Level.middleY - 140;
+                Player.x = LevelRenderer.middleX + 10;
+                Player.y = LevelRenderer.middleY - 140;
                 // get rid of grass (set to what? blackness)
                 // get rid of darkness. (how to set back to normal levels when
                 // you exit *looks around franticly* -- set up currentAmbient
@@ -114,7 +115,7 @@ public class House {
             // allow for exit of house ability set justExited to true
         } else {
             if (justExited) {
-                Level.setCurrentMap(0);
+                LevelRenderer.currentMap = 0;
                 Player.x = prePlayerPos.x;
                 Player.y = prePlayerPos.y;
                 GameScreen.mapCamera.position.x = preCameraPos.x;

@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.reed.birdseye.Time;
 
 public class HudRenderSystem {
 
@@ -17,6 +18,8 @@ public class HudRenderSystem {
     private final HouseFurnaceRenderer houseFurnaceRenderer;
 
     private final InventoryRenderer inventoryRenderer;
+
+    private final LevelRenderer levelRenderer;
 
     private final MessagesRenderer messagesRenderer;
 
@@ -42,6 +45,7 @@ public class HudRenderSystem {
         houseFurnaceRenderer = new HouseFurnaceRenderer();
         toolsListRenderer = new ToolsListRenderer();
         topMenuRenderer = new TopMenuRenderer();
+        levelRenderer = new LevelRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -59,6 +63,9 @@ public class HudRenderSystem {
     public void render(float delta) {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
+        if (Time.isOutdoors()) {
+            levelRenderer.draw(batch);
+        }
         toolsListRenderer.render(batch);
         topMenuRenderer.render(batch);
         pointsRenderer.render(camera, batch);
@@ -71,6 +78,7 @@ public class HudRenderSystem {
     }
 
     public void update() {
+        levelRenderer.update();
         messagesRenderer.update();
         swordShopRenderer.update();
         houseFurnaceRenderer.update();

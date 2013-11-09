@@ -28,6 +28,8 @@ public class MapRenderSystem {
 
     private final BitmapFont currentFont;
 
+    private final PigRenderer pigRenderer;
+
     private final PlayerRenderer playerRenderer;
 
     private final Particles smokePracticle;
@@ -50,6 +52,7 @@ public class MapRenderSystem {
         rayHandlerRenderer = new RayHandler(new World(new Vector2(0, 0), true));
         treeRenderer = new TreeRenderer();
         creeperRenderer = new CreeperRenderer();
+        pigRenderer = new PigRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -69,6 +72,7 @@ public class MapRenderSystem {
         smokePracticle.smokeUpdateAndDraw(batch, delta);
         treeRenderer.render(currentFont, batch);
         creeperRenderer.render(camera, batch);
+        pigRenderer.render(camera, batch);
         batch.end();
         rayHandlerRenderer.setCombinedMatrix(camera.combined);
         rayHandlerRenderer.updateAndRender();

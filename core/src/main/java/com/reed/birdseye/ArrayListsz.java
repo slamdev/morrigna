@@ -1,39 +1,15 @@
 package com.reed.birdseye;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 
 public class ArrayListsz {
 
     public static Array<Coal> coalArray = new Array<>();
 
-    static int amountOfPigs = 4;
-
-    // All the pig stuff
-    static Array<Pig> pigArray = new Array<>();
-
     public void drawCoal(SpriteBatch batch) {
         for (int i = 0; i < coalArray.size; i++) {
             coalArray.get(i).draw(batch);
-        }
-    }
-
-    public void pigHealthBars(ShapeRenderer shapeRenderer) {
-        for (int i = 0; i < pigArray.size; i++) {
-            pigArray.get(i).pig.healthBar(shapeRenderer, pigArray.get(i).theRealPig);
-        }
-    }
-
-    public void pigUpdateAndDraw(SpriteBatch batch) {
-        for (int i = 0; i < pigArray.size; i++) {
-            pigArray.get(i).drops(batch);
-            pigArray.get(i).pig.draw(batch, pigArray.get(i).theRealPig);
-            pigArray.get(i).update();
-            pigArray.get(i).regeneration();
-            for (int j = 0; j < coalArray.size; j++) {
-                coalArray.get(j).mobCollision(pigArray.get(i).pig);
-            }
         }
     }
 
@@ -49,11 +25,5 @@ public class ArrayListsz {
         coalArray.add(new Coal(2290, 1798));
         coalArray.add(new Coal(1618, 2022));
         coalArray.add(new Coal(1844, 1652));
-    }
-
-    void pigArrayEstablisher() {
-        for (int i = 0; i < amountOfPigs; i++) {
-            pigArray.add(new Pig());
-        }
     }
 }

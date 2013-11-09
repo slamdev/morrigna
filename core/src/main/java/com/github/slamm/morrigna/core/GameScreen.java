@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.github.slamm.morrigna.core.hud.HudRenderSystem;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.reed.birdseye.ArrayListsz;
@@ -47,8 +46,6 @@ public class GameScreen extends ScreenAdapter {
 
     private MapRenderSystem mapSystem;
 
-    private final ShapeRenderer shapeRenderer;
-
     public GameScreen() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -61,7 +58,6 @@ public class GameScreen extends ScreenAdapter {
         camera.translate(w / 2, h / 2);
         // translate camera to spawn point
         mapCamera.translate(1422 + 16, 3562 + 24);
-        shapeRenderer = new ShapeRenderer();
         arrays = new ArrayListsz();
         collision = new CollisionDetection();
         fishing = new Fishing();
@@ -99,12 +95,7 @@ public class GameScreen extends ScreenAdapter {
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
         arrays.drawCoal(batch);
-        arrays.pigUpdateAndDraw(batch);
         batch.end();
-        //
-        shapeRenderer.setProjectionMatrix(mapCamera.combined);
-        arrays.pigHealthBars(shapeRenderer);
-        //
         batch.begin();
         // set static for tool drawing (so it is affected by lights)
         batch.setProjectionMatrix(camera.combined);

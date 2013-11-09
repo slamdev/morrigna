@@ -44,16 +44,6 @@ public class SaveAndLoad {
             LevelRenderer.currentMap = prefs.getInteger("current map");
             Time.setOutdoors(prefs.getBoolean("is outside"));
             House.preAmbientLight = prefs.getFloat("pre ambient light");
-            // LOAD PIG X AND Y POSITIONS HERE
-            // must establish pigs before setting their values
-            for (int i = 0; i < ArrayListsz.amountOfPigs; i++) {
-                ArrayListsz.pigArray.add(new Pig());
-            }
-            for (int i = 0; i < ArrayListsz.pigArray.size; i++) {
-                ArrayListsz.pigArray.get(i).pig.x = prefs.getInteger("pigPosX" + i);
-                ArrayListsz.pigArray.get(i).pig.y = prefs.getInteger("pigPosY" + i);
-                ArrayListsz.pigArray.get(i).pig.health = prefs.getFloat("pigHealth" + i);
-            }
             // establish before setting values
             ArrayListsz.coalArray.add(new Coal(2290, 1798));
             ArrayListsz.coalArray.add(new Coal(1618, 2022));
@@ -68,11 +58,7 @@ public class SaveAndLoad {
         } else {
             // still gotta load lights even if the versions dont match up
             Time.createLights(MapRenderSystem.rayHandlerRenderer);
-            // same with pigs...
-            for (int i = 0; i < ArrayListsz.amountOfPigs; i++) {
-                ArrayListsz.pigArray.add(new Pig());
-            }// same fore creepers
-             // same for coal
+            // same for coal
             ArrayListsz.coalArray.add(new Coal(2290, 1798));
             ArrayListsz.coalArray.add(new Coal(1618, 2022));
             ArrayListsz.coalArray.add(new Coal(1844, 1652));
@@ -104,11 +90,6 @@ public class SaveAndLoad {
         prefs.putInteger("current map", LevelRenderer.currentMap);
         prefs.putBoolean("is outside", Time.isOutdoors());
         prefs.putFloat("pre ambient light", House.preAmbientLight);
-        for (int i = 0; i < ArrayListsz.pigArray.size; i++) {
-            prefs.putInteger("pigPosX" + i + "", ArrayListsz.pigArray.get(i).pig.x);
-            prefs.putInteger("pigPosY" + i + "", ArrayListsz.pigArray.get(i).pig.y);
-            prefs.putFloat("pigHealth" + i, ArrayListsz.pigArray.get(i).pig.health);
-        }
         for (int i = 0; i < ArrayListsz.coalArray.size; i++) {
             prefs.putBoolean("drawCoal" + i, ArrayListsz.coalArray.get(i).drawResource);
             prefs.putFloat("coalRegenTimer" + i, ArrayListsz.coalArray.get(i).timer);

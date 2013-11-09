@@ -8,15 +8,46 @@ import com.github.slamm.morrigna.core.hud.PointsRenderer;
 
 public class Pig {
 
-    boolean pickedUpFood = false;
-
     // area under sword shop
-    Mob pig = new Mob(1562, 1264, 1000, 918);
+    public Mob pig = new Mob(1562, 1264, 1000, 918);
 
     // creates new image for each pig (new Pig(params))
-    TextureRegion theRealPig = Assets.mainPig;
+    public TextureRegion theRealPig = Assets.mainPig;
+
+    boolean pickedUpFood = false;
 
     float timer;
+
+    // when pig.health = -15 that means that pig is dead and the food has been
+    // picked up. Simplify the saving process.
+    public void drops(SpriteBatch batch) {
+        if (pig.health <= 0 && !pickedUpFood && !(pig.health <= -100)) {
+            batch.draw(Assets.bacon, pig.x, pig.y);
+        }
+    }
+
+    // respawn pigs during day
+    public void regeneration() {
+        if (pig.health <= 0 && Time.isDay() && pig.distanceBetweenMobAndPlayer() > 544) {
+            pickedUpFood = false;
+            pig.underAttack = false;
+            pig.health = 100;
+            timer = 0;
+            pig.attackedHealth = 100;
+        }
+    }
+
+    public void update() {
+        avadeAttack();
+        pickupDrops();
+        pig.movement();
+        pig.looseHealth();
+        pig.boundingArea();
+        pig.detectIfUnderAttack();
+        theRealPig = pig.setSprites(Assets.upPig_STILL, Assets.upPig_LEFT, Assets.upPig_RIGHT, Assets.downPig_STILL,
+                Assets.downPig_LEFT, Assets.downPig_RIGHT, Assets.leftPig_STILL, Assets.leftPig_LEFT,
+                Assets.leftPig_RIGHT, Assets.rightPig_STILL, Assets.rightPig_LEFT, Assets.rightPig_RIGHT);
+    }
 
     void avadeAttack() {
         // once under attack move in random directions quickly
@@ -50,14 +81,6 @@ public class Pig {
         }
     }
 
-    // when pig.health = -15 that means that pig is dead and the food has been
-    // picked up. Simplify the saving process.
-    void drops(SpriteBatch batch) {
-        if (pig.health <= 0 && !pickedUpFood && !(pig.health <= -100)) {
-            batch.draw(Assets.bacon, pig.x, pig.y);
-        }
-    }
-
     void pickupDrops() {
         if (timer < 1 && pig.health <= 0 && !(pig.health <= -100)) {
             timer += Gdx.graphics.getDeltaTime();
@@ -69,28 +92,5 @@ public class Pig {
             pig.health = -100;
             PointsRenderer.gainExperience(1);
         }
-    }
-
-    // respawn pigs during day
-    void regeneration() {
-        if (pig.health <= 0 && Time.isDay() && pig.distanceBetweenMobAndPlayer() > 544) {
-            pickedUpFood = false;
-            pig.underAttack = false;
-            pig.health = 100;
-            timer = 0;
-            pig.attackedHealth = 100;
-        }
-    }
-
-    void update() {
-        avadeAttack();
-        pickupDrops();
-        pig.movement();
-        pig.looseHealth();
-        pig.boundingArea();
-        pig.detectIfUnderAttack();
-        theRealPig = pig.setSprites(Assets.upPig_STILL, Assets.upPig_LEFT, Assets.upPig_RIGHT, Assets.downPig_STILL,
-                Assets.downPig_LEFT, Assets.downPig_RIGHT, Assets.leftPig_STILL, Assets.leftPig_LEFT,
-                Assets.leftPig_RIGHT, Assets.rightPig_STILL, Assets.rightPig_LEFT, Assets.rightPig_RIGHT);
     }
 }

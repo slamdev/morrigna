@@ -8,11 +8,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MapRenderSystem {
 
+    /**
+     * static to modify when entering different map areas.
+     */
+    public static MapRenderer mapRenderer;
+
     private final SpriteBatch batch;
 
     private final OrthographicCamera camera;
 
-    private final BitmapFont currentForn;
+    private final BitmapFont currentFont;
 
     private final PlayerRenderer playerRenderer;
 
@@ -23,10 +28,11 @@ public class MapRenderSystem {
     public MapRenderSystem(SpriteBatch batch, OrthographicCamera camera, BitmapFont currentFont) {
         this.batch = batch;
         this.camera = camera;
-        currentForn = currentFont;
+        this.currentFont = currentFont;
         swordShopOwnerRenderer = new SwordShopOwnerRenderer();
         tradeShopOwnerRenderer = new TradeShopOwnerRenderer();
         playerRenderer = new PlayerRenderer();
+        mapRenderer = new MapRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -37,6 +43,7 @@ public class MapRenderSystem {
     }
 
     public void render(float delta) {
+        mapRenderer.render(camera);
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         swordShopOwnerRenderer.draw(batch);

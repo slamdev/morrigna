@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.droidinteractive.box2dlight.RayHandler;
@@ -31,16 +30,7 @@ public class GameScreen extends ScreenAdapter {
      */
     public static OrthographicCamera mapCamera;
 
-    /**
-     * static to modify when entering different map areas.
-     */
-    public static OrthogonalTiledMapRenderer mapRenderer;
-
     public static RayHandler rayHandler;
-
-    public static float xRate = 0;
-
-    public static float yRate = 0;
 
     private final ArrayListsz arrays;
 
@@ -78,7 +68,6 @@ public class GameScreen extends ScreenAdapter {
         mapCamera = new OrthographicCamera(w, h);
         camera.update();
         mapCamera.update();
-        mapRenderer = new OrthogonalTiledMapRenderer(Assets.mainTiledMap, batch);
         // translate HUD camera to make bottom left cordinate 0,0
         camera.translate(w / 2, h / 2);
         // translate camera to spawn point
@@ -121,11 +110,6 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // TODO: code sucks
         hudSystem.renderLevel();
-        batch.setProjectionMatrix(mapCamera.combined);
-        mapCamera.translate(xRate, yRate);
-        mapCamera.update();
-        mapRenderer.setView(mapCamera);
-        mapRenderer.render();
         batch.begin();
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
@@ -134,9 +118,11 @@ public class GameScreen extends ScreenAdapter {
         arrays.mobDraw(batch);
         arrays.pigUpdateAndDraw(batch);
         batch.end();
+        //
         shapeRenderer.setProjectionMatrix(mapCamera.combined);
         arrays.mobHealthBars(shapeRenderer);
         arrays.pigHealthBars(shapeRenderer);
+        //
         batch.begin();
         // set static for tool drawing (so it is affected by lights)
         batch.setProjectionMatrix(camera.combined);

@@ -3,7 +3,7 @@ package com.github.slamm.morrigna.core.hud;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.GameScreen;
+import com.github.slamm.morrigna.core.map.MapRenderer;
 
 public class LevelRenderer {
 
@@ -24,11 +24,11 @@ public class LevelRenderer {
     private static void setMap() {
         switch (currentMap) {
         case 0: {
-            GameScreen.mapRenderer.setMap(Assets.mainTiledMap);
+            MapRenderer.renderer.setMap(Assets.mainTiledMap);
             break;
         }
         case 1: {
-            GameScreen.mapRenderer.setMap(Assets.riverHouse);
+            MapRenderer.renderer.setMap(Assets.riverHouse);
             break;
         }
         default:

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.GameScreen;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 
 public class PlayerRenderer {
@@ -84,31 +83,31 @@ public class PlayerRenderer {
         if (ableToMove) {
             // handle y movement
             if (up) {
-                GameScreen.yRate = PLAYER_SPEED;
+                MapRenderer.yRate = PLAYER_SPEED;
                 y += PLAYER_SPEED;
                 LevelRenderer.grassY -= PLAYER_SPEED;
             } else if (down) {
-                GameScreen.yRate = -PLAYER_SPEED;
+                MapRenderer.yRate = -PLAYER_SPEED;
                 y -= PLAYER_SPEED;
                 LevelRenderer.grassY += PLAYER_SPEED;
             } else {
-                GameScreen.yRate = 0;
+                MapRenderer.yRate = 0;
             }
             // handle x movement
             if (left) {
-                GameScreen.xRate = -PLAYER_SPEED;
+                MapRenderer.xRate = -PLAYER_SPEED;
                 x -= PLAYER_SPEED;
                 LevelRenderer.grassX += PLAYER_SPEED;
             } else if (right) {
-                GameScreen.xRate = PLAYER_SPEED;
+                MapRenderer.xRate = PLAYER_SPEED;
                 x += PLAYER_SPEED;
                 LevelRenderer.grassX -= PLAYER_SPEED;
             } else {
-                GameScreen.xRate = 0;
+                MapRenderer.xRate = 0;
             }
         } else {
-            GameScreen.yRate = 0;
-            GameScreen.xRate = 0;
+            MapRenderer.yRate = 0;
+            MapRenderer.xRate = 0;
         }
     }
 

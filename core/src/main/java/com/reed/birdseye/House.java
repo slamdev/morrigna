@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 import com.github.slamm.morrigna.core.Assets;
-import com.github.slamm.morrigna.core.GameScreen;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.MessagesRenderer;
+import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class House {
@@ -88,16 +88,16 @@ public class House {
             if (justEntered) {
                 prePlayerPos.x = PlayerRenderer.x;
                 prePlayerPos.y = PlayerRenderer.y;
-                preCameraPos.x = GameScreen.mapCamera.position.x;
-                preCameraPos.y = GameScreen.mapCamera.position.y;
+                preCameraPos.x = MapRenderSystem.camera.position.x;
+                preCameraPos.y = MapRenderSystem.camera.position.y;
                 preAmbientLight = Time.getAmbientLight();
                 Time.setOutdoors(false);
                 Time.setAmbientLight(ambientLight);
                 CollisionDetection.setCollisionType(1);
                 LevelRenderer.currentMap = 1;
                 // set cordinates
-                GameScreen.mapCamera.position.x = Gdx.graphics.getWidth() / 2 + 10;
-                GameScreen.mapCamera.position.y = Gdx.graphics.getHeight() / 2 - 140;
+                MapRenderSystem.camera.position.x = Gdx.graphics.getWidth() / 2 + 10;
+                MapRenderSystem.camera.position.y = Gdx.graphics.getHeight() / 2 - 140;
                 // draw player in correct spot
                 PlayerRenderer.x = LevelRenderer.middleX + 10;
                 PlayerRenderer.y = LevelRenderer.middleY - 140;
@@ -119,8 +119,8 @@ public class House {
                 LevelRenderer.currentMap = 0;
                 PlayerRenderer.x = prePlayerPos.x;
                 PlayerRenderer.y = prePlayerPos.y;
-                GameScreen.mapCamera.position.x = preCameraPos.x;
-                GameScreen.mapCamera.position.y = preCameraPos.y;
+                MapRenderSystem.camera.position.x = preCameraPos.x;
+                MapRenderSystem.camera.position.y = preCameraPos.y;
                 CollisionDetection.setCollisionType(0);
                 Time.setAmbientLight(preAmbientLight);
                 Time.setOutdoors(true);

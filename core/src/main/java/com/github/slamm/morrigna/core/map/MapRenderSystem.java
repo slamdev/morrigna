@@ -14,16 +14,13 @@ import com.reed.birdseye.Time;
 
 public class MapRenderSystem {
 
-    /**
-     * static to modify when entering different map areas.
-     */
-    public static MapRenderer mapRenderer;
+    public static OrthographicCamera camera;
 
     public static RayHandler rayHandlerRenderer;
 
-    private final SpriteBatch batch;
+    private static MapRenderer mapRenderer;
 
-    private final OrthographicCamera camera;
+    private final SpriteBatch batch;
 
     private final CoalRenderer coalRenderer;
 
@@ -43,10 +40,13 @@ public class MapRenderSystem {
 
     private final TreeRenderer treeRenderer;
 
-    public MapRenderSystem(SpriteBatch batch, OrthographicCamera camera, BitmapFont currentFont) {
-        this.batch = batch;
-        this.camera = camera;
-        this.currentFont = currentFont;
+    public MapRenderSystem() {
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.update();
+        // translate camera to spawn point
+        camera.translate(1422 + 16, 3562 + 24);
+        batch = new SpriteBatch();
+        currentFont = new BitmapFont();
         swordShopOwnerRenderer = new SwordShopOwnerRenderer();
         tradeShopOwnerRenderer = new TradeShopOwnerRenderer();
         playerRenderer = new PlayerRenderer();
@@ -64,6 +64,18 @@ public class MapRenderSystem {
             multiplexer = new InputMultiplexer(Gdx.input.getInputProcessor());
         }
         Gdx.input.setInputProcessor(multiplexer);
+    }
+
+    private static void input() {
+        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+            camera.zoom += 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
+            camera.zoom -= 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.U)) {
+            camera.zoom = 1;
+        }
     }
 
     public void render(float delta) {
@@ -89,17 +101,5 @@ public class MapRenderSystem {
         coalRenderer.update();
         Time.update(rayHandlerRenderer);
         input();
-    }
-
-    private void input() {
-        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
-            camera.zoom += 0.02;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.I)) {
-            camera.zoom -= 0.02;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.U)) {
-            camera.zoom = 1;
-        }
     }
 }

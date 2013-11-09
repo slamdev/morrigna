@@ -2,7 +2,6 @@ package com.reed.birdseye;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.github.slamm.morrigna.core.GameScreen;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
@@ -22,8 +21,8 @@ public class SaveAndLoad {
         version = prefs.getString("version");
         // checks if up to date also checks if game has been played before :)
         if (version.equals(currentVersion)) {
-            GameScreen.mapCamera.position.x = prefs.getFloat("camera x");
-            GameScreen.mapCamera.position.y = prefs.getFloat("camera y");
+            MapRenderSystem.camera.position.x = prefs.getFloat("camera x");
+            MapRenderSystem.camera.position.y = prefs.getFloat("camera y");
             PlayerRenderer.x = prefs.getFloat("player x");
             PlayerRenderer.y = prefs.getFloat("player y");
             Tutorial.step = prefs.getInteger("Tutorial Level");
@@ -63,8 +62,8 @@ public class SaveAndLoad {
         prefs.putInteger("Cash", TradeShopRenderer.cash);
         prefs.putInteger("hp", PointsRenderer.hp);
         prefs.putInteger("xp", PointsRenderer.xp);
-        prefs.putFloat("camera x", GameScreen.mapCamera.position.x);
-        prefs.putFloat("camera y", GameScreen.mapCamera.position.y);
+        prefs.putFloat("camera x", MapRenderSystem.camera.position.x);
+        prefs.putFloat("camera y", MapRenderSystem.camera.position.y);
         prefs.putFloat("player x", PlayerRenderer.x);
         prefs.putFloat("player y", PlayerRenderer.y);
         prefs.putFloat("color alpha", Time.colorAlpha);

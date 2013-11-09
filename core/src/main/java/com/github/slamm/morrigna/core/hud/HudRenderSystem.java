@@ -36,10 +36,13 @@ public class HudRenderSystem {
 
     private final TradeShopRenderer tradeShopRenderer;
 
-    public HudRenderSystem(SpriteBatch batch, OrthographicCamera camera, BitmapFont currentFont) {
-        this.batch = batch;
-        this.camera = camera;
-        this.currentFont = currentFont;
+    public HudRenderSystem() {
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.update();
+        // translate HUD camera to make bottom left cordinate 0,0
+        camera.translate(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        batch = new SpriteBatch();
+        currentFont = new BitmapFont();
         pointsRenderer = new PointsRenderer();
         messagesRenderer = new MessagesRenderer();
         inventoryRenderer = new InventoryRenderer();

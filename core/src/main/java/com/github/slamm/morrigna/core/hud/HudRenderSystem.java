@@ -63,9 +63,6 @@ public class HudRenderSystem {
     public void render(float delta) {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        if (Time.isOutdoors()) {
-            levelRenderer.draw(batch);
-        }
         toolsListRenderer.render(batch);
         topMenuRenderer.render(batch);
         pointsRenderer.render(camera, batch);
@@ -74,6 +71,15 @@ public class HudRenderSystem {
         swordShopRenderer.render(currentFont, batch);
         tradeShopRenderer.render(currentFont, batch);
         houseFurnaceRenderer.render(delta, currentFont, batch);
+        batch.end();
+    }
+
+    public void renderLevel() {
+        batch.begin();
+        batch.setProjectionMatrix(camera.combined);
+        if (Time.isOutdoors()) {
+            levelRenderer.draw(batch);
+        }
         batch.end();
     }
 

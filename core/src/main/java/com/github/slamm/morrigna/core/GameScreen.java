@@ -123,6 +123,8 @@ public class GameScreen extends ScreenAdapter {
     private void draw(float deltaTime) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // TODO: code sucks
+        hudSystem.renderLevel();
         batch.setProjectionMatrix(mapCamera.combined);
         mapCamera.translate(xRate, yRate);
         mapCamera.update();

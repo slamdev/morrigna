@@ -38,49 +38,7 @@ public class Coal {
         this.y = y;
     }
 
-    // use for pig and mob (use on mob when not under attack)
-    public void mobCollision(Mob mob) {
-        if (!readyForRegen) {
-            if (mob.x + charWidth > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
-                mob.direction = 2;
-            }
-            if (mob.x + charWidth > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
-                mob.direction = 3;
-            }
-            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
-                mob.direction = 1;
-            }
-            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
-                mob.direction = 0;
-            }
-        }
-    }
-
-    public void mobUnderAttackCollision(Mob mob) {
-        // if it goes into a rock under attack becomes false... not sure if I
-        // should keep this or what
-        if (!readyForRegen) {
-            if (mob.x + mob.realMob.getRegionWidth() > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
-                mob.underAttack = false;
-            }
-            if (mob.x + mob.realMob.getRegionWidth() > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
-                mob.underAttack = false;
-            }
-            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
-                mob.underAttack = false;
-            }
-            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
-                mob.underAttack = false;
-            }
-        }
-    }
-
-    boolean closeEnough() {
-        return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
-                * (y - PlayerRenderer.y)) < distanceFromMaterial;
-    }
-
-    void collect() {
+    public void collect() {
         amountOfCoalString = Integer.toString(amountOfCoal);// update string
         // starts making the image of the "resource" smaller as b is
         // held down
@@ -118,19 +76,50 @@ public class Coal {
         }
     }
 
-    /** Distance between coal ore and Player */
-    float distanceBetweenCoalAndPlayer() {
-        return (float) Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
-                * (y - PlayerRenderer.y));
-    }
-
-    void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         if (drawResource) {
             batch.draw(Assets.coalOre, x, y, width, height);
         }
     }
 
-    void playerCollision() {
+    // use for pig and mob (use on mob when not under attack)
+    public void mobCollision(Mob mob) {
+        if (!readyForRegen) {
+            if (mob.x + charWidth > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
+                mob.direction = 2;
+            }
+            if (mob.x + charWidth > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
+                mob.direction = 3;
+            }
+            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
+                mob.direction = 1;
+            }
+            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
+                mob.direction = 0;
+            }
+        }
+    }
+
+    public void mobUnderAttackCollision(Mob mob) {
+        // if it goes into a rock under attack becomes false... not sure if I
+        // should keep this or what
+        if (!readyForRegen) {
+            if (mob.x + mob.realMob.getRegionWidth() > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
+                mob.underAttack = false;
+            }
+            if (mob.x + mob.realMob.getRegionWidth() > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
+                mob.underAttack = false;
+            }
+            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
+                mob.underAttack = false;
+            }
+            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
+                mob.underAttack = false;
+            }
+        }
+    }
+
+    public void playerCollision() {
         if (!readyForRegen) {
             if (PlayerRenderer.x + charWidth > x - 4 && PlayerRenderer.x < x + 20 && PlayerRenderer.y < y + 58
                     && PlayerRenderer.y > y) {
@@ -151,7 +140,7 @@ public class Coal {
         }
     }
 
-    void regeneration() {
+    public void regeneration() {
         // just so I can save one less boolean * amount of coal
         if (!drawResource) {
             readyForRegen = true;
@@ -170,5 +159,16 @@ public class Coal {
             drawResource = true;
         }
     }
+
     // save if it is being drawn or not*
+    boolean closeEnough() {
+        return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y)) < distanceFromMaterial;
+    }
+
+    /** Distance between coal ore and Player */
+    float distanceBetweenCoalAndPlayer() {
+        return (float) Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y));
+    }
 }

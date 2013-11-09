@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
+import com.github.slamm.morrigna.core.map.CoalRenderer;
 
 public class Farm {
 
@@ -23,7 +24,7 @@ public class Farm {
 
     boolean hydrated = false;
 
-    ArrayListsz mainGame = new ArrayListsz();
+    CoalRenderer mainGame = new CoalRenderer();
 
     float sizeAlpha, sizeBeta;
 

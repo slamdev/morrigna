@@ -44,24 +44,12 @@ public class SaveAndLoad {
             LevelRenderer.currentMap = prefs.getInteger("current map");
             Time.setOutdoors(prefs.getBoolean("is outside"));
             House.preAmbientLight = prefs.getFloat("pre ambient light");
-            // establish before setting values
-            ArrayListsz.coalArray.add(new Coal(2290, 1798));
-            ArrayListsz.coalArray.add(new Coal(1618, 2022));
-            ArrayListsz.coalArray.add(new Coal(1844, 1652));
-            for (int i = 0; i < ArrayListsz.coalArray.size; i++) {
-                ArrayListsz.coalArray.get(i).drawResource = prefs.getBoolean("drawCoal" + i);
-                ArrayListsz.coalArray.get(i).timer = prefs.getFloat("coalRegenTimer" + i);
-            }
             Food.amountOfFood = prefs.getInteger("foodAmount");
             PointsRenderer.currentLevel = prefs.getInteger("level");
             Time.createLights(MapRenderSystem.rayHandlerRenderer);
         } else {
             // still gotta load lights even if the versions dont match up
             Time.createLights(MapRenderSystem.rayHandlerRenderer);
-            // same for coal
-            ArrayListsz.coalArray.add(new Coal(2290, 1798));
-            ArrayListsz.coalArray.add(new Coal(1618, 2022));
-            ArrayListsz.coalArray.add(new Coal(1844, 1652));
             prefs.clear();
         }
     }
@@ -90,10 +78,6 @@ public class SaveAndLoad {
         prefs.putInteger("current map", LevelRenderer.currentMap);
         prefs.putBoolean("is outside", Time.isOutdoors());
         prefs.putFloat("pre ambient light", House.preAmbientLight);
-        for (int i = 0; i < ArrayListsz.coalArray.size; i++) {
-            prefs.putBoolean("drawCoal" + i, ArrayListsz.coalArray.get(i).drawResource);
-            prefs.putFloat("coalRegenTimer" + i, ArrayListsz.coalArray.get(i).timer);
-        }
         prefs.putInteger("foodAmount", Food.amountOfFood);
         prefs.putInteger("level", PointsRenderer.currentLevel);
         // set to current version before saving

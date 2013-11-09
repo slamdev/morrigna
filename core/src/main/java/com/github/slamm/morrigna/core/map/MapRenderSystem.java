@@ -24,6 +24,8 @@ public class MapRenderSystem {
 
     private final OrthographicCamera camera;
 
+    private final CoalRenderer coalRenderer;
+
     private final CreeperRenderer creeperRenderer;
 
     private final BitmapFont currentFont;
@@ -53,6 +55,7 @@ public class MapRenderSystem {
         treeRenderer = new TreeRenderer();
         creeperRenderer = new CreeperRenderer();
         pigRenderer = new PigRenderer();
+        coalRenderer = new CoalRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -73,6 +76,7 @@ public class MapRenderSystem {
         treeRenderer.render(currentFont, batch);
         creeperRenderer.render(camera, batch);
         pigRenderer.render(camera, batch);
+        coalRenderer.render(batch);
         batch.end();
         rayHandlerRenderer.setCombinedMatrix(camera.combined);
         rayHandlerRenderer.updateAndRender();
@@ -81,6 +85,7 @@ public class MapRenderSystem {
     public void update() {
         playerRenderer.update();
         creeperRenderer.update();
+        coalRenderer.update();
         Time.update(rayHandlerRenderer);
     }
 }

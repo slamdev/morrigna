@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
-import com.reed.birdseye.ArrayListsz;
 import com.reed.birdseye.Pig;
 
 public class PigRenderer {
@@ -25,8 +24,8 @@ public class PigRenderer {
             pigs.get(i).pig.draw(batch, pigs.get(i).theRealPig);
             pigs.get(i).update();
             pigs.get(i).regeneration();
-            for (int j = 0; j < ArrayListsz.coalArray.size; j++) {
-                ArrayListsz.coalArray.get(j).mobCollision(pigs.get(i).pig);
+            for (int j = 0; j < CoalRenderer.coalArray.size; j++) {
+                CoalRenderer.coalArray.get(j).mobCollision(pigs.get(i).pig);
             }
         }
         batch.end();

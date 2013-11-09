@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.github.slamm.morrigna.core.Assets;
-import com.reed.birdseye.ArrayListsz;
 import com.reed.birdseye.Mob;
 
 public class CreeperRenderer {
@@ -43,12 +42,12 @@ public class CreeperRenderer {
             creepers.get(i).follow();
             creepers.get(i).detectIfUnderAttack();
             creepers.get(i).regeneration();
-            for (int j = 0; j < ArrayListsz.coalArray.size; j++) {
+            for (int j = 0; j < CoalRenderer.coalArray.size; j++) {
                 // if not under attack
                 if (!creepers.get(i).underAttack) {
-                    ArrayListsz.coalArray.get(j).mobCollision(creepers.get(i));
+                    CoalRenderer.coalArray.get(j).mobCollision(creepers.get(i));
                 } else { // assume that it is under attack then
-                    ArrayListsz.coalArray.get(j).mobUnderAttackCollision(creepers.get(i));
+                    CoalRenderer.coalArray.get(j).mobUnderAttackCollision(creepers.get(i));
                 }
             }
         }

@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.hud.HudRenderSystem;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
-import com.reed.birdseye.ArrayListsz;
 import com.reed.birdseye.CollisionDetection;
 import com.reed.birdseye.CurrentTool;
 import com.reed.birdseye.Fishing;
@@ -23,8 +22,6 @@ public class GameScreen extends ScreenAdapter {
      * static for getting and setting position during save / load
      */
     public static OrthographicCamera mapCamera;
-
-    private final ArrayListsz arrays;
 
     private final SpriteBatch batch;
 
@@ -58,7 +55,6 @@ public class GameScreen extends ScreenAdapter {
         camera.translate(w / 2, h / 2);
         // translate camera to spawn point
         mapCamera.translate(1422 + 16, 3562 + 24);
-        arrays = new ArrayListsz();
         collision = new CollisionDetection();
         fishing = new Fishing();
         house = new House();
@@ -91,21 +87,14 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         // TODO: code sucks
         hudSystem.renderLevel();
-        batch.begin();
-        // set camera for drawing moving items.
-        batch.setProjectionMatrix(mapCamera.combined);
-        arrays.drawCoal(batch);
-        batch.end();
+        mapSystem.render(deltaTime);
+        hudSystem.render(deltaTime);
         batch.begin();
         // set static for tool drawing (so it is affected by lights)
         batch.setProjectionMatrix(camera.combined);
         currentTool.render(batch);
         currentTool.update();
-        // set camera for drawing moving items.
-        batch.setProjectionMatrix(mapCamera.combined);
         batch.end();
-        mapSystem.render(deltaTime);
-        hudSystem.render(deltaTime);
     }
 
     /**
@@ -128,7 +117,6 @@ public class GameScreen extends ScreenAdapter {
 
     private void update() {
         mapSystem.update();
-        // can be changed anytime in time class
         hudSystem.update();
         collision.doCollision();
         fishing.update();
@@ -137,6 +125,5 @@ public class GameScreen extends ScreenAdapter {
         camera.update();
         food.affectHealth();
         food.looseHunger();
-        arrays.updateCoal();
     }
 }

@@ -7,8 +7,8 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
+import com.github.slamm.morrigna.core.map.TradeShopOwnerRenderer;
 import com.reed.birdseye.Fishing;
-import com.reed.birdseye.TradeShopOwner;
 import com.reed.birdseye.Tutorial;
 
 public class TradeShopRenderer extends InputAdapter {
@@ -30,8 +30,8 @@ public class TradeShopRenderer extends InputAdapter {
     private float timer = 5;
 
     private static boolean closeEnough() {
-        return Math.sqrt((TradeShopOwner.X - PlayerRenderer.x) * (TradeShopOwner.X - PlayerRenderer.x)
-                + (TradeShopOwner.Y - PlayerRenderer.y) * (TradeShopOwner.Y - PlayerRenderer.y)) < DISTANCE_FROM_SHOP;
+        return Math.sqrt((TradeShopOwnerRenderer.X - PlayerRenderer.x) * (TradeShopOwnerRenderer.X - PlayerRenderer.x)
+                + (TradeShopOwnerRenderer.Y - PlayerRenderer.y) * (TradeShopOwnerRenderer.Y - PlayerRenderer.y)) < DISTANCE_FROM_SHOP;
     }
 
     public void render(BitmapFont font, SpriteBatch batch) {

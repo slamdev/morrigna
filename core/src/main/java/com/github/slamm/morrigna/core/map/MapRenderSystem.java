@@ -5,8 +5,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.reed.birdseye.SwordShopOwner;
-import com.reed.birdseye.TradeShopOwner;
 
 public class MapRenderSystem {
 
@@ -18,16 +16,16 @@ public class MapRenderSystem {
 
     private final PlayerRenderer playerRenderer;
 
-    private final SwordShopOwner swordShopOwner;
+    private final SwordShopOwnerRenderer swordShopOwnerRenderer;
 
-    private final TradeShopOwner tradeShopOwner;
+    private final TradeShopOwnerRenderer tradeShopOwnerRenderer;
 
     public MapRenderSystem(SpriteBatch batch, OrthographicCamera camera, BitmapFont currentFont) {
         this.batch = batch;
         this.camera = camera;
         currentForn = currentFont;
-        swordShopOwner = new SwordShopOwner();
-        tradeShopOwner = new TradeShopOwner();
+        swordShopOwnerRenderer = new SwordShopOwnerRenderer();
+        tradeShopOwnerRenderer = new TradeShopOwnerRenderer();
         playerRenderer = new PlayerRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
@@ -41,8 +39,8 @@ public class MapRenderSystem {
     public void render(float delta) {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
-        swordShopOwner.draw(batch);
-        tradeShopOwner.draw(batch);
+        swordShopOwnerRenderer.draw(batch);
+        tradeShopOwnerRenderer.draw(batch);
         playerRenderer.draw(batch);
         batch.end();
     }

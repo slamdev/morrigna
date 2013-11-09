@@ -1,9 +1,9 @@
-package com.reed.birdseye;
+package com.github.slamm.morrigna.core.map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 
-public class TradeShopOwner {
+public class TradeShopOwnerRenderer {
 
     public static final int X = 1838;
 

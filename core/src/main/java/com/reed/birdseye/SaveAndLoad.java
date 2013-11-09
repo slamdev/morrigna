@@ -55,15 +55,6 @@ public class SaveAndLoad {
                 ArrayListsz.pigArray.get(i).pig.health = prefs.getFloat("pigHealth" + i);
             }
             // establish before setting values
-            for (int i = 0; i < ArrayListsz.amountOfMobs; i++) {
-                ArrayListsz.creeperArray.add(new Mob(1562, 1264, 1000, 918));
-            }
-            for (int i = 0; i < ArrayListsz.creeperArray.size; i++) {
-                ArrayListsz.creeperArray.get(i).x = prefs.getInteger("creeperPosX" + i);
-                ArrayListsz.creeperArray.get(i).y = prefs.getInteger("creeperPosY" + i);
-                ArrayListsz.creeperArray.get(i).health = prefs.getFloat("creeperHealth" + i);
-            }
-            // establish before setting values
             ArrayListsz.coalArray.add(new Coal(2290, 1798));
             ArrayListsz.coalArray.add(new Coal(1618, 2022));
             ArrayListsz.coalArray.add(new Coal(1844, 1652));
@@ -81,10 +72,7 @@ public class SaveAndLoad {
             for (int i = 0; i < ArrayListsz.amountOfPigs; i++) {
                 ArrayListsz.pigArray.add(new Pig());
             }// same fore creepers
-            for (int i = 0; i < ArrayListsz.amountOfMobs; i++) {
-                ArrayListsz.creeperArray.add(new Mob(1562, 1264, 1000, 918));
-            }
-            // same for coal
+             // same for coal
             ArrayListsz.coalArray.add(new Coal(2290, 1798));
             ArrayListsz.coalArray.add(new Coal(1618, 2022));
             ArrayListsz.coalArray.add(new Coal(1844, 1652));
@@ -120,11 +108,6 @@ public class SaveAndLoad {
             prefs.putInteger("pigPosX" + i + "", ArrayListsz.pigArray.get(i).pig.x);
             prefs.putInteger("pigPosY" + i + "", ArrayListsz.pigArray.get(i).pig.y);
             prefs.putFloat("pigHealth" + i, ArrayListsz.pigArray.get(i).pig.health);
-        }
-        for (int i = 0; i < ArrayListsz.creeperArray.size; i++) {
-            prefs.putInteger("creeperPosX" + i + "", ArrayListsz.creeperArray.get(i).x);
-            prefs.putInteger("creeperPosY" + i + "", ArrayListsz.creeperArray.get(i).y);
-            prefs.putFloat("creeperHealth" + i, ArrayListsz.creeperArray.get(i).health);
         }
         for (int i = 0; i < ArrayListsz.coalArray.size; i++) {
             prefs.putBoolean("drawCoal" + i, ArrayListsz.coalArray.get(i).drawResource);

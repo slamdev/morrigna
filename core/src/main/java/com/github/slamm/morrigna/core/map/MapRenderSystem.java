@@ -24,6 +24,8 @@ public class MapRenderSystem {
 
     private final OrthographicCamera camera;
 
+    private final CreeperRenderer creeperRenderer;
+
     private final BitmapFont currentFont;
 
     private final PlayerRenderer playerRenderer;
@@ -47,6 +49,7 @@ public class MapRenderSystem {
         smokePracticle = new Particles();
         rayHandlerRenderer = new RayHandler(new World(new Vector2(0, 0), true));
         treeRenderer = new TreeRenderer();
+        creeperRenderer = new CreeperRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -65,6 +68,7 @@ public class MapRenderSystem {
         playerRenderer.draw(batch);
         smokePracticle.smokeUpdateAndDraw(batch, delta);
         treeRenderer.render(currentFont, batch);
+        creeperRenderer.render(camera, batch);
         batch.end();
         rayHandlerRenderer.setCombinedMatrix(camera.combined);
         rayHandlerRenderer.updateAndRender();
@@ -72,6 +76,7 @@ public class MapRenderSystem {
 
     public void update() {
         playerRenderer.update();
+        creeperRenderer.update();
         Time.update(rayHandlerRenderer);
     }
 }

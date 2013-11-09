@@ -99,12 +99,10 @@ public class GameScreen extends ScreenAdapter {
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
         arrays.drawCoal(batch);
-        arrays.mobDraw(batch);
         arrays.pigUpdateAndDraw(batch);
         batch.end();
         //
         shapeRenderer.setProjectionMatrix(mapCamera.combined);
-        arrays.mobHealthBars(shapeRenderer);
         arrays.pigHealthBars(shapeRenderer);
         //
         batch.begin();
@@ -146,7 +144,6 @@ public class GameScreen extends ScreenAdapter {
         fishing.fishCaught();
         house.update();
         camera.update();
-        arrays.mobUpdate();
         food.affectHealth();
         food.looseHunger();
         arrays.updateCoal();

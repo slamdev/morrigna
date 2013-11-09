@@ -38,6 +38,43 @@ public class Coal {
         this.y = y;
     }
 
+    // use for pig and mob (use on mob when not under attack)
+    public void mobCollision(Mob mob) {
+        if (!readyForRegen) {
+            if (mob.x + charWidth > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
+                mob.direction = 2;
+            }
+            if (mob.x + charWidth > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
+                mob.direction = 3;
+            }
+            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
+                mob.direction = 1;
+            }
+            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
+                mob.direction = 0;
+            }
+        }
+    }
+
+    public void mobUnderAttackCollision(Mob mob) {
+        // if it goes into a rock under attack becomes false... not sure if I
+        // should keep this or what
+        if (!readyForRegen) {
+            if (mob.x + mob.realMob.getRegionWidth() > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
+                mob.underAttack = false;
+            }
+            if (mob.x + mob.realMob.getRegionWidth() > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
+                mob.underAttack = false;
+            }
+            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
+                mob.underAttack = false;
+            }
+            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
+                mob.underAttack = false;
+            }
+        }
+    }
+
     boolean closeEnough() {
         return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
                 * (y - PlayerRenderer.y)) < distanceFromMaterial;
@@ -90,43 +127,6 @@ public class Coal {
     void draw(SpriteBatch batch) {
         if (drawResource) {
             batch.draw(Assets.coalOre, x, y, width, height);
-        }
-    }
-
-    // use for pig and mob (use on mob when not under attack)
-    void mobCollision(Mob mob) {
-        if (!readyForRegen) {
-            if (mob.x + charWidth > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
-                mob.direction = 2;
-            }
-            if (mob.x + charWidth > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
-                mob.direction = 3;
-            }
-            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
-                mob.direction = 1;
-            }
-            if (mob.x + charWidth > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
-                mob.direction = 0;
-            }
-        }
-    }
-
-    void mobUnderAttackCollision(Mob mob) {
-        // if it goes into a rock under attack becomes false... not sure if I
-        // should keep this or what
-        if (!readyForRegen) {
-            if (mob.x + mob.realMob.getRegionWidth() > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
-                mob.underAttack = false;
-            }
-            if (mob.x + mob.realMob.getRegionWidth() > x + 54 && mob.x < x + 68 && mob.y < y + 58 && mob.y > y) {
-                mob.underAttack = false;
-            }
-            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y - 14 && mob.y < y + 10) {
-                mob.underAttack = false;
-            }
-            if (mob.x + mob.realMob.getRegionWidth() > x && mob.x < x + 64 && mob.y > y + 48 && mob.y < y + 62) {
-                mob.underAttack = false;
-            }
         }
     }
 

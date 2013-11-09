@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Mob {
 
@@ -94,7 +95,8 @@ public class Mob {
     }
 
     boolean closeEnough() {
-        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < distanceFromMob;
+        return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y)) < distanceFromMob;
     }
 
     void detectIfUnderAttack() {
@@ -111,7 +113,8 @@ public class Mob {
 
     /** Distance between mob and player */
     float distanceBetweenMobAndPlayer() {
-        return (float) Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y));
+        return (float) Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y));
     }
 
     void draw(SpriteBatch batch, TextureRegion mainMob) {
@@ -171,7 +174,7 @@ public class Mob {
 
     /** Returns if mob is above player */
     boolean isAbove() {
-        return Player.y < y;
+        return PlayerRenderer.y < y;
     }
 
     // ensures that mob is alive (for drawing purposes)
@@ -185,17 +188,17 @@ public class Mob {
 
     /** Returns if mob is below player */
     boolean isBelow() {
-        return Player.y > y;
+        return PlayerRenderer.y > y;
     }
 
     /** Returns if mob is to the left of player */
     boolean isToTheLeft() {
-        return Player.x > x;
+        return PlayerRenderer.x > x;
     }
 
     /** Returns if mob is to the right of player */
     boolean isToTheRight() {
-        return Player.x < x;
+        return PlayerRenderer.x < x;
     }
 
     // takes away health from mob

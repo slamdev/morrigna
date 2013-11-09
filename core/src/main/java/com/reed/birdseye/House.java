@@ -7,6 +7,7 @@ import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.GameScreen;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.MessagesRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class House {
 
@@ -62,8 +63,8 @@ public class House {
 
     public static void exitGame() {
         if (sleepStep > 0) {
-            Player.x = preSleepPlayerPos.x;
-            Player.y = preSleepPlayerPos.y;
+            PlayerRenderer.x = preSleepPlayerPos.x;
+            PlayerRenderer.y = preSleepPlayerPos.y;
             Time.setAmbientLight(1);
         }
     }
@@ -85,8 +86,8 @@ public class House {
         // variable becomes true through the collision class
         if (inRiverHouse) {
             if (justEntered) {
-                prePlayerPos.x = Player.x;
-                prePlayerPos.y = Player.y;
+                prePlayerPos.x = PlayerRenderer.x;
+                prePlayerPos.y = PlayerRenderer.y;
                 preCameraPos.x = GameScreen.mapCamera.position.x;
                 preCameraPos.y = GameScreen.mapCamera.position.y;
                 preAmbientLight = Time.getAmbientLight();
@@ -98,8 +99,8 @@ public class House {
                 GameScreen.mapCamera.position.x = Gdx.graphics.getWidth() / 2 + 10;
                 GameScreen.mapCamera.position.y = Gdx.graphics.getHeight() / 2 - 140;
                 // draw player in correct spot
-                Player.x = LevelRenderer.middleX + 10;
-                Player.y = LevelRenderer.middleY - 140;
+                PlayerRenderer.x = LevelRenderer.middleX + 10;
+                PlayerRenderer.y = LevelRenderer.middleY - 140;
                 // get rid of grass (set to what? blackness)
                 // get rid of darkness. (how to set back to normal levels when
                 // you exit *looks around franticly* -- set up currentAmbient
@@ -116,8 +117,8 @@ public class House {
         } else {
             if (justExited) {
                 LevelRenderer.currentMap = 0;
-                Player.x = prePlayerPos.x;
-                Player.y = prePlayerPos.y;
+                PlayerRenderer.x = prePlayerPos.x;
+                PlayerRenderer.y = prePlayerPos.y;
                 GameScreen.mapCamera.position.x = preCameraPos.x;
                 GameScreen.mapCamera.position.y = preCameraPos.y;
                 CollisionDetection.setCollisionType(0);
@@ -137,7 +138,8 @@ public class House {
      * @variable distanceFromBed
      */
     private boolean closeEnoughToBed() {
-        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < distanceFromBed;
+        return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y)) < distanceFromBed;
     }
 
     private void nearBed() {
@@ -166,11 +168,11 @@ public class House {
      */
     private void remCycles() {
         if (sleepStep == 1) {
-            preSleepPlayerPos.x = Player.x;
-            preSleepPlayerPos.y = Player.y;
-            Player.x = 735;
-            Player.y = 380;
-            Player.ableToMove = false;
+            preSleepPlayerPos.x = PlayerRenderer.x;
+            preSleepPlayerPos.y = PlayerRenderer.y;
+            PlayerRenderer.x = 735;
+            PlayerRenderer.y = 380;
+            PlayerRenderer.ableToMove = false;
             Assets.mainChar = Assets.downChar_STILL;
             // set sprite to look down (should be a static sprite)
             sleepStep = 2;
@@ -190,10 +192,10 @@ public class House {
             }
         }
         if (sleepStep == 4) {
-            Player.ableToMove = true;
+            PlayerRenderer.ableToMove = true;
             canSendDayMessage = true;
-            Player.x = preSleepPlayerPos.x;
-            Player.y = preSleepPlayerPos.y;
+            PlayerRenderer.x = preSleepPlayerPos.x;
+            PlayerRenderer.y = preSleepPlayerPos.y;
             Time.colorAlpha = 0;
             preAmbientLight = 1;
             Time.setTimeOfDay(0);

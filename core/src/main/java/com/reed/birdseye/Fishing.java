@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.github.slamm.morrigna.core.hud.MessagesRenderer;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Fishing {
 
@@ -49,7 +50,7 @@ public class Fishing {
 
     // detects if you have the ability to fish
     boolean fishingPossible() {
-        return Player.x > 700 && Player.x < 758 && Player.y > 1896 && Player.y < 2036
+        return PlayerRenderer.x > 700 && PlayerRenderer.x < 758 && PlayerRenderer.y > 1896 && PlayerRenderer.y < 2036
                 && TopMenuRenderer.currentTool == 1;
     }
 }

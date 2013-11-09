@@ -10,6 +10,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Tree {
 
@@ -40,7 +41,8 @@ public class Tree {
     float treeFallTime, leavesTime;
 
     boolean closeEnough() {
-        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < distanceFromMaterial;
+        return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y)) < distanceFromMaterial;
     }
 
     void collectingTree() {
@@ -71,17 +73,20 @@ public class Tree {
     }
 
     void collision() {
-        if (Player.x > x - 45 && Player.x < x - 20 && Player.y < y + 40 && Player.y > y - 20) {
-            Player.isAbleToMoveRight = false;
+        if (PlayerRenderer.x > x - 45 && PlayerRenderer.x < x - 20 && PlayerRenderer.y < y + 40
+                && PlayerRenderer.y > y - 20) {
+            PlayerRenderer.isAbleToMoveRight = false;
         }
-        if (Player.x > x + 10 && Player.x < x + 30 && Player.y < y + 40 && Player.y > y - 20) {
-            Player.isAbleToMoveLeft = false;
+        if (PlayerRenderer.x > x + 10 && PlayerRenderer.x < x + 30 && PlayerRenderer.y < y + 40
+                && PlayerRenderer.y > y - 20) {
+            PlayerRenderer.isAbleToMoveLeft = false;
         }
-        if (Player.x > x - 41 && Player.x < x + 26 && Player.y < y + 40 && Player.y > y + 20) {
-            Player.isAbleToMoveDown = false;
+        if (PlayerRenderer.x > x - 41 && PlayerRenderer.x < x + 26 && PlayerRenderer.y < y + 40
+                && PlayerRenderer.y > y + 20) {
+            PlayerRenderer.isAbleToMoveDown = false;
         }
-        if (Player.x > x - 41 && Player.x < x + 26 && Player.y < y && Player.y > y - 24) {
-            Player.isAbleToMoveUp = false;
+        if (PlayerRenderer.x > x - 41 && PlayerRenderer.x < x + 26 && PlayerRenderer.y < y && PlayerRenderer.y > y - 24) {
+            PlayerRenderer.isAbleToMoveUp = false;
         }
     }
 
@@ -93,7 +98,7 @@ public class Tree {
         renderer.draw(batch, leavesSkel);
         renderer.draw(batch, treeSkel);
         // batch.draw(Assets.tree, x, y);
-        if (closeEnough() && Player.ableToMove && !treeDone) {
+        if (closeEnough() && PlayerRenderer.ableToMove && !treeDone) {
             font.draw(batch, "Press B to Pick up the Tree", 50, 50);
         }
         treeSkel.updateWorldTransform();

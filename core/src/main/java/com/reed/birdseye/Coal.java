@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Coal {
 
@@ -38,7 +39,8 @@ public class Coal {
     }
 
     boolean closeEnough() {
-        return Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y)) < distanceFromMaterial;
+        return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y)) < distanceFromMaterial;
     }
 
     void collect() {
@@ -81,7 +83,8 @@ public class Coal {
 
     /** Distance between coal ore and Player */
     float distanceBetweenCoalAndPlayer() {
-        return (float) Math.sqrt((x - Player.x) * (x - Player.x) + (y - Player.y) * (y - Player.y));
+        return (float) Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y));
     }
 
     void draw(SpriteBatch batch) {
@@ -129,17 +132,21 @@ public class Coal {
 
     void playerCollision() {
         if (!readyForRegen) {
-            if (Player.x + charWidth > x - 4 && Player.x < x + 20 && Player.y < y + 58 && Player.y > y) {
-                Player.isAbleToMoveRight = false;
+            if (PlayerRenderer.x + charWidth > x - 4 && PlayerRenderer.x < x + 20 && PlayerRenderer.y < y + 58
+                    && PlayerRenderer.y > y) {
+                PlayerRenderer.isAbleToMoveRight = false;
             }
-            if (Player.x + charWidth > x + 54 && Player.x < x + 68 && Player.y < y + 58 && Player.y > y) {
-                Player.isAbleToMoveLeft = false;
+            if (PlayerRenderer.x + charWidth > x + 54 && PlayerRenderer.x < x + 68 && PlayerRenderer.y < y + 58
+                    && PlayerRenderer.y > y) {
+                PlayerRenderer.isAbleToMoveLeft = false;
             }
-            if (Player.x + charWidth > x && Player.x < x + 64 && Player.y > y - 14 && Player.y < y + 10) {
-                Player.isAbleToMoveUp = false;
+            if (PlayerRenderer.x + charWidth > x && PlayerRenderer.x < x + 64 && PlayerRenderer.y > y - 14
+                    && PlayerRenderer.y < y + 10) {
+                PlayerRenderer.isAbleToMoveUp = false;
             }
-            if (Player.x + charWidth > x && Player.x < x + 64 && Player.y > y + 48 && Player.y < y + 62) {
-                Player.isAbleToMoveDown = false;
+            if (PlayerRenderer.x + charWidth > x && PlayerRenderer.x < x + 64 && PlayerRenderer.y > y + 48
+                    && PlayerRenderer.y < y + 62) {
+                PlayerRenderer.isAbleToMoveDown = false;
             }
         }
     }

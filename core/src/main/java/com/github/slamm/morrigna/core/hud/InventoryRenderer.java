@@ -5,10 +5,10 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 import com.reed.birdseye.Coal;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
-import com.reed.birdseye.Player;
 import com.reed.birdseye.Tree;
 
 public class InventoryRenderer extends InputAdapter {
@@ -22,8 +22,8 @@ public class InventoryRenderer extends InputAdapter {
     @Override
     public boolean keyUp(int keycode) {
         if (Keys.ESCAPE == keycode) {
-            Player.ableToMove = true;
-            Player.drawCharacter = true;
+            PlayerRenderer.ableToMove = true;
+            PlayerRenderer.drawCharacter = true;
             inventoryVisible = false;
             return true;
         }
@@ -34,8 +34,8 @@ public class InventoryRenderer extends InputAdapter {
         if (inventoryVisible) {
             batch.draw(Assets.inventory, 0, 0);
             // move somewhere else
-            Player.ableToMove = false;
-            Player.drawCharacter = false;
+            PlayerRenderer.ableToMove = false;
+            PlayerRenderer.drawCharacter = false;
             // draw amounts
             font.draw(batch, Tree.amountOfWoodString, ROW_1_Y, 388);
             font.draw(batch, Coal.amountOfCoalString, ROW_1_Y, 356);

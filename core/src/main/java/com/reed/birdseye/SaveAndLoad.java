@@ -6,6 +6,7 @@ import com.github.slamm.morrigna.core.GameScreen;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class SaveAndLoad {
 
@@ -22,8 +23,8 @@ public class SaveAndLoad {
         if (version.equals(currentVersion)) {
             GameScreen.mapCamera.position.x = prefs.getFloat("camera x");
             GameScreen.mapCamera.position.y = prefs.getFloat("camera y");
-            Player.x = prefs.getFloat("player x");
-            Player.y = prefs.getFloat("player y");
+            PlayerRenderer.x = prefs.getFloat("player x");
+            PlayerRenderer.y = prefs.getFloat("player y");
             Tutorial.step = prefs.getInteger("Tutorial Level");
             Fishing.amountOfFish = prefs.getInteger("Fish");
             Resource.amountOfStone = prefs.getInteger("Stone");
@@ -101,8 +102,8 @@ public class SaveAndLoad {
         prefs.putInteger("xp", PointsRenderer.xp);
         prefs.putFloat("camera x", GameScreen.mapCamera.position.x);
         prefs.putFloat("camera y", GameScreen.mapCamera.position.y);
-        prefs.putFloat("player x", Player.x);
-        prefs.putFloat("player y", Player.y);
+        prefs.putFloat("player x", PlayerRenderer.x);
+        prefs.putFloat("player y", PlayerRenderer.y);
         prefs.putFloat("color alpha", Time.colorAlpha);
         prefs.putFloat("time", Time.getTimeOfDay());
         prefs.putFloat("ambient light", Time.getAmbientLight());

@@ -21,7 +21,6 @@ import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
 import com.reed.birdseye.Particles;
-import com.reed.birdseye.Player;
 import com.reed.birdseye.SaveAndLoad;
 import com.reed.birdseye.Time;
 
@@ -65,8 +64,6 @@ public class GameScreen extends ScreenAdapter {
 
     private MapRenderSystem mapSystem;
 
-    private final Player player;
-
     private final ShapeRenderer shapeRenderer;
 
     private final Particles smoke;
@@ -87,7 +84,6 @@ public class GameScreen extends ScreenAdapter {
         // translate camera to spawn point
         mapCamera.translate(1422 + 16, 3562 + 24);
         shapeRenderer = new ShapeRenderer();
-        player = new Player();
         arrays = new ArrayListsz();
         collision = new CollisionDetection();
         fishing = new Fishing();
@@ -142,7 +138,6 @@ public class GameScreen extends ScreenAdapter {
         arrays.mobHealthBars(shapeRenderer);
         arrays.pigHealthBars(shapeRenderer);
         batch.begin();
-        player.draw(batch);
         // set static for tool drawing (so it is affected by lights)
         batch.setProjectionMatrix(camera.combined);
         currentTool.render(batch);
@@ -179,9 +174,6 @@ public class GameScreen extends ScreenAdapter {
     private void update() {
         mapSystem.update();
         // can be changed anytime in time class
-        player.setSprites();
-        player.move();
-        player.input();
         hudSystem.update();
         collision.doCollision();
         fishing.update();

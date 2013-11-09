@@ -6,10 +6,10 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 import com.reed.birdseye.Coal;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.Particles;
-import com.reed.birdseye.Player;
 
 public class HouseFurnaceRenderer extends InputAdapter {
 
@@ -33,8 +33,8 @@ public class HouseFurnaceRenderer extends InputAdapter {
 
     public void render(float deltaTime, BitmapFont font, SpriteBatch batch) {
         if (furnaceOpen) {
-            Player.ableToMove = false;
-            Player.drawCharacter = false;
+            PlayerRenderer.ableToMove = false;
+            PlayerRenderer.drawCharacter = false;
             batch.draw(Assets.furnaceGUI, 0, 0);
             FIRE.fireUpdateAndDraw(batch, deltaTime);
             // draw fonts
@@ -42,8 +42,8 @@ public class HouseFurnaceRenderer extends InputAdapter {
             font.draw(batch, String.valueOf(rawFoodInFurnace), 420, 376);
             font.draw(batch, String.valueOf(cookedFoodInFurnace), 760, 376);
             if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-                Player.ableToMove = true;
-                Player.drawCharacter = true;
+                PlayerRenderer.ableToMove = true;
+                PlayerRenderer.drawCharacter = true;
                 furnaceOpen = false;
             }
         }
@@ -81,6 +81,7 @@ public class HouseFurnaceRenderer extends InputAdapter {
      * started but never finished need to add ores for fuel first furnace / stove stuff
      */
     private boolean nearFurnace() {
-        return Math.sqrt((X - Player.x) * (X - Player.x) + (Y - Player.y) * (Y - Player.y)) < distanceFromFurnace;
+        return Math.sqrt((X - PlayerRenderer.x) * (X - PlayerRenderer.x) + (Y - PlayerRenderer.y)
+                * (Y - PlayerRenderer.y)) < distanceFromFurnace;
     }
 }

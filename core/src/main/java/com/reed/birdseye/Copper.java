@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Copper {
 
@@ -71,7 +72,7 @@ public class Copper {
     void draw(SpriteBatch batch, BitmapFont font) {
         if (drawResource) {
             batch.draw(Assets.copperOre, x, y, width, height);
-            if (closeEnough() && Player.ableToMove) {
+            if (closeEnough() && PlayerRenderer.ableToMove) {
                 font.draw(batch, "Hold B to Pick up the Copper", 50, 50);
             }
         }

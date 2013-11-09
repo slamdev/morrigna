@@ -9,6 +9,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class CurrentTool {
 
@@ -31,8 +32,8 @@ public class CurrentTool {
     }
 
     public void render(SpriteBatch batch) {
-        if ((Player.currentDirection == 2 || Player.currentDirection == 3) && !(TopMenuRenderer.currentTool == 5)
-                && !(TopMenuRenderer.currentTool == 4)) {
+        if ((PlayerRenderer.currentDirection == 2 || PlayerRenderer.currentDirection == 3)
+                && !(TopMenuRenderer.currentTool == 5) && !(TopMenuRenderer.currentTool == 4)) {
             if (Gdx.input.isKeyPressed(Keys.B)) {
                 isTooling = true;
                 renderer.draw(batch, toolSkel);
@@ -78,12 +79,12 @@ public class CurrentTool {
     }
 
     private void direction() {
-        if (Player.right) {
+        if (PlayerRenderer.right) {
             root.setX(LevelRenderer.middleX + 11);
             root.setY(LevelRenderer.middleY - 11);
             toolSkel.setFlipX(false);
         }
-        if (Player.left) {
+        if (PlayerRenderer.left) {
             root.setX(LevelRenderer.middleX + 20);
             root.setY(LevelRenderer.middleY - 11);
             toolSkel.setFlipX(true);

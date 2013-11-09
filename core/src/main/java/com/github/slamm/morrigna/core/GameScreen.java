@@ -65,7 +65,6 @@ public class GameScreen extends ScreenAdapter {
         arrays = new ArrayListsz();
         collision = new CollisionDetection();
         fishing = new Fishing();
-        arrays.treeArrayEstablisher();
         house = new House();
         currentFont = new BitmapFont();
         food = new Food();
@@ -99,7 +98,6 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
-        arrays.drawTreeTrunk(batch);
         arrays.drawCoal(batch);
         arrays.mobDraw(batch);
         arrays.pigUpdateAndDraw(batch);
@@ -116,7 +114,6 @@ public class GameScreen extends ScreenAdapter {
         currentTool.update();
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
-        arrays.drawBrush(batch, currentFont);
         batch.end();
         mapSystem.render(deltaTime);
         hudSystem.render(deltaTime);

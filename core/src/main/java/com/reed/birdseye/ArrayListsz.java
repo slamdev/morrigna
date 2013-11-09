@@ -1,6 +1,5 @@
 package com.reed.birdseye;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -20,29 +19,9 @@ public class ArrayListsz {
     // All the pig stuff
     static Array<Pig> pigArray = new Array<>();
 
-    static Array<Tree> treeArray = new Array<>();
-
-    final int amountOfTrees = 2;
-
-    public void drawBrush(SpriteBatch batch, BitmapFont font) {
-        for (int i = 0; i < treeArray.size; i++) {
-            treeArray.get(i).draw(batch, font);
-            treeArray.get(i).closeEnough();
-            treeArray.get(i).collectingTree();
-            treeArray.get(i).leavesFall();
-            treeArray.get(i).collision();
-        }
-    }
-
     public void drawCoal(SpriteBatch batch) {
         for (int i = 0; i < coalArray.size; i++) {
             coalArray.get(i).draw(batch);
-        }
-    }
-
-    public void drawTreeTrunk(SpriteBatch batch) {
-        for (int i = 0; i < treeArray.size; i++) {
-            treeArray.get(i).drawTrunk(batch);
         }
     }
 
@@ -99,16 +78,6 @@ public class ArrayListsz {
                 coalArray.get(j).mobCollision(pigArray.get(i).pig);
             }
         }
-    }
-
-    public void treeArrayEstablisher() {
-        for (int i = 0; i < amountOfTrees; i++) {
-            treeArray.add(new Tree());
-        }
-        treeArray.get(0).x = 1258;
-        treeArray.get(0).y = 2236;
-        treeArray.get(1).x = 1158;
-        treeArray.get(1).y = 2016;
     }
 
     public void updateCoal() {

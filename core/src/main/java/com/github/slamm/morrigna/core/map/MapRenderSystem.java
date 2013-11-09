@@ -34,6 +34,8 @@ public class MapRenderSystem {
 
     private final TradeShopOwnerRenderer tradeShopOwnerRenderer;
 
+    private final TreeRenderer treeRenderer;
+
     public MapRenderSystem(SpriteBatch batch, OrthographicCamera camera, BitmapFont currentFont) {
         this.batch = batch;
         this.camera = camera;
@@ -44,6 +46,7 @@ public class MapRenderSystem {
         mapRenderer = new MapRenderer();
         smokePracticle = new Particles();
         rayHandlerRenderer = new RayHandler(new World(new Vector2(0, 0), true));
+        treeRenderer = new TreeRenderer();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -61,6 +64,7 @@ public class MapRenderSystem {
         tradeShopOwnerRenderer.draw(batch);
         playerRenderer.draw(batch);
         smokePracticle.smokeUpdateAndDraw(batch, delta);
+        treeRenderer.render(currentFont, batch);
         batch.end();
         rayHandlerRenderer.setCombinedMatrix(camera.combined);
         rayHandlerRenderer.updateAndRender();

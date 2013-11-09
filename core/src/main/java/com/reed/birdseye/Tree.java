@@ -40,12 +40,12 @@ public class Tree {
 
     float treeFallTime, leavesTime;
 
-    boolean closeEnough() {
+    public boolean closeEnough() {
         return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
                 * (y - PlayerRenderer.y)) < distanceFromMaterial;
     }
 
-    void collectingTree() {
+    public void collectingTree() {
         amountOfWoodString = Integer.toString(amountOfWood);// update string
         if (closeEnough() && !treeFall) {
             if (Gdx.input.isKeyPressed(Keys.B) && TopMenuRenderer.currentTool == 2 && Tutorial.step >= 5) {
@@ -72,7 +72,7 @@ public class Tree {
         }
     }
 
-    void collision() {
+    public void collision() {
         if (PlayerRenderer.x > x - 45 && PlayerRenderer.x < x - 20 && PlayerRenderer.y < y + 40
                 && PlayerRenderer.y > y - 20) {
             PlayerRenderer.isAbleToMoveRight = false;
@@ -90,7 +90,7 @@ public class Tree {
         }
     }
 
-    void draw(SpriteBatch batch, BitmapFont font) {
+    public void draw(SpriteBatch batch, BitmapFont font) {
         root.setX(x);
         root.setY(y);
         leaveRoot.setX(x);
@@ -105,11 +105,11 @@ public class Tree {
         leavesSkel.updateWorldTransform();
     }
 
-    void drawTrunk(SpriteBatch batch) {
+    public void drawTrunk(SpriteBatch batch) {
         batch.draw(Assets.treeAtlas.findRegion("treeBottom"), x - 50, y);
     }
 
-    void leavesFall() {
+    public void leavesFall() {
         if (closeEnough() && !treeFall) {
             leavesTime += Gdx.graphics.getDeltaTime();
             Assets.leaveAnim.apply(leavesSkel, leavesTime, leavesTime, false, null);

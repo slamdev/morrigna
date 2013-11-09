@@ -19,7 +19,6 @@ import com.reed.birdseye.CurrentTool;
 import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.House;
-import com.reed.birdseye.Particles;
 import com.reed.birdseye.SaveAndLoad;
 import com.reed.birdseye.Time;
 
@@ -56,8 +55,6 @@ public class GameScreen extends ScreenAdapter {
 
     private final ShapeRenderer shapeRenderer;
 
-    private final Particles smoke;
-
     private final World world;
 
     public GameScreen() {
@@ -81,7 +78,6 @@ public class GameScreen extends ScreenAdapter {
         currentFont = new BitmapFont();
         world = new World(new Vector2(0, 0), true);
         rayHandler = new RayHandler(world);
-        smoke = new Particles();
         food = new Food();
         currentTool = new CurrentTool();
     }
@@ -131,7 +127,6 @@ public class GameScreen extends ScreenAdapter {
         // set camera for drawing moving items.
         batch.setProjectionMatrix(mapCamera.combined);
         arrays.drawBrush(batch, currentFont);
-        smoke.smokeUpdateAndDraw(batch, deltaTime);
         batch.end();
         mapSystem.render(deltaTime);
         hudSystem.render(deltaTime);

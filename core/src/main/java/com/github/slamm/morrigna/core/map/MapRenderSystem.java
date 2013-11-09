@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.reed.birdseye.Particles;
 
 public class MapRenderSystem {
 
@@ -21,6 +22,8 @@ public class MapRenderSystem {
 
     private final PlayerRenderer playerRenderer;
 
+    private final Particles smokePracticle;
+
     private final SwordShopOwnerRenderer swordShopOwnerRenderer;
 
     private final TradeShopOwnerRenderer tradeShopOwnerRenderer;
@@ -33,6 +36,7 @@ public class MapRenderSystem {
         tradeShopOwnerRenderer = new TradeShopOwnerRenderer();
         playerRenderer = new PlayerRenderer();
         mapRenderer = new MapRenderer();
+        smokePracticle = new Particles();
         InputMultiplexer multiplexer;
         if (Gdx.input.getInputProcessor() instanceof InputMultiplexer) {
             multiplexer = (InputMultiplexer) Gdx.input.getInputProcessor();
@@ -49,6 +53,7 @@ public class MapRenderSystem {
         swordShopOwnerRenderer.draw(batch);
         tradeShopOwnerRenderer.draw(batch);
         playerRenderer.draw(batch);
+        smokePracticle.smokeUpdateAndDraw(batch, delta);
         batch.end();
     }
 

@@ -9,6 +9,7 @@ import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 import com.github.slamm.morrigna.core.process.CollisionProcessSystem;
 import com.github.slamm.morrigna.core.process.FishingProcessSystem;
+import com.github.slamm.morrigna.core.process.HouseUpdateSystem;
 
 public class SaveAndLoad {
 
@@ -37,14 +38,14 @@ public class SaveAndLoad {
             Time.colorAlpha = prefs.getFloat("color alpha");
             Time.setTimeOfDay(prefs.getFloat("time"));
             Time.setAmbientLight(prefs.getFloat("ambient light"));
-            House.preCameraPos.x = prefs.getFloat("pre camera x");
-            House.preCameraPos.y = prefs.getFloat("pre camera y");
-            House.prePlayerPos.x = prefs.getFloat("pre player x");
-            House.prePlayerPos.y = prefs.getFloat("pre player y");
+            HouseUpdateSystem.preCameraPos.x = prefs.getFloat("pre camera x");
+            HouseUpdateSystem.preCameraPos.y = prefs.getFloat("pre camera y");
+            HouseUpdateSystem.prePlayerPos.x = prefs.getFloat("pre player x");
+            HouseUpdateSystem.prePlayerPos.y = prefs.getFloat("pre player y");
             CollisionProcessSystem.collisionType = prefs.getInteger("collision type");
             LevelRenderer.currentMap = prefs.getInteger("current map");
             Time.setOutdoors(prefs.getBoolean("is outside"));
-            House.preAmbientLight = prefs.getFloat("pre ambient light");
+            HouseUpdateSystem.preAmbientLight = prefs.getFloat("pre ambient light");
             Food.amountOfFood = prefs.getInteger("foodAmount");
             PointsRenderer.currentLevel = prefs.getInteger("level");
             Time.createLights(MapRenderSystem.rayHandlerRenderer);
@@ -56,7 +57,7 @@ public class SaveAndLoad {
     }
 
     public static void save() {
-        House.exitGame();
+        HouseUpdateSystem.save();
         prefs.putInteger("Tutorial Level", Tutorial.step);
         prefs.putInteger("Fish", FishingProcessSystem.count);
         prefs.putInteger("Stone", Resource.amountOfStone);
@@ -71,14 +72,14 @@ public class SaveAndLoad {
         prefs.putFloat("color alpha", Time.colorAlpha);
         prefs.putFloat("time", Time.getTimeOfDay());
         prefs.putFloat("ambient light", Time.getAmbientLight());
-        prefs.putFloat("pre camera x", House.preCameraPos.x);
-        prefs.putFloat("pre camera y", House.preCameraPos.y);
-        prefs.putFloat("pre player x", House.prePlayerPos.x);
-        prefs.putFloat("pre player y", House.prePlayerPos.y);
+        prefs.putFloat("pre camera x", HouseUpdateSystem.preCameraPos.x);
+        prefs.putFloat("pre camera y", HouseUpdateSystem.preCameraPos.y);
+        prefs.putFloat("pre player x", HouseUpdateSystem.prePlayerPos.x);
+        prefs.putFloat("pre player y", HouseUpdateSystem.prePlayerPos.y);
         prefs.putInteger("collision type", CollisionProcessSystem.collisionType);
         prefs.putInteger("current map", LevelRenderer.currentMap);
         prefs.putBoolean("is outside", Time.isOutdoors());
-        prefs.putFloat("pre ambient light", House.preAmbientLight);
+        prefs.putFloat("pre ambient light", HouseUpdateSystem.preAmbientLight);
         prefs.putInteger("foodAmount", Food.amountOfFood);
         prefs.putInteger("level", PointsRenderer.currentLevel);
         // set to current version before saving

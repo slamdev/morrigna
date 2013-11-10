@@ -15,7 +15,7 @@ public class Time {
     // 1 minute transition
     // 3 minute nights
     // 1 minute transition
-    static float colorAlpha = 0f;
+    public static float colorAlpha = 0f;
 
     // set to .9 for proper light
     final static Color lightColor = new Color(255, 237, 138, colorAlpha);

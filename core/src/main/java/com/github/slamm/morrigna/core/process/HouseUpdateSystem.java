@@ -1,4 +1,4 @@
-package com.reed.birdseye;
+package com.github.slamm.morrigna.core.process;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -8,9 +8,9 @@ import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.MessagesRenderer;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
-import com.github.slamm.morrigna.core.process.CollisionProcessSystem;
+import com.reed.birdseye.Time;
 
-public class House {
+public class HouseUpdateSystem {
 
     public static float preAmbientLight;
 
@@ -62,7 +62,7 @@ public class House {
      */
     private final int y = 386;
 
-    public static void exitGame() {
+    public static void save() {
         if (sleepStep > 0) {
             PlayerRenderer.x = preSleepPlayerPos.x;
             PlayerRenderer.y = preSleepPlayerPos.y;
@@ -71,15 +71,15 @@ public class House {
     }
 
     public static void setInRiverHouse(boolean isInRiverHouse) {
-        House.inRiverHouse = isInRiverHouse;
+        HouseUpdateSystem.inRiverHouse = isInRiverHouse;
     }
 
     public static void setJustEntered(boolean justEntered) {
-        House.justEntered = justEntered;
+        HouseUpdateSystem.justEntered = justEntered;
     }
 
     public static void setJustExited(boolean justExited) {
-        House.justExited = justExited;
+        HouseUpdateSystem.justExited = justExited;
     }
 
     public void update() {

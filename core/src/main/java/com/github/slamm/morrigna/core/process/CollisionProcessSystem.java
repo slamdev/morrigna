@@ -1,7 +1,6 @@
 package com.github.slamm.morrigna.core.process;
 
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
-import com.reed.birdseye.House;
 
 public class CollisionProcessSystem {
 
@@ -343,8 +342,8 @@ public class CollisionProcessSystem {
         }// segment 32 DOOR WAY NEAR RIVER HOUSE
         else if (PlayerRenderer.y > 2500 && PlayerRenderer.y < 2516 && PlayerRenderer.x > 758 && PlayerRenderer.x < 832) {
             PlayerRenderer.isAbleToMoveUp = false;
-            House.setInRiverHouse(true);
-            House.setJustEntered(true);
+            HouseUpdateSystem.setInRiverHouse(true);
+            HouseUpdateSystem.setJustEntered(true);
         }// segment 34
         else if (PlayerRenderer.y > 2460 && PlayerRenderer.y < 2486 && PlayerRenderer.x > 806
                 && PlayerRenderer.x < 1386) {
@@ -436,8 +435,8 @@ public class CollisionProcessSystem {
         else if (PlayerRenderer.y < 102) {
             PlayerRenderer.isAbleToMoveDown = false;
             if (PlayerRenderer.x > 460 && PlayerRenderer.x < 484) {
-                House.setInRiverHouse(false);
-                House.setJustExited(true);
+                HouseUpdateSystem.setInRiverHouse(false);
+                HouseUpdateSystem.setJustExited(true);
             }
         } // segment 22
         else if (PlayerRenderer.y > 318 && PlayerRenderer.y < 374 && PlayerRenderer.x < 234) {

@@ -9,6 +9,7 @@ import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 import com.github.slamm.morrigna.core.process.CollisionProcessSystem;
 import com.github.slamm.morrigna.core.process.FishingProcessSystem;
+import com.github.slamm.morrigna.core.process.FoodUpdateSystem;
 import com.github.slamm.morrigna.core.process.HouseUpdateSystem;
 
 public class SaveAndLoad {
@@ -46,7 +47,7 @@ public class SaveAndLoad {
             LevelRenderer.currentMap = prefs.getInteger("current map");
             Time.setOutdoors(prefs.getBoolean("is outside"));
             HouseUpdateSystem.preAmbientLight = prefs.getFloat("pre ambient light");
-            Food.amountOfFood = prefs.getInteger("foodAmount");
+            FoodUpdateSystem.count = prefs.getInteger("foodAmount");
             PointsRenderer.currentLevel = prefs.getInteger("level");
             Time.createLights(MapRenderSystem.rayHandlerRenderer);
         } else {
@@ -80,7 +81,7 @@ public class SaveAndLoad {
         prefs.putInteger("current map", LevelRenderer.currentMap);
         prefs.putBoolean("is outside", Time.isOutdoors());
         prefs.putFloat("pre ambient light", HouseUpdateSystem.preAmbientLight);
-        prefs.putInteger("foodAmount", Food.amountOfFood);
+        prefs.putInteger("foodAmount", FoodUpdateSystem.count);
         prefs.putInteger("level", PointsRenderer.currentLevel);
         // set to current version before saving
         prefs.putString("version", currentVersion);

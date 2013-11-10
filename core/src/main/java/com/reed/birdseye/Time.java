@@ -9,13 +9,13 @@ import com.droidinteractive.box2dlight.RayHandler;
 /** Everything related to time! */
 public class Time {
 
-    public static Array<PointLight> pointLights = new Array<>();
-
     // 5 minute days
     // 1 minute transition
     // 3 minute nights
     // 1 minute transition
     public static float colorAlpha = 0f;
+
+    public static Array<PointLight> pointLights = new Array<>();
 
     // set to .9 for proper light
     final static Color lightColor = new Color(255, 237, 138, colorAlpha);

@@ -1,14 +1,12 @@
 package com.github.slamm.morrigna.core.process;
 
-import com.reed.birdseye.Food;
-
 public class ProcessUpdateSystem {
 
     private final CollisionProcessSystem collisionSystem;
 
     private final FishingProcessSystem fishingSystem;
 
-    private final Food food;
+    private final FoodUpdateSystem foodSystem;
 
     private final HouseUpdateSystem houseSystem;
 
@@ -16,14 +14,13 @@ public class ProcessUpdateSystem {
         collisionSystem = new CollisionProcessSystem();
         fishingSystem = new FishingProcessSystem();
         houseSystem = new HouseUpdateSystem();
-        food = new Food();
+        foodSystem = new FoodUpdateSystem();
     }
 
     public void update() {
         collisionSystem.update();
         fishingSystem.update();
         houseSystem.update();
-        food.affectHealth();
-        food.looseHunger();
+        foodSystem.update();
     }
 }

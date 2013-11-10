@@ -1,25 +1,19 @@
-package com.reed.birdseye;
+package com.github.slamm.morrigna.core.process;
 
 import com.badlogic.gdx.Gdx;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 
-public class Food {
+public class FoodUpdateSystem {
 
-    // make food level
-    // make health go down if low on food, and display message (need food now!)
-    // contain integer for amount of food
-    public static int amountOfFood = 0;
-
-    public static String amountOfFoodString;
+    public static int count = 0;
 
     public static int foodLevel = 100;
 
-    float timer = 0;
+    private float timer = 0;
 
-    float timer2 = 0;
+    private float timer2 = 0;
 
-    public void affectHealth() {
-        amountOfFoodString = Integer.toString(amountOfFood);
+    public void update() {
         timer += Gdx.graphics.getDeltaTime();
         if (foodLevel == 0 && timer > 2) {
             PointsRenderer.looseHealth(1);
@@ -29,9 +23,10 @@ public class Food {
             PointsRenderer.gainHealth(5);
             timer = 0;
         }
+        looseHunger();
     }
 
-    public void looseHunger() {
+    private void looseHunger() {
         timer2 += Gdx.graphics.getDeltaTime();
         if (timer2 > 2 && foodLevel > 0) {
             foodLevel -= 1;

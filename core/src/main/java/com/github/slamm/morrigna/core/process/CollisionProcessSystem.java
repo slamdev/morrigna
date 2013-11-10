@@ -1,27 +1,19 @@
-package com.reed.birdseye;
+package com.github.slamm.morrigna.core.process;
 
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
+import com.reed.birdseye.House;
 
-public class CollisionDetection {
-
-    private static int collisionType = 0;
-
-    /** Gets current value of collision type */
-    public static int getCollisionType() {
-        return collisionType;
-    }
+public class CollisionProcessSystem {
 
     /**
-     * Sets current value of collision type
-     * 
-     * @param <b>0</b> is default map <br>
-     *        <b>1</b> is house by river <br>
+     * current value of collision type
+     * 0 is default map, 1 is house by river
      */
-    public static void setCollisionType(int collisionType) {
-        CollisionDetection.collisionType = collisionType;
-    }
+    public static int collisionType = 0;
 
-    // all collision for main map stuff
+    /**
+     * all collision for main map stuff
+     */
     private static void mapCollision() {
         // left wall
         if (PlayerRenderer.x < 110) {
@@ -404,7 +396,9 @@ public class CollisionDetection {
         }
     }
 
-    // collision detection for in the river house
+    /**
+     * collision detection for in the river house
+     */
     private static void riverHouseCollision() {
         /** Up stuff */
         // segment 1
@@ -500,8 +494,10 @@ public class CollisionDetection {
         }
     }
 
-    // current maps collision
-    public void doCollision() {
+    /**
+     * current maps collision
+     */
+    public void update() {
         switch (collisionType) {
         case 0: {
             mapCollision();

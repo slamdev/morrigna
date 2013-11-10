@@ -7,6 +7,7 @@ import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
+import com.github.slamm.morrigna.core.process.CollisionProcessSystem;
 
 public class SaveAndLoad {
 
@@ -39,7 +40,7 @@ public class SaveAndLoad {
             House.preCameraPos.y = prefs.getFloat("pre camera y");
             House.prePlayerPos.x = prefs.getFloat("pre player x");
             House.prePlayerPos.y = prefs.getFloat("pre player y");
-            CollisionDetection.setCollisionType(prefs.getInteger("collision type"));
+            CollisionProcessSystem.collisionType = prefs.getInteger("collision type");
             LevelRenderer.currentMap = prefs.getInteger("current map");
             Time.setOutdoors(prefs.getBoolean("is outside"));
             House.preAmbientLight = prefs.getFloat("pre ambient light");
@@ -73,7 +74,7 @@ public class SaveAndLoad {
         prefs.putFloat("pre camera y", House.preCameraPos.y);
         prefs.putFloat("pre player x", House.prePlayerPos.x);
         prefs.putFloat("pre player y", House.prePlayerPos.y);
-        prefs.putInteger("collision type", CollisionDetection.getCollisionType());
+        prefs.putInteger("collision type", CollisionProcessSystem.collisionType);
         prefs.putInteger("current map", LevelRenderer.currentMap);
         prefs.putBoolean("is outside", Time.isOutdoors());
         prefs.putFloat("pre ambient light", House.preAmbientLight);

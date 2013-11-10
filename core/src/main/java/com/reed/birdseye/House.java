@@ -8,6 +8,7 @@ import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.hud.MessagesRenderer;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
+import com.github.slamm.morrigna.core.process.CollisionProcessSystem;
 
 public class House {
 
@@ -93,7 +94,7 @@ public class House {
                 preAmbientLight = Time.getAmbientLight();
                 Time.setOutdoors(false);
                 Time.setAmbientLight(ambientLight);
-                CollisionDetection.setCollisionType(1);
+                CollisionProcessSystem.collisionType = 1;
                 LevelRenderer.currentMap = 1;
                 // set cordinates
                 MapRenderSystem.camera.position.x = Gdx.graphics.getWidth() / 2 + 10;
@@ -121,7 +122,7 @@ public class House {
                 PlayerRenderer.y = prePlayerPos.y;
                 MapRenderSystem.camera.position.x = preCameraPos.x;
                 MapRenderSystem.camera.position.y = preCameraPos.y;
-                CollisionDetection.setCollisionType(0);
+                CollisionProcessSystem.collisionType = 0;
                 Time.setAmbientLight(preAmbientLight);
                 Time.setOutdoors(true);
                 justExited = false;

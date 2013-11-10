@@ -1,10 +1,13 @@
 package com.reed.birdseye;
 
+import java.util.logging.Level;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Crafting {
 	boolean craftMenuVisible = false;
@@ -16,13 +19,13 @@ public class Crafting {
 	void menuInput() {
 		if (Gdx.input.isKeyPressed(Keys.Z)) {
 			craftMenuVisible = true;
-			Player.ableToMove = false;
-			Player.drawCharacter = false;
+			PlayerRenderer.ableToMove = false;
+			PlayerRenderer.drawCharacter = false;
 		}
 		if (craftMenuVisible) {
 			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-				Player.ableToMove = true;
-				Player.drawCharacter = true;
+				PlayerRenderer.ableToMove = true;
+				PlayerRenderer.drawCharacter = true;
 				craftMenuVisible = false;
 			}
 		}

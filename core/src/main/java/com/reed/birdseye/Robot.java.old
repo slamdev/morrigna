@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
+import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Robot {
 
@@ -27,11 +28,11 @@ public class Robot {
 			menuOpen = true;
 		}
 		if (menuOpen) {
-			Player.ableToMove = false;
-			Player.drawCharacter = false;
+			PlayerRenderer.ableToMove = false;
+			PlayerRenderer.drawCharacter = false;
 			if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
-				Player.ableToMove = true;
-				Player.drawCharacter = true;
+				PlayerRenderer.ableToMove = true;
+				PlayerRenderer.drawCharacter = true;
 				menuOpen = false;
 			}
 			// detect if claim is clicked

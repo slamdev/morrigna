@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
-import com.github.slamm.morrigna.core.process.FoodUpdateSystem;
+import com.github.slamm.morrigna.core.process.FoodUpdater;
 
 public class Pig {
 
@@ -88,7 +88,7 @@ public class Pig {
         }
         if (pig.health <= 0 && pig.distanceBetweenMobAndPlayer() < 25 && !pickedUpFood && timer >= 1
                 && !(pig.health <= -100)) {
-            FoodUpdateSystem.count += 1;
+            FoodUpdater.count += 1;
             pickedUpFood = true;
             pig.health = -100;
             PointsRenderer.gainExperience(1);

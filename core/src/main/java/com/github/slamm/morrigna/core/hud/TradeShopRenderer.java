@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 import com.github.slamm.morrigna.core.map.TradeShopOwnerRenderer;
-import com.github.slamm.morrigna.core.process.FishingProcessSystem;
+import com.github.slamm.morrigna.core.process.FishingUpdater;
 import com.reed.birdseye.Tutorial;
 
 public class TradeShopRenderer extends InputAdapter {
@@ -55,11 +55,11 @@ public class TradeShopRenderer extends InputAdapter {
     public void update() {
         cashString = String.valueOf(cash);
         timer += Gdx.graphics.getDeltaTime();
-        if (FishingProcessSystem.count >= 5 && Tutorial.step == 2) {
+        if (FishingUpdater.count >= 5 && Tutorial.step == 2) {
             Tutorial.step = 3;
         }
         if (cash >= 50 && Tutorial.step == 3) {
-            FishingProcessSystem.count -= 5;
+            FishingUpdater.count -= 5;
             Tutorial.step = 4;
         }
         textSetter();

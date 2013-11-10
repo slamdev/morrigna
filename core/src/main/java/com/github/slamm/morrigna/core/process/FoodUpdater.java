@@ -3,7 +3,7 @@ package com.github.slamm.morrigna.core.process;
 import com.badlogic.gdx.Gdx;
 import com.github.slamm.morrigna.core.hud.PointsRenderer;
 
-public class FoodUpdateSystem {
+public class FoodUpdater {
 
     public static int count = 0;
 

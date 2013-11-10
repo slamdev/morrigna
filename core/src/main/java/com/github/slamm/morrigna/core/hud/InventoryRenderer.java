@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
-import com.github.slamm.morrigna.core.process.FishingProcessSystem;
-import com.github.slamm.morrigna.core.process.FoodUpdateSystem;
+import com.github.slamm.morrigna.core.process.FishingUpdater;
+import com.github.slamm.morrigna.core.process.FoodUpdater;
 import com.reed.birdseye.Coal;
 import com.reed.birdseye.Tree;
 
@@ -39,11 +39,11 @@ public class InventoryRenderer extends InputAdapter {
             // draw amounts
             font.draw(batch, Tree.amountOfWoodString, ROW_1_Y, 388);
             font.draw(batch, Coal.amountOfCoalString, ROW_1_Y, 356);
-            font.draw(batch, String.valueOf(FishingProcessSystem.count), ROW_1_Y, 330);
-            font.draw(batch, String.valueOf(FoodUpdateSystem.count), ROW_1_Y, 302);
+            font.draw(batch, String.valueOf(FishingUpdater.count), ROW_1_Y, 330);
+            font.draw(batch, String.valueOf(FoodUpdater.count), ROW_1_Y, 302);
             // row 2
             font.draw(batch, TradeShopRenderer.cashString, ROW_2_Y, 135);
-            font.draw(batch, String.valueOf(FoodUpdateSystem.foodLevel) + "%", ROW_2_Y, 105);
+            font.draw(batch, String.valueOf(FoodUpdater.foodLevel) + "%", ROW_2_Y, 105);
             font.draw(batch, String.valueOf(PointsRenderer.currentLevel), ROW_2_Y, 76);
         }
     }

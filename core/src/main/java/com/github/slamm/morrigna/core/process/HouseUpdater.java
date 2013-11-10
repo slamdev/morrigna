@@ -10,7 +10,7 @@ import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 import com.reed.birdseye.Time;
 
-public class HouseUpdateSystem {
+public class HouseUpdater {
 
     public static float preAmbientLight;
 
@@ -71,15 +71,15 @@ public class HouseUpdateSystem {
     }
 
     public static void setInRiverHouse(boolean isInRiverHouse) {
-        HouseUpdateSystem.inRiverHouse = isInRiverHouse;
+        HouseUpdater.inRiverHouse = isInRiverHouse;
     }
 
     public static void setJustEntered(boolean justEntered) {
-        HouseUpdateSystem.justEntered = justEntered;
+        HouseUpdater.justEntered = justEntered;
     }
 
     public static void setJustExited(boolean justExited) {
-        HouseUpdateSystem.justExited = justExited;
+        HouseUpdater.justExited = justExited;
     }
 
     public void update() {
@@ -94,7 +94,7 @@ public class HouseUpdateSystem {
                 preAmbientLight = Time.getAmbientLight();
                 Time.setOutdoors(false);
                 Time.setAmbientLight(ambientLight);
-                CollisionProcessSystem.collisionType = 1;
+                CollisionUpdater.collisionType = 1;
                 LevelRenderer.currentMap = 1;
                 // set cordinates
                 MapRenderSystem.camera.position.x = Gdx.graphics.getWidth() / 2 + 10;
@@ -122,7 +122,7 @@ public class HouseUpdateSystem {
                 PlayerRenderer.y = prePlayerPos.y;
                 MapRenderSystem.camera.position.x = preCameraPos.x;
                 MapRenderSystem.camera.position.y = preCameraPos.y;
-                CollisionProcessSystem.collisionType = 0;
+                CollisionUpdater.collisionType = 0;
                 Time.setAmbientLight(preAmbientLight);
                 Time.setOutdoors(true);
                 justExited = false;

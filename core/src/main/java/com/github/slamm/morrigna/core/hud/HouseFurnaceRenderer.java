@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
-import com.github.slamm.morrigna.core.process.FoodUpdateSystem;
+import com.github.slamm.morrigna.core.process.FoodUpdater;
 import com.reed.birdseye.Coal;
 import com.reed.birdseye.Particles;
 
@@ -51,9 +51,9 @@ public class HouseFurnaceRenderer extends InputAdapter {
 
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) {
-        if (x > 73 && x < 374 && y > 380 && y < 430 && FoodUpdateSystem.count > 0) {
+        if (x > 73 && x < 374 && y > 380 && y < 430 && FoodUpdater.count > 0) {
             rawFoodInFurnace += 1;
-            FoodUpdateSystem.count -= 1;
+            FoodUpdater.count -= 1;
         } else if (x > 73 && x < 374 && y > 430 && y < 475 && Coal.amountOfCoal > 0) {
             coalInFurnace += 1;
             Coal.amountOfCoal -= 1;

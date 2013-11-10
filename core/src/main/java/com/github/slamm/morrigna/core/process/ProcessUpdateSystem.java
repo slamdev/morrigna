@@ -2,25 +2,25 @@ package com.github.slamm.morrigna.core.process;
 
 public class ProcessUpdateSystem {
 
-    private final CollisionProcessSystem collisionSystem;
+    private final CollisionUpdater collisionUpdater;
 
-    private final FishingProcessSystem fishingSystem;
+    private final FishingUpdater fishingUpdater;
 
-    private final FoodUpdateSystem foodSystem;
+    private final FoodUpdater foodUpdater;
 
-    private final HouseUpdateSystem houseSystem;
+    private final HouseUpdater houseUpdater;
 
     public ProcessUpdateSystem() {
-        collisionSystem = new CollisionProcessSystem();
-        fishingSystem = new FishingProcessSystem();
-        houseSystem = new HouseUpdateSystem();
-        foodSystem = new FoodUpdateSystem();
+        collisionUpdater = new CollisionUpdater();
+        fishingUpdater = new FishingUpdater();
+        houseUpdater = new HouseUpdater();
+        foodUpdater = new FoodUpdater();
     }
 
     public void update() {
-        collisionSystem.update();
-        fishingSystem.update();
-        houseSystem.update();
-        foodSystem.update();
+        collisionUpdater.update();
+        fishingUpdater.update();
+        houseUpdater.update();
+        foodUpdater.update();
     }
 }

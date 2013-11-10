@@ -9,7 +9,7 @@ import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
-public class FishingProcessSystem {
+public class FishingUpdater {
 
     public static int count = 0;
 

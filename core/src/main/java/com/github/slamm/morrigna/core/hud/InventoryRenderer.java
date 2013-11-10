@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
+import com.github.slamm.morrigna.core.process.FishingProcessSystem;
 import com.reed.birdseye.Coal;
-import com.reed.birdseye.Fishing;
 import com.reed.birdseye.Food;
 import com.reed.birdseye.Tree;
 
@@ -39,7 +39,7 @@ public class InventoryRenderer extends InputAdapter {
             // draw amounts
             font.draw(batch, Tree.amountOfWoodString, ROW_1_Y, 388);
             font.draw(batch, Coal.amountOfCoalString, ROW_1_Y, 356);
-            font.draw(batch, Fishing.amountOfFishString, ROW_1_Y, 330);
+            font.draw(batch, String.valueOf(FishingProcessSystem.count), ROW_1_Y, 330);
             font.draw(batch, Food.amountOfFoodString, ROW_1_Y, 302);
             // row 2
             font.draw(batch, TradeShopRenderer.cashString, ROW_2_Y, 135);

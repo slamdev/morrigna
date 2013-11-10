@@ -8,6 +8,7 @@ import com.github.slamm.morrigna.core.hud.TradeShopRenderer;
 import com.github.slamm.morrigna.core.map.MapRenderSystem;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 import com.github.slamm.morrigna.core.process.CollisionProcessSystem;
+import com.github.slamm.morrigna.core.process.FishingProcessSystem;
 
 public class SaveAndLoad {
 
@@ -27,7 +28,7 @@ public class SaveAndLoad {
             PlayerRenderer.x = prefs.getFloat("player x");
             PlayerRenderer.y = prefs.getFloat("player y");
             Tutorial.step = prefs.getInteger("Tutorial Level");
-            Fishing.amountOfFish = prefs.getInteger("Fish");
+            FishingProcessSystem.count = prefs.getInteger("Fish");
             Resource.amountOfStone = prefs.getInteger("Stone");
             Tree.amountOfWood = prefs.getInteger("Wood");
             TradeShopRenderer.cash = prefs.getInteger("cash");
@@ -57,7 +58,7 @@ public class SaveAndLoad {
     public static void save() {
         House.exitGame();
         prefs.putInteger("Tutorial Level", Tutorial.step);
-        prefs.putInteger("Fish", Fishing.amountOfFish);
+        prefs.putInteger("Fish", FishingProcessSystem.count);
         prefs.putInteger("Stone", Resource.amountOfStone);
         prefs.putInteger("Wood", Tree.amountOfWood);
         prefs.putInteger("Cash", TradeShopRenderer.cash);

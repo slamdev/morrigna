@@ -8,29 +8,34 @@ import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.map.CoalRenderer;
 
+@SuppressWarnings("unused")
 public class Farm {
 
-    static int cornCount = 0;
+    private static int cornCount = 0;
 
-    static String cornCountString = Integer.toString(cornCount);
+    private static String cornCountString = Integer.toString(cornCount);
 
-    boolean closeEnough;
+    private boolean closeEnough;
 
-    final int distanceFromMaterial = 100;
+    private final int distanceFromMaterial = 100;
 
-    int growing = 0;
+    private int growing = 0;
 
-    int growthRate = 5;
+    private final int growthRate = 5;
 
-    boolean hydrated = false;
+    private final boolean hydrated = false;
 
-    CoalRenderer mainGame = new CoalRenderer();
+    private final CoalRenderer mainGame = new CoalRenderer();
 
-    float sizeAlpha, sizeBeta;
+    private float sizeAlpha;
 
-    float time = 0;
+    private float sizeBeta;
 
-    int x, y;
+    private float time = 0;
+
+    private int x;
+
+    private int y;
 
     public void closeEnoughToFarm() {
         if (Math.sqrt((x - LevelRenderer.middleX) * (x - LevelRenderer.middleX) + (y - LevelRenderer.middleY)
@@ -42,12 +47,13 @@ public class Farm {
                     growing = 0;
                 }
             }
-            /*
-             * if (amountOfWater >= 8 && !hydrated) { font.draw(batch,
-             * "Press R to Hydrate crops.", 50, 100); if
-             * (Gdx.input.isKeyPressed(Keys.R)) { hydrated = true; growthRate =
-             * 1; } }
-             */
+            // if (amountOfWater >= 8 && !hydrated) {
+            // font.draw(batch, "Press R to Hydrate crops.", 50, 100);
+            // if (Gdx.input.isKeyPressed(Keys.R)) {
+            // hydrated = true;
+            // growthRate = 1;
+            // }
+            // }
         }
     }
 

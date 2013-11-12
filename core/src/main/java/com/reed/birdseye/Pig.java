@@ -9,32 +9,35 @@ import com.github.slamm.morrigna.core.process.FoodUpdater;
 
 public class Pig {
 
-    // area under sword shop
-    public Mob pig = new Mob(1562, 1264, 1000, 918);
+    /**
+     * area under sword shop
+     */
+    public final Mob pig = new Mob(1562, 1264, 1000, 918);
 
-    // creates new image for each pig (new Pig(params))
+    /**
+     * creates new image for each pig (new Pig(params))
+     */
     public TextureRegion theRealPig = Assets.mainPig;
 
-    boolean pickedUpFood = false;
+    private boolean pickedUpFood = false;
 
-    float timer;
+    private float timer;
 
-    // when pig.health = -15 that means that pig is dead and the food has been
-    // picked up. Simplify the saving process.
     public void drops(SpriteBatch batch) {
+        // when pig.health = -15 that means that pig is dead and the food has been picked up. Simplify the saving process.
         if (pig.health <= 0 && !pickedUpFood && !(pig.health <= -100)) {
             batch.draw(Assets.bacon, pig.x, pig.y);
         }
     }
 
-    // respawn pigs during day
     public void regeneration() {
+        // respawn pigs during day
         if (pig.health <= 0 && Time.isDay() && pig.distanceBetweenMobAndPlayer() > 544) {
             pickedUpFood = false;
             pig.underAttack = false;
             pig.health = 100;
             timer = 0;
-            pig.attackedHealth = 100;
+            pig.healthAttacked = 100;
         }
     }
 
@@ -50,7 +53,7 @@ public class Pig {
                 Assets.leftPig_RIGHT, Assets.rightPig_STILL, Assets.rightPig_LEFT, Assets.rightPig_RIGHT);
     }
 
-    void avadeAttack() {
+    private void avadeAttack() {
         // once under attack move in random directions quickly
         if (pig.underAttack && pig.isAlive() && !pickedUpFood) {
             pig.mobTime -= Gdx.graphics.getDeltaTime();
@@ -63,8 +66,8 @@ public class Pig {
             } else if (pig.direction == 3 && pig.mobTime > 0) {
                 pig.x += pig.speed * 2;
             } else {
-                pig.mobTime = pig.r.nextInt(3) + 1;
-                pig.direction = pig.r.nextInt(4) + 1;
+                pig.mobTime = Mob.RANDOM.nextInt(3) + 1;
+                pig.direction = Mob.RANDOM.nextInt(4) + 1;
             }
             // bounding stuff
             if (pig.x > pig.boundX + pig.boundWidth) {
@@ -82,7 +85,7 @@ public class Pig {
         }
     }
 
-    void pickupDrops() {
+    private void pickupDrops() {
         if (timer < 1 && pig.health <= 0 && !(pig.health <= -100)) {
             timer += Gdx.graphics.getDeltaTime();
         }

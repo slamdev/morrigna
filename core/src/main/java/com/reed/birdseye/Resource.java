@@ -10,37 +10,40 @@ import com.github.slamm.morrigna.core.hud.PointsRenderer;
 import com.github.slamm.morrigna.core.hud.TopMenuRenderer;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
+@SuppressWarnings("unused")
 public class Resource {
 
-    static int amountOfStone = 0;
+    public static int amountOfStone = 0;
 
-    static String amountOfStoneString;
+    private static String amountOfStoneString;
 
-    public int x, y;
+    private final int distanceFromMaterial = 100;
 
-    int distanceFromMaterial = 100;
+    private boolean drawResource = true;
 
-    boolean drawResource = true;
+    private int height = 58;
 
-    int height = 58;
+    private final float miningRate = 1f;
 
-    float miningRate = 1f;
+    private float resourceTimer = 0;
 
-    float resourceTimer = 0;
+    private int width = 64;
 
-    int width = 64;
+    private final int x;
+
+    private final int y;
 
     public Resource(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    boolean closeEnough() {
+    private boolean closeEnough() {
         return Math.sqrt((x - LevelRenderer.middleX) * (x - LevelRenderer.middleX) + (y - LevelRenderer.middleY)
                 * (y - LevelRenderer.middleY)) < distanceFromMaterial;
     }
 
-    void collect() {
+    private void collect() {
         amountOfStoneString = Integer.toString(amountOfStone);// update string
         // starts making the image of the "resource" smaller as b is
         // held down
@@ -77,7 +80,7 @@ public class Resource {
         }
     }
 
-    void draw(SpriteBatch batch, BitmapFont font) {
+    private void draw(SpriteBatch batch, BitmapFont font) {
         if (drawResource) {
             batch.draw(Assets.material, x, y, width, height);
             if (closeEnough() && PlayerRenderer.ableToMove) {

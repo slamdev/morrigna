@@ -16,22 +16,18 @@ import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Mob {
 
-    static int food = 0;
+    public static final Random RANDOM = new Random();
 
-    // health etc
-    public float health = 100;
+    @SuppressWarnings("unused")
+    private static int food = 0;
 
-    public Random r = new Random();
+    public int boundHeight;
 
-    public TextureRegion realMob = Assets.mainCreeper;
+    public int boundWidth;
 
-    public boolean underAttack;
+    public int boundX;
 
-    float attackedHealth = health;
-
-    float attackTimer;
-
-    int boundX, boundY, boundWidth, boundHeight;
+    public int boundY;
 
     /**
      * 0 = up <br>
@@ -40,39 +36,60 @@ public class Mob {
      * 3 = right <br>
      * 4 = no movement
      */
-    int direction = r.nextInt(5) + 1;
+    public int direction = RANDOM.nextInt(5) + 1;
 
-    // randomly moving "mob" (animal, monster, etc)
-    final int distanceFromMob = 100;
+    public float health = 100;
 
-    float dyingTimer;
+    public float healthAttacked = health;
 
-    boolean isAbleToMoveUp = true, isAbleToMoveDown = true, isAbleToMoveRight = true, isAbleToMoveLeft = true;
+    public float mobTime = RANDOM.nextInt(3) + 1;
 
-    float mobTime = r.nextInt(3) + 1;
+    public TextureRegion realMob = Assets.mainCreeper;
 
-    // animal drops
-    boolean onGround = false;
+    public float speed = 1;
 
-    float speed = 1;
+    public float timer = 0;
 
-    float timer = 0;
+    public boolean underAttack;
 
-    int x, y;
+    public int x;
+
+    public int y;
+
+    private float attackTimer;
+
+    /**
+     * randomly moving "mob" (animal, monster, etc)
+     */
+    private final int distanceFromMob = 100;
+
+    private float dyingTimer;
+
+    private final boolean isAbleToMoveDown = true;
+
+    private final boolean isAbleToMoveLeft = true;
+
+    private final boolean isAbleToMoveRight = true;
+
+    private final boolean isAbleToMoveUp = true;
+
+    private boolean onGround = false;
 
     public Mob(int boundX, int boundY, int boundWidth, int boundHeight) {
         this.boundX = boundX;
         this.boundY = boundY;
         this.boundWidth = boundWidth;
         this.boundHeight = boundHeight;
-        x = r.nextInt(boundWidth) + boundX;
-        y = r.nextInt(boundHeight) + boundY;
+        x = RANDOM.nextInt(boundWidth) + boundX;
+        y = RANDOM.nextInt(boundHeight) + boundY;
     }
 
-    // attacks player when close enough
+    /**
+     * attacks player when close enough
+     */
     public void attack() {
         if (closeEnough() && attackTimer > 5 && isAlive()) {
-            PointsRenderer.looseHealth(r.nextInt(10));
+            PointsRenderer.looseHealth(RANDOM.nextInt(10));
             attackTimer = 0;
         }
         attackTimer += Gdx.graphics.getDeltaTime();
@@ -97,14 +114,19 @@ public class Mob {
 
     public void detectIfUnderAttack() {
         // detect if under attack
-        if (attackedHealth > health) {
+        if (healthAttacked > health) {
             underAttack = true;
-            attackedHealth = health;
+            healthAttacked = health;
         }
         // set to false if player no longer threat to mob
         if (distanceBetweenMobAndPlayer() > 500) {
             underAttack = false;
         }
+    }
+
+    public float distanceBetweenMobAndPlayer() {
+        return (float) Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
+                * (y - PlayerRenderer.y));
     }
 
     public void draw(SpriteBatch batch, TextureRegion mainMob) {
@@ -135,8 +157,8 @@ public class Mob {
         }
     }
 
-    // draws health bar above mob
     public void healthBar(ShapeRenderer shapeRenderer, TextureRegion mainMob) {
+        // draws health bar above mob
         if (isAlive()) {
             shapeRenderer.begin(ShapeType.Filled);
             // set to green for full mob health
@@ -149,10 +171,21 @@ public class Mob {
         }
     }
 
-    // takes away health from mob
+    /**
+     * ensures that mob is alive (for drawing purposes)
+     */
+    public boolean isAlive() {
+        if (health <= 0) {
+            onGround = true;
+            return false;
+        }
+        return true;
+    }
+
     public void looseHealth() {
+        // takes away health from mob
         if (closeEnough() && TopMenuRenderer.currentTool == 3 && CurrentToolRenderer.isTooling && dyingTimer > 1) {
-            health -= r.nextInt(20) + 10;
+            health -= RANDOM.nextInt(20) + 10;
             dyingTimer = 0;
         }
         dyingTimer += Gdx.graphics.getDeltaTime();
@@ -173,18 +206,18 @@ public class Mob {
             } else if (direction == 4 && mobTime > 0) {
                 // 4 means no movement
             } else {
-                mobTime = r.nextInt(3) + 1;
-                direction = r.nextInt(5) + 1;
+                mobTime = RANDOM.nextInt(3) + 1;
+                direction = RANDOM.nextInt(5) + 1;
             }
         }
     }
 
-    // respawn mobs during day
     public void regeneration() {
+        // respawn mobs during day
         if (health <= 0 && Time.isNight() && distanceBetweenMobAndPlayer() > 544) {
             underAttack = false;
             health = 100;
-            attackedHealth = 100;
+            healthAttacked = 100;
         }
     }
 
@@ -248,56 +281,39 @@ public class Mob {
         return downMob_STILL;
     }
 
-    boolean closeEnough() {
+    private boolean closeEnough() {
         return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
                 * (y - PlayerRenderer.y)) < distanceFromMob;
     }
 
-    /** Distance between mob and player */
-    float distanceBetweenMobAndPlayer() {
-        return (float) Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
-                * (y - PlayerRenderer.y));
-    }
-
-    void drawDrops(SpriteBatch batch, Texture itemDropped) {
+    @SuppressWarnings("unused")
+    private void drawDrops(SpriteBatch batch, Texture itemDropped) {
         if (!isAlive() && onGround) {
             batch.draw(itemDropped, x, y);
         }
     }
 
-    void drops() {
+    @SuppressWarnings("unused")
+    private void drops() {
         if (!isAlive() && closeEnough() && onGround) {
             food += 1;
             onGround = false;
         }
     }
 
-    /** Returns if mob is above player */
-    boolean isAbove() {
+    private boolean isAbove() {
         return PlayerRenderer.y < y;
     }
 
-    // ensures that mob is alive (for drawing purposes)
-    boolean isAlive() {
-        if (health <= 0) {
-            onGround = true;
-            return false;
-        }
-        return true;
-    }
-
-    /** Returns if mob is below player */
-    boolean isBelow() {
+    private boolean isBelow() {
         return PlayerRenderer.y > y;
     }
 
-    /** Returns if mob is to the left of player */
-    boolean isToTheLeft() {
+    private boolean isToTheLeft() {
         return PlayerRenderer.x > x;
     }
 
-    /** Returns if mob is to the right of player */
-    boolean isToTheRight() {
+    private boolean isToTheRight() {
         return PlayerRenderer.x < x;
     }
 }

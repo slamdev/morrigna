@@ -6,7 +6,9 @@ import com.badlogic.gdx.utils.Array;
 import com.droidinteractive.box2dlight.PointLight;
 import com.droidinteractive.box2dlight.RayHandler;
 
-/** Everything related to time! */
+/**
+ * Everything related to time!
+ */
 public class Time {
 
     // 5 minute days
@@ -15,19 +17,21 @@ public class Time {
     // 1 minute transition
     public static float colorAlpha = 0f;
 
-    public static Array<PointLight> pointLights = new Array<>();
-
-    // set to .9 for proper light
-    final static Color lightColor = new Color(255, 237, 138, colorAlpha);
-
     // set to .2 for proper darkness
     private static float ambientLight = 1f;
 
     private static boolean isOutdoors = true;
 
+    // set to .9 for proper light
+    private final static Color lightColor = new Color(255, 237, 138, colorAlpha);
+
+    private static Array<PointLight> pointLights = new Array<>();
+
     private static float timeOfDay = 0;
 
-    /** Sets up new lights */
+    /**
+     * Sets up new lights
+     */
     public static void createLights(RayHandler rayHandler) {
         pointLights.add(newLight(rayHandler, 1360, 3722));
         pointLights.add(newLight(rayHandler, 1521, 3722));
@@ -55,22 +59,30 @@ public class Time {
         pointLights.add(newLight(rayHandler, 813, 2126));
     }
 
-    /** Returns ambient light value */
+    /**
+     * Returns ambient light value
+     */
     public static float getAmbientLight() {
         return ambientLight;
     }
 
-    /** Returns current time */
+    /**
+     * Returns current time
+     */
     public static float getTimeOfDay() {
         return timeOfDay;
     }
 
-    /** check if time is less then 5 minutes, if so it is day */
+    /**
+     * check if time is less then 5 minutes, if so it is day
+     */
     public static boolean isDay() {
         return timeOfDay < 300;
     }
 
-    /** detect if night */
+    /**
+     * detect if night
+     */
     public static boolean isNight() {
         return timeOfDay > 420 && timeOfDay < 720;
     }
@@ -79,17 +91,9 @@ public class Time {
         return isOutdoors;
     }
 
-    /** detect if sunrise */
-    public static boolean isSunrise() {
-        return timeOfDay > 720;
-    }
-
-    /** detect if sunset */
-    public static boolean isSunset() {
-        return timeOfDay > 300 && timeOfDay < 420;
-    }
-
-    /** Sets ambient light value */
+    /**
+     * Sets ambient light value
+     */
     public static void setAmbientLight(float ambientLight) {
         Time.ambientLight = ambientLight;
     }
@@ -98,7 +102,9 @@ public class Time {
         Time.isOutdoors = isOutdoors;
     }
 
-    /** Sets current time */
+    /**
+     * Sets current time
+     */
     public static void setTimeOfDay(float timeOfDay) {
         Time.timeOfDay = timeOfDay;
     }
@@ -122,13 +128,27 @@ public class Time {
         rayHandler.setAmbientLight(getAmbientLight());
     }
 
-    // defines spawn points
-    static void addMobSpawns() {
-        // finish latter
+    /**
+     * detect if sunrise
+     */
+    private static boolean isSunrise() {
+        return timeOfDay > 720;
     }
 
-    // appropriate sunrise stuff
-    static void sunrise() {
+    /**
+     * detect if sunset
+     */
+    private static boolean isSunset() {
+        return timeOfDay > 300 && timeOfDay < 420;
+    }
+
+    private static PointLight newLight(RayHandler rayHandler, int lightX, float lightY) {
+        // create new light
+        return new PointLight(rayHandler, 2500, lightColor, 175, lightX, lightY);
+    }
+
+    private static void sunrise() {
+        // appropriate sunrise stuff
         if (isSunrise()) {
             if (colorAlpha >= 0f) {
                 colorAlpha -= .0002f;
@@ -143,8 +163,8 @@ public class Time {
         }
     }
 
-    // appropriate sunset effects
-    static void sunset() {
+    private static void sunset() {
+        // appropriate sunset effects
         if (isSunset()) {
             if (colorAlpha <= .9f) {
                 colorAlpha += .0002f;
@@ -157,10 +177,5 @@ public class Time {
                 pointLights.get(i).setColor(lightColor);
             }
         }
-    }
-
-    // create new light
-    private static PointLight newLight(RayHandler rayHandler, int lightX, float lightY) {
-        return new PointLight(rayHandler, 2500, lightColor, 175, lightX, lightY);
     }
 }

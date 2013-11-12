@@ -14,31 +14,33 @@ import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
 public class Tree {
 
-    public static String amountOfWoodString;
+    public static int amountOfWood = 0;
 
-    static int amountOfWood = 0;
+    public int x;
 
-    public Skeleton leavesSkel = new Skeleton(Assets.leaveSkeletonData);
+    public int y;
 
-    public Skeleton treeSkel = new Skeleton(Assets.treeSkeletonData);
+    private final Skeleton _leavesSkel = new Skeleton(Assets.leaveSkeletonData);
 
-    public int x, y, width = 64, height = 58;
+    private final Skeleton _treeSkel = new Skeleton(Assets.treeSkeletonData);
 
-    float chopTimer;
+    private float chopTimer;
 
-    int distanceFromMaterial = 100;
+    private final int distanceFromMaterial = 100;
 
-    Bone leaveRoot = leavesSkel.getRootBone();
+    private final Bone leaveRoot = _leavesSkel.getRootBone();
 
-    SkeletonRenderer renderer = new SkeletonRenderer();
+    private float leavesTime;
 
-    Bone root = treeSkel.getRootBone();
+    private final SkeletonRenderer renderer = new SkeletonRenderer();
 
-    boolean treeDone = false;
+    private final Bone root = _treeSkel.getRootBone();
 
-    boolean treeFall = false;
+    private boolean treeDone = false;
 
-    float treeFallTime, leavesTime;
+    private boolean treeFall = false;
+
+    private float treeFallTime;
 
     public boolean closeEnough() {
         return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
@@ -46,7 +48,6 @@ public class Tree {
     }
 
     public void collectingTree() {
-        amountOfWoodString = Integer.toString(amountOfWood);// update string
         if (closeEnough() && !treeFall) {
             if (Gdx.input.isKeyPressed(Keys.B) && TopMenuRenderer.currentTool == 2 && Tutorial.step >= 5) {
                 chopTimer += Gdx.graphics.getDeltaTime();
@@ -62,7 +63,7 @@ public class Tree {
         if (treeFall && !treeDone) {
             float delta = Gdx.graphics.getDeltaTime(); // 3;
             treeFallTime += delta;
-            Assets.treeAnim.apply(treeSkel, treeFallTime, treeFallTime, false, null);
+            Assets.treeAnim.apply(_treeSkel, treeFallTime, treeFallTime, false, null);
             if (treeFallTime > .9) {
                 treeDone = true;
             }
@@ -95,14 +96,14 @@ public class Tree {
         root.setY(y);
         leaveRoot.setX(x);
         leaveRoot.setY(y);
-        renderer.draw(batch, leavesSkel);
-        renderer.draw(batch, treeSkel);
+        renderer.draw(batch, _leavesSkel);
+        renderer.draw(batch, _treeSkel);
         // batch.draw(Assets.tree, x, y);
         if (closeEnough() && PlayerRenderer.ableToMove && !treeDone) {
             font.draw(batch, "Press B to Pick up the Tree", 50, 50);
         }
-        treeSkel.updateWorldTransform();
-        leavesSkel.updateWorldTransform();
+        _treeSkel.updateWorldTransform();
+        _leavesSkel.updateWorldTransform();
     }
 
     public void drawTrunk(SpriteBatch batch) {
@@ -112,7 +113,7 @@ public class Tree {
     public void leavesFall() {
         if (closeEnough() && !treeFall) {
             leavesTime += Gdx.graphics.getDeltaTime();
-            Assets.leaveAnim.apply(leavesSkel, leavesTime, leavesTime, false, null);
+            Assets.leaveAnim.apply(_leavesSkel, leavesTime, leavesTime, false, null);
         }
     }
 }

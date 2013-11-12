@@ -14,17 +14,17 @@ import com.github.slamm.morrigna.core.process.HouseUpdater;
 
 public class SaveAndLoad {
 
-    static String currentVersion = "1.1.3";
+    private static final String CURRENT_VERSION = "1.1.3";
 
-    static Preferences prefs;
+    private static Preferences prefs;
 
-    static String version;
+    private static String version;
 
     public static void load() {
         prefs = Gdx.app.getPreferences("preferences.lodescape");
         version = prefs.getString("version");
         // checks if up to date also checks if game has been played before :)
-        if (version.equals(currentVersion)) {
+        if (version.equals(CURRENT_VERSION)) {
             MapRenderSystem.camera.position.x = prefs.getFloat("camera x");
             MapRenderSystem.camera.position.y = prefs.getFloat("camera y");
             PlayerRenderer.x = prefs.getFloat("player x");
@@ -84,7 +84,7 @@ public class SaveAndLoad {
         prefs.putInteger("foodAmount", FoodUpdater.count);
         prefs.putInteger("level", PointsRenderer.currentLevel);
         // set to current version before saving
-        prefs.putString("version", currentVersion);
+        prefs.putString("version", CURRENT_VERSION);
         prefs.flush();
     }
 }

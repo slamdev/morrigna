@@ -12,27 +12,27 @@ public class Coal {
 
     public static int amountOfCoal = 0;
 
-    public static String amountOfCoalString;
+    private static final int DISTANCE_FROM_MARERIAL = 100;
 
-    public int x = 300, y = 100;
+    public final int x;
 
-    final int charWidth = Assets.mainChar.getRegionWidth();
+    public final int y;
 
-    float coalTimer = 0;
+    private final int charWidth = Assets.mainChar.getRegionWidth();
 
-    int distanceFromMaterial = 100;
+    private float coalTimer = 0;
 
-    boolean drawResource = true;
+    private boolean drawResource = true;
 
-    int height = 58;
+    private int height = 58;
 
-    float miningRate = 1f;
+    private final float miningRate = 1f;
 
-    boolean readyForRegen = false;
+    private boolean readyForRegen = false;
 
-    float timer;
+    private float timer;
 
-    int width = 64;
+    private int width = 64;
 
     public Coal(int x, int y) {
         this.x = x;
@@ -40,9 +40,7 @@ public class Coal {
     }
 
     public void collect() {
-        amountOfCoalString = Integer.toString(amountOfCoal);// update string
-        // starts making the image of the "resource" smaller as b is
-        // held down
+        // starts making the image of the "resource" smaller as b is held down
         if (closeEnough()) {
             if (TopMenuRenderer.currentTool == 0 && CurrentToolRenderer.isTooling) {
                 coalTimer += Gdx.graphics.getDeltaTime() * miningRate;
@@ -83,8 +81,8 @@ public class Coal {
         }
     }
 
-    // use for pig and mob (use on mob when not under attack)
     public void mobCollision(Mob mob) {
+        // use for pig and mob (use on mob when not under attack)
         if (!readyForRegen) {
             if (mob.x + charWidth > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
                 mob.direction = 2;
@@ -102,8 +100,7 @@ public class Coal {
     }
 
     public void mobUnderAttackCollision(Mob mob) {
-        // if it goes into a rock under attack becomes false... not sure if I
-        // should keep this or what
+        // if it goes into a rock under attack becomes false... not sure if I should keep this or what
         if (!readyForRegen) {
             if (mob.x + mob.realMob.getRegionWidth() > x - 4 && mob.x < x + 20 && mob.y < y + 58 && mob.y > y) {
                 mob.underAttack = false;
@@ -161,14 +158,13 @@ public class Coal {
         }
     }
 
-    // save if it is being drawn or not*
-    boolean closeEnough() {
+    private boolean closeEnough() {
+        // save if it is being drawn or not*
         return Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
-                * (y - PlayerRenderer.y)) < distanceFromMaterial;
+                * (y - PlayerRenderer.y)) < DISTANCE_FROM_MARERIAL;
     }
 
-    /** Distance between coal ore and Player */
-    float distanceBetweenCoalAndPlayer() {
+    private float distanceBetweenCoalAndPlayer() {
         return (float) Math.sqrt((x - PlayerRenderer.x) * (x - PlayerRenderer.x) + (y - PlayerRenderer.y)
                 * (y - PlayerRenderer.y));
     }

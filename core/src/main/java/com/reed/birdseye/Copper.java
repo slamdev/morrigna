@@ -8,32 +8,30 @@ import com.github.slamm.morrigna.core.Assets;
 import com.github.slamm.morrigna.core.hud.LevelRenderer;
 import com.github.slamm.morrigna.core.map.PlayerRenderer;
 
+@SuppressWarnings("unused")
 public class Copper {
 
-    static int amountOfCopper = 0;
+    private static int amountOfCopper = 0;
 
-    static String amountOfCopperString;
+    private static String amountOfCopperString;
 
-    public int x = 100, y = 300;
+    private float copperTimer = 0;
 
-    float copperTimer = 0;
+    private final int distanceFromMaterial = 100;
 
-    int distanceFromMaterial = 100;
+    private boolean drawResource = true;
 
-    boolean drawResource = true;
+    private int height = 58;
 
-    int height = 58;
+    private final float miningRate = 1f;
 
-    float miningRate = 1f;
+    private int width = 64;
 
-    int width = 64;
+    private final int x = 100;
 
-    boolean closeEnough() {
-        return Math.sqrt(LevelRenderer.middleX * (x - LevelRenderer.middleX) + (y - LevelRenderer.middleY)
-                * (y - LevelRenderer.middleY)) < distanceFromMaterial;
-    }
+    private final int y = 300;
 
-    void collect() {
+    public void collect() {
         amountOfCopperString = Integer.toString(amountOfCopper);// update string
         // starts making the image of the "resource" smaller as b is
         // held down
@@ -69,12 +67,17 @@ public class Copper {
         }
     }
 
-    void draw(SpriteBatch batch, BitmapFont font) {
+    public void draw(SpriteBatch batch, BitmapFont font) {
         if (drawResource) {
             batch.draw(Assets.copperOre, x, y, width, height);
             if (closeEnough() && PlayerRenderer.ableToMove) {
                 font.draw(batch, "Hold B to Pick up the Copper", 50, 50);
             }
         }
+    }
+
+    private boolean closeEnough() {
+        return Math.sqrt(LevelRenderer.middleX * (x - LevelRenderer.middleX) + (y - LevelRenderer.middleY)
+                * (y - LevelRenderer.middleY)) < distanceFromMaterial;
     }
 }

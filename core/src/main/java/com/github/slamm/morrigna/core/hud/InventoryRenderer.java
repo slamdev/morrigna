@@ -37,8 +37,8 @@ public class InventoryRenderer extends InputAdapter {
             PlayerRenderer.ableToMove = false;
             PlayerRenderer.drawCharacter = false;
             // draw amounts
-            font.draw(batch, Tree.amountOfWoodString, ROW_1_Y, 388);
-            font.draw(batch, Coal.amountOfCoalString, ROW_1_Y, 356);
+            font.draw(batch, String.valueOf(Tree.amountOfWood), ROW_1_Y, 388);
+            font.draw(batch, String.valueOf(Coal.amountOfCoal), ROW_1_Y, 356);
             font.draw(batch, String.valueOf(FishingUpdater.count), ROW_1_Y, 330);
             font.draw(batch, String.valueOf(FoodUpdater.count), ROW_1_Y, 302);
             // row 2
